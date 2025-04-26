@@ -1,0 +1,28 @@
+package net.quepierts.animata.core.animation.binding.factories;
+
+import net.quepierts.animata.core.animation.core.IAnimation;
+import net.quepierts.animata.core.animation.binding.ISource;
+import net.quepierts.animata.core.animation.path.PathNode;
+
+import java.util.Collections;
+import java.util.Set;
+
+public class ValueSourceFactory implements CascadeSourceFactory {
+    @Override
+    public String getKey() {
+        return "value";
+    }
+
+    @Override
+    public Set<String> getHandledSuffixes() {
+        return Collections.emptySet();
+    }
+
+    @Override
+    public void registerSource(PathNode pNode, String pPrefix, IAnimation pAnimation) {
+        ISource source = pAnimation.getSource(pPrefix);
+        if (source != null) {
+            pNode.sources.put("value", source);
+        }
+    }
+}
