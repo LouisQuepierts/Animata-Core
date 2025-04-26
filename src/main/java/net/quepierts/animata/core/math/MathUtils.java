@@ -1,6 +1,6 @@
 package net.quepierts.animata.core.math;
 
-public class Mth {
+public class MathUtils {
     public static final float PI = (float) Math.PI;
     public static final float TAU = (float) (Math.PI * 2);
     public static final float EPSILON = 0.00001f;

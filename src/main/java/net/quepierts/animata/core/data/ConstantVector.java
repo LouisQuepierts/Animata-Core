@@ -1,6 +1,6 @@
 package net.quepierts.animata.core.data;
 
-import net.quepierts.animata.core.math.Mth;
+import net.quepierts.animata.core.math.MathUtils;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -17,7 +17,7 @@ public final class ConstantVector implements IVectorValue {
     }
 
     public static ConstantVector angle(float value) {
-        return new ConstantVector(new float[] {value * Mth.DEG2RAD});
+        return new ConstantVector(new float[] {value * MathUtils.DEG2RAD});
     }
 
     public static ConstantVector bool(boolean value) {
@@ -33,7 +33,7 @@ public final class ConstantVector implements IVectorValue {
     }
 
     public static ConstantVector rotation(float x, float y, float z) {
-        return new ConstantVector(new float[] {x * Mth.DEG2RAD, y * Mth.DEG2RAD, z * Mth.DEG2RAD});
+        return new ConstantVector(new float[] {x * MathUtils.DEG2RAD, y * MathUtils.DEG2RAD, z * MathUtils.DEG2RAD});
     }
 
     public static ConstantVector vector4(float x, float y, float z, float w) {
