@@ -71,7 +71,7 @@ public class FloatTreeMap<T> implements IFloatTreeMap<T> {
 
             // 同步更新keyList
             int removePos = keyList.indexOf(pKey);
-            keyList.remove(removePos);
+            keyList.removeFloat(removePos);
         }
     }
 
