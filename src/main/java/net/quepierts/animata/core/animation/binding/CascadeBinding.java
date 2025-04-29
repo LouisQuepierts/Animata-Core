@@ -1,22 +1,22 @@
 package net.quepierts.animata.core.animation.binding;
 
-import net.quepierts.animata.core.animation.cache.IAnimationCacheNode;
+import net.quepierts.animata.core.animation.cache.AnimationCacheNode;
 import net.quepierts.animata.core.animation.cache.ValueBuffer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class CascadeBinding implements IBinding {
-    private final ISource source;
-    private final IAnimationCacheNode node;
-    private final List<ISource> weights;
-    private final List<ISource> enables;
+public class CascadeBinding implements Binding {
+    private final Source source;
+    private final AnimationCacheNode node;
+    private final List<Source> weights;
+    private final List<Source> enables;
 
     public CascadeBinding(
-            @NotNull ISource pSource,
-            @NotNull List<ISource> pWeights,
-            @NotNull List<ISource> pEnables,
-            IAnimationCacheNode pCacheNode
+            @NotNull Source pSource,
+            @NotNull List<Source> pWeights,
+            @NotNull List<Source> pEnables,
+            AnimationCacheNode pCacheNode
     ) {
         this.source = pSource;
         this.node = pCacheNode;
@@ -36,7 +36,7 @@ public class CascadeBinding implements IBinding {
             return;
         }
 
-        for (ISource enable : this.enables) {
+        for (Source enable : this.enables) {
             float[] floats = pBuffer.get(enable);
             if (floats != null && floats[0] < 0.5f) {
                 return;

@@ -2,7 +2,7 @@ package net.quepierts.animata.core.math.interpolate;
 
 import net.quepierts.animata.core.data.DataType;
 import net.quepierts.animata.core.data.IVectorValue;
-import net.quepierts.animata.core.animation.timeline.ITrack;
+import net.quepierts.animata.core.animation.timeline.Track;
 
 public class LinearInterpolator extends Interpolator {
     private final LerpFunction lerpFunction;
@@ -21,7 +21,7 @@ public class LinearInterpolator extends Interpolator {
     }
 
     @Override
-    public void accept(float[] pBuffer, ITrack pTrack, int pLower, int pUpper, float pDelta) {
+    public void accept(float[] pBuffer, Track pTrack, int pLower, int pUpper, float pDelta) {
         IVectorValue last = pTrack.get(pLower).post();
         IVectorValue next = pTrack.get(pUpper).pre();
         for (int i = 0; i < pTrack.getDimension(); i++) {

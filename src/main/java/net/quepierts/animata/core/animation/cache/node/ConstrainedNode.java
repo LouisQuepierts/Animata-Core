@@ -1,10 +1,10 @@
 package net.quepierts.animata.core.animation.cache.node;
 
 import lombok.Getter;
-import net.quepierts.animata.core.animation.cache.IAnimationCacheNode;
+import net.quepierts.animata.core.animation.cache.AnimationCacheNode;
 import net.quepierts.animata.core.animation.cache.Toggleable;
 
-public class ConstrainedNode<T extends IAnimationCacheNode> extends AbstractAnimationCacheNode
+public class ConstrainedNode<T extends AnimationCacheNode> extends AbstractAnimationCacheNode
         implements Toggleable {
     public static final String ENABLED_NAME = "enabled";
 
@@ -18,7 +18,7 @@ public class ConstrainedNode<T extends IAnimationCacheNode> extends AbstractAnim
     }
 
     @Override
-    public IAnimationCacheNode getChild(String pChildName) {
+    public AnimationCacheNode getChild(String pChildName) {
         if (ENABLED_NAME.equals(pChildName)) {
             return this.enabled;
         }

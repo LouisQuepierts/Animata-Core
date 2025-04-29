@@ -1,12 +1,12 @@
 package net.quepierts.animata.core.animation.cache.node;
 
 import lombok.Getter;
-import net.quepierts.animata.core.animation.cache.IAnimationCacheNode;
+import net.quepierts.animata.core.animation.cache.AnimationCacheNode;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class VectorNode implements IAnimationCacheNode {
+public class VectorNode implements AnimationCacheNode {
     private static final String[] COMPONENTS = new String[] { "x", "y", "z" };
     private static final Pattern CHILDREN_PATTERN = Pattern.compile("^children\\[(\\d+)]$");
 
@@ -35,7 +35,7 @@ public class VectorNode implements IAnimationCacheNode {
     }
 
     @Override
-    public IAnimationCacheNode getChild(String pChildName) {
+    public AnimationCacheNode getChild(String pChildName) {
         if (pChildName.length() == 1) {
             return switch (pChildName) {
                 case "x" -> this.components[0];

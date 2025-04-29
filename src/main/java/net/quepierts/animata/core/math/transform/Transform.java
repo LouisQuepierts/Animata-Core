@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-public class Transform implements ITransform {
+public class Transform implements Transformable {
     private final Vector3f rotation;
     private final Vector3f position;
     private final Vector3f scale;
@@ -15,7 +15,7 @@ public class Transform implements ITransform {
         this.scale = new Vector3f(1.0f);
     }
 
-    public Transform(ITransform transform) {
+    public Transform(Transformable transform) {
         this.rotation = transform.getRotation();
         this.position = transform.getPosition();
         this.scale = transform.getScale();
@@ -140,7 +140,7 @@ public class Transform implements ITransform {
     }
 
     @Override
-    public void getTransform(IPoseAcceptor pPose) {
+    public void getTransform(PoseAcceptor pPose) {
         pPose.accept(this.position, this.rotation, this.scale);
     }
 
@@ -162,7 +162,7 @@ public class Transform implements ITransform {
             this.defScale = new Vector3f(1.0f);
         }
 
-        public Initialed(ITransform transform) {
+        public Initialed(Transformable transform) {
             super(transform);
             this.defRotation = transform.getRotation();
             this.defPosition = transform.getPosition();

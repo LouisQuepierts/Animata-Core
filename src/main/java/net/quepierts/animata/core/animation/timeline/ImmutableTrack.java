@@ -8,7 +8,7 @@ import net.quepierts.animata.core.data.Duration;
 import net.quepierts.animata.core.util.collection.ImmutableFloatTreeMap;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class ImmutableTrack implements ITrack {
+public class ImmutableTrack implements Track {
     private final ImmutableFloatTreeMap<VectorKeyFrame> keyframe;
 
     private final DataType type;

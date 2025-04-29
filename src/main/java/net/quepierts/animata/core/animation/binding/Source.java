@@ -2,8 +2,8 @@ package net.quepierts.animata.core.animation.binding;
 
 import java.util.Arrays;
 
-public interface ISource {
-    ISource ONE = new ISource() {
+public interface Source {
+    Source ONE = new Source() {
         @Override
         public void eval(float[] pBuffer, float time) {
             Arrays.fill(pBuffer, 1f);

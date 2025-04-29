@@ -4,9 +4,9 @@ import lombok.Getter;
 
 import java.util.Arrays;
 
-public class ConstantSource implements ISource {
-    public static final ISource ZERO = new ConstantSource("__zero", 0f);
-    public static final ISource ONE = new ConstantSource("__one", 1f);
+public class ConstantSource implements Source {
+    public static final Source ZERO = new ConstantSource("__zero", 0f);
+    public static final Source ONE = new ConstantSource("__one", 1f);
 
     @Getter private final String name;
     private final float value;

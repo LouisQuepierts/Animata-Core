@@ -6,7 +6,7 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 @SuppressWarnings("unused")
-public interface ITransform {
+public interface Transformable {
     default void setTransform(Vector3f position, Vector3f rotation, Vector3f scale) {
         this.setRotation(rotation.x, rotation.y, rotation.z);
         this.setPosition(position.x, position.y, position.z);
@@ -25,13 +25,13 @@ public interface ITransform {
         this.setScale(scale.x(), scale.y(), scale.z());
     }
 
-    default void setTransform(@NotNull ITransform transform) {
+    default void setTransform(@NotNull Transformable transform) {
         this.setRotation(transform.getRotation());
         this.setPosition(transform.getPosition());
         this.setScale(transform.getScale());
     }
 
-    default void getTransform(IPoseAcceptor pPose) {
+    default void getTransform(PoseAcceptor pPose) {
         Vector3f position = this.getPosition();
         Vector3f rotation = this.getRotation();
         Vector3f scale = this.getScale();

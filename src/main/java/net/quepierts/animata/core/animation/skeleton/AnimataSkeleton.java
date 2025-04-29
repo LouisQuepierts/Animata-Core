@@ -11,11 +11,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import net.quepierts.animata.core.animation.cache.IAnimationCache;
-import net.quepierts.animata.core.animation.cache.IAnimationCacheFactory;
+import net.quepierts.animata.core.animation.cache.AnimationCache;
+import net.quepierts.animata.core.animation.cache.AnimationCacheFactory;
 import net.quepierts.animata.core.animation.path.PathResolvable;
 import net.quepierts.animata.core.animation.target.Animatable;
-import net.quepierts.animata.core.math.transform.ITransform;
+import net.quepierts.animata.core.math.transform.Transformable;
 import net.quepierts.animata.core.math.transform.Transform;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -28,7 +28,7 @@ import java.util.Stack;
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class AnimataSkeleton
-        implements Animatable, IAnimationCacheFactory {
+        implements Animatable, AnimationCacheFactory {
     public static final String IDENTIFIER_ROOT = "root";
     public static final String IDENTIFIER_SKELETON = "skeleton";
     public static final AnimataSkeleton DEFAULT = new Builder().build();
@@ -77,7 +77,7 @@ public class AnimataSkeleton
     }
 
     @Override
-    public IAnimationCache createAnimationCache() {
+    public AnimationCache createAnimationCache() {
         return new AnimataSkeletonCache(this);
     }
 
@@ -92,7 +92,7 @@ public class AnimataSkeleton
             this(new Transform());
         }
 
-        public Builder(ITransform root) {
+        public Builder(Transformable root) {
             this.paths = new Stack<>();
             this.children = new HashMap<>();
             this.builder = ImmutableMap.builder();
@@ -105,7 +105,7 @@ public class AnimataSkeleton
             this.root = bone;
         }
 
-        public Builder bone(String name, ITransform part) {
+        public Builder bone(String name, Transformable part) {
             if (this.paths.isEmpty()) {
                 throw new RuntimeException("Builder missing root");
             }
@@ -118,7 +118,7 @@ public class AnimataSkeleton
             return this;
         }
 
-        public Builder beginGroup(String name, ITransform part) {
+        public Builder beginGroup(String name, Transformable part) {
             if (this.paths.isEmpty()) {
                 throw new RuntimeException("Builder missing root");
             }

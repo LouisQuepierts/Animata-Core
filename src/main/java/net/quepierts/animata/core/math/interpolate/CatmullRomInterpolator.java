@@ -2,7 +2,7 @@ package net.quepierts.animata.core.math.interpolate;
 
 import net.quepierts.animata.core.data.DataType;
 import net.quepierts.animata.core.data.IVectorValue;
-import net.quepierts.animata.core.animation.timeline.ITrack;
+import net.quepierts.animata.core.animation.timeline.Track;
 import net.quepierts.animata.core.animation.timeline.VectorKeyFrame;
 import net.quepierts.animata.core.reference.Interpolations;
 
@@ -12,7 +12,7 @@ public class CatmullRomInterpolator extends Interpolator {
     }
 
     @Override
-    public void accept(float[] pBuffer, ITrack pTrack, int pLower, int pUpper, float pDelta) {
+    public void accept(float[] pBuffer, Track pTrack, int pLower, int pUpper, float pDelta) {
         VectorKeyFrame k1 = pTrack.get(pLower);
         VectorKeyFrame k2 = pTrack.get(pUpper);
 

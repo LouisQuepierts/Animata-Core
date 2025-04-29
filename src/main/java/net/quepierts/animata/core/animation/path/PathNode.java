@@ -2,7 +2,7 @@ package net.quepierts.animata.core.animation.path;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
-import net.quepierts.animata.core.animation.binding.ISource;
+import net.quepierts.animata.core.animation.binding.Source;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,7 @@ public class PathNode {
 
     public final Map<String, List<String>> trackPrefixes;
     public final Map<String, PathNode> children;
-    public final Map<String, ISource> sources;
+    public final Map<String, Source> sources;
 
     public PathNode(String name, PathNode parent) {
         this.name = name;
@@ -32,7 +32,7 @@ public class PathNode {
         this.trackPrefixes = new Object2ObjectOpenHashMap<>();
     }
 
-    public ISource getSource(String name) {
+    public Source getSource(String name) {
         return sources.get(name);
     }
 

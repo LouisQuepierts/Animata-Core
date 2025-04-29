@@ -1,10 +1,10 @@
 package net.quepierts.animata.core.animation.timeline;
 
-import net.quepierts.animata.core.animation.binding.ISource;
+import net.quepierts.animata.core.animation.binding.Source;
 import net.quepierts.animata.core.data.Duration;
 import net.quepierts.animata.core.math.interpolate.Interpolator;
 
-public interface ITrack extends ISource {
+public interface Track extends Source {
     @Override
     default void eval(float[] pBuffer, float pTime) {
         int lower = this.getLowerIndex(pTime);

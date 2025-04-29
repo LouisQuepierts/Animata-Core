@@ -2,7 +2,7 @@ package net.quepierts.animata.core.math.interpolate;
 
 import lombok.Getter;
 import net.quepierts.animata.core.data.DataType;
-import net.quepierts.animata.core.animation.timeline.ITrack;
+import net.quepierts.animata.core.animation.timeline.Track;
 
 // TODO: Implement for InterpolateStrategies
 @Getter
@@ -32,7 +32,7 @@ public abstract class Interpolator {
         return next;
     }
 
-    public abstract void accept(float[] pBuffer, ITrack pTrack, int pLower, int pUpper, float pDelta);
+    public abstract void accept(float[] pBuffer, Track pTrack, int pLower, int pUpper, float pDelta);
 
     public boolean check(DataType pType) {
         return this.strategy.checkType(pType, this.dataType);

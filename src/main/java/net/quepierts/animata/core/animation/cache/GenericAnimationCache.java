@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GenericAnimationCache implements IAnimationCache {
+public class GenericAnimationCache implements AnimationCache {
     public static final String NAMESPACE_MARK  = "::";
 
     private final Map<String, NamespaceNode> namespaces = new HashMap<>();
@@ -19,7 +19,7 @@ public class GenericAnimationCache implements IAnimationCache {
         this.namespaces.put(useDomain, user);
     }
 
-    public void register(String pName, IAnimationCacheNode pNode) {
+    public void register(String pName, AnimationCacheNode pNode) {
         if (pName == null) return;
 
         String namespace = this.getNamespace(pName);
@@ -27,27 +27,27 @@ public class GenericAnimationCache implements IAnimationCache {
         this.registerNamespaced(namespace, name, pNode);
     }
 
-    public void register(String pParent, String pName, IAnimationCacheNode pNode) {
-        IAnimationCacheNode parent = this.getNode(pParent);
+    public void register(String pParent, String pName, AnimationCacheNode pNode) {
+        AnimationCacheNode parent = this.getNode(pParent);
         this.register(pName, pNode);
-        if (parent instanceof IChildrenContained node) {
+        if (parent instanceof ChildrenContained node) {
             String name = this.getName(pName);
             node.addChild(name, pNode);
         }
     }
 
-    public void registerNamespaced(String pNamespace, String pName, IAnimationCacheNode pNode) {
+    public void registerNamespaced(String pNamespace, String pName, AnimationCacheNode pNode) {
         if (pNamespace == null || pNamespace.isBlank()) return;
         NamespaceNode namespace = this.namespaces.computeIfAbsent(pNamespace, NamespaceNode::new);
         namespace.addChild(pName, pNode);
     }
 
     @Override
-    public IAnimationCacheNode getCacheNode(String pPath) {
+    public AnimationCacheNode getCacheNode(String pPath) {
         if (pPath == null || pPath.isBlank()) return null;
 
         String[] names = pPath.split("\\.");
-        IAnimationCacheNode node = this.getNode(names[0]);
+        AnimationCacheNode node = this.getNode(names[0]);
 
         if (node instanceof Toggleable) {
             ((Toggleable) node).setEnabled(true);
@@ -84,7 +84,7 @@ public class GenericAnimationCache implements IAnimationCache {
         }
     }
 
-    private @Nullable IAnimationCacheNode getNode(@NotNull String pPath) {
+    private @Nullable AnimationCacheNode getNode(@NotNull String pPath) {
         String namespace = this.getNamespace(pPath);
         NamespaceNode namespaceNode = this.namespaces.get(namespace);
 

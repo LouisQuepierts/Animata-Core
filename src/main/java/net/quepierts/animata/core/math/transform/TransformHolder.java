@@ -4,9 +4,9 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-public interface ITransformHolder extends ITransform {
+public interface TransformHolder extends Transformable {
     @NotNull
-    ITransform transform();
+    Transformable transform();
 
     @Override
     default void setRotation(float xRot, float yRot, float zRot) {

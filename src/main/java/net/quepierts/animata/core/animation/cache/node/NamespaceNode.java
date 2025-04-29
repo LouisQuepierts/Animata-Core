@@ -1,13 +1,13 @@
 package net.quepierts.animata.core.animation.cache.node;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.quepierts.animata.core.animation.cache.IAnimationCacheNode;
-import net.quepierts.animata.core.animation.cache.IChildrenContained;
+import net.quepierts.animata.core.animation.cache.AnimationCacheNode;
+import net.quepierts.animata.core.animation.cache.ChildrenContained;
 
 import java.util.Map;
 
-public class NamespaceNode extends AbstractAnimationCacheNode implements IChildrenContained {
-    private final Map<String, IAnimationCacheNode> children = new Object2ObjectOpenHashMap<>();
+public class NamespaceNode extends AbstractAnimationCacheNode implements ChildrenContained {
+    private final Map<String, AnimationCacheNode> children = new Object2ObjectOpenHashMap<>();
 
     public NamespaceNode(String name) {
         super(name);
@@ -19,12 +19,12 @@ public class NamespaceNode extends AbstractAnimationCacheNode implements IChildr
     }
 
     @Override
-    public IAnimationCacheNode getChild(String pChildName) {
+    public AnimationCacheNode getChild(String pChildName) {
         return this.children.get(pChildName);
     }
 
     @Override
-    public void addChild(String pName, IAnimationCacheNode pNode) {
+    public void addChild(String pName, AnimationCacheNode pNode) {
         this.children.put(pName, pNode);
     }
 

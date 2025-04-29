@@ -1,7 +1,7 @@
 package net.quepierts.animata.core.animation.cache.node;
 
 import lombok.Getter;
-import net.quepierts.animata.core.animation.cache.IAnimationCacheNode;
+import net.quepierts.animata.core.animation.cache.AnimationCacheNode;
 import org.joml.Vector3f;
 
 public class Vector3fNode extends AbstractAnimationCacheNode {
@@ -32,7 +32,7 @@ public class Vector3fNode extends AbstractAnimationCacheNode {
     }
 
     @Override
-    public IAnimationCacheNode getChild(String pChildName) {
+    public AnimationCacheNode getChild(String pChildName) {
         if (pChildName.length() == 1) {
             char comp = pChildName.charAt(0);
             return switch (comp) {

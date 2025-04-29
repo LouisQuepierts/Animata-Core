@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.quepierts.animata.core.animation.cache.*;
 import net.quepierts.animata.core.animation.cache.node.*;
-import net.quepierts.animata.core.math.transform.ITransform;
+import net.quepierts.animata.core.math.transform.Transformable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
@@ -12,7 +12,7 @@ import org.joml.Vector3f;
 
 import java.util.Map;
 
-public class AnimataSkeletonCache implements IAnimationCache {
+public class AnimataSkeletonCache implements AnimationCache {
     private final GenericAnimationCache cache;
     private final AnimataSkeleton skeleton;
 
@@ -43,17 +43,17 @@ public class AnimataSkeletonCache implements IAnimationCache {
     }
 
     @Override
-    public void register(String pName, IAnimationCacheNode pNode) {
+    public void register(String pName, AnimationCacheNode pNode) {
         this.cache.register(pName, pNode);
     }
 
     @Override
-    public void register(String pParent, String pName, IAnimationCacheNode pNode) {
+    public void register(String pParent, String pName, AnimationCacheNode pNode) {
         this.cache.register(pParent, pName, pNode);
     }
 
     @Override
-    public void registerNamespaced(String pNamespace, String pName, IAnimationCacheNode pNode) {
+    public void registerNamespaced(String pNamespace, String pName, AnimationCacheNode pNode) {
         this.cache.registerNamespaced(pNamespace, pName, pNode);
     }
 
@@ -72,12 +72,12 @@ public class AnimataSkeletonCache implements IAnimationCache {
     }
 
     @Override
-    public IAnimationCacheNode getCacheNode(String pPath) {
+    public AnimationCacheNode getCacheNode(String pPath) {
         return this.cache.getCacheNode(pPath);
     }
 
     private static final class CacheEntry
-            implements IAnimationCacheNode, IChildrenContained, Toggleable {
+            implements AnimationCacheNode, ChildrenContained, Toggleable {
 
         private final ConstrainedNode<Vector3fNode> rotation;
         private final ConstrainedNode<Vector3fNode> position;
@@ -90,7 +90,7 @@ public class AnimataSkeletonCache implements IAnimationCache {
 
         private final AnimataBone bone;
 
-        private final Map<String, IAnimationCacheNode> children = new Object2ObjectOpenHashMap<>();
+        private final Map<String, AnimationCacheNode> children = new Object2ObjectOpenHashMap<>();
 
         private @Nullable CacheEntry parent;
 
@@ -118,7 +118,7 @@ public class AnimataSkeletonCache implements IAnimationCache {
                 return;
             }
 
-            ITransform bound = this.bone.getBound();
+            Transformable bound = this.bone.getBound();
             Vector3f rotation = bound.getRotation();
 
             if (this.rotation.isEnabled()) {
@@ -164,12 +164,12 @@ public class AnimataSkeletonCache implements IAnimationCache {
         }
 
         @Override
-        public IAnimationCacheNode getChild(String pChildName) {
+        public AnimationCacheNode getChild(String pChildName) {
             return this.children.get(pChildName);
         }
 
         @Override
-        public void addChild(String pName, IAnimationCacheNode pNode) {
+        public void addChild(String pName, AnimationCacheNode pNode) {
             this.children.put(pName, pNode);
         }
 
