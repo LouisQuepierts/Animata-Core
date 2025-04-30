@@ -2,13 +2,29 @@ package net.quepierts.animata.core.animation.extension;
 
 import net.quepierts.animata.core.animation.Animation;
 import net.quepierts.animata.core.animation.Animator;
+import net.quepierts.animata.core.animation.cache.AnimationCacheRegistrar;
 
-public interface AnimatorExtension {
-    void onPlay(Animator pAnimator, Animation pAnimation);
+public interface AnimatorExtension extends Comparable<AnimatorExtension> {
+    default void onRegister(Animator pAnimator, AnimationCacheRegistrar pCacheRegistrar) {}
 
-    void onUpdate(Animator pAnimator, float pDeltaTime);
+    default void onPlay(Animator pAnimator, Animation pAnimation, float pGlobalTime) {}
 
-    void onApply(Animator pAnimator);
+    default void onPreUpdate(Animator pAnimator, float pGlobalTime) {}
 
-    void onStop(Animator pAnimator);
+    default void onPostUpdate(Animator pAnimator, float pGlobalTime) {}
+
+    default void onPreApply(Animator pAnimator) {}
+
+    default void onPostApply(Animator pAnimator) {}
+
+    default void onStop(Animator pAnimator) {}
+
+    default int getPriority() {
+        return 0;
+    }
+
+    @Override
+    default int compareTo(AnimatorExtension o) {
+        return Integer.compare(getPriority(), o.getPriority());
+    }
 }

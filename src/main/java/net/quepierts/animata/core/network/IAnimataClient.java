@@ -1,5 +1,5 @@
 package net.quepierts.animata.core.network;
 
-public interface IClient<T> {
+public interface IAnimataClient<T> {
     T value();
 }

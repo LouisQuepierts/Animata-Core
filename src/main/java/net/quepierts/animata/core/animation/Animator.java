@@ -5,8 +5,6 @@ public interface Animator {
 
     void stop();
 
-    void terminate();
-
     void update();
 
     void apply();

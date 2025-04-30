@@ -43,18 +43,18 @@ public class AnimataSkeletonCache implements AnimationCache {
     }
 
     @Override
-    public void register(String pName, AnimationCacheNode pNode) {
-        this.cache.register(pName, pNode);
+    public RegisterResult register(String pName, AnimationCacheNode pNode) {
+        return this.cache.register(pName, pNode);
     }
 
     @Override
-    public void register(String pParent, String pName, AnimationCacheNode pNode) {
-        this.cache.register(pParent, pName, pNode);
+    public RegisterResult register(String pParent, String pName, AnimationCacheNode pNode) {
+        return this.cache.register(pParent, pName, pNode);
     }
 
     @Override
-    public void registerNamespaced(String pNamespace, String pName, AnimationCacheNode pNode) {
-        this.cache.registerNamespaced(pNamespace, pName, pNode);
+    public RegisterResult registerNamespaced(String pNamespace, String pName, AnimationCacheNode pNode) {
+        return this.cache.registerNamespaced(pNamespace, pName, pNode);
     }
 
     @Override
@@ -69,6 +69,16 @@ public class AnimataSkeletonCache implements AnimationCache {
         for (CacheEntry bone : this.bones) {
             bone.apply();
         }
+    }
+
+    @Override
+    public void freezeRegistry() {
+        this.cache.freezeRegistry();
+    }
+
+    @Override
+    public boolean isRegistryFrozen() {
+        return this.cache.isRegistryFrozen();
     }
 
     @Override
