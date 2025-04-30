@@ -24,8 +24,13 @@ public class GenericAnimationCache implements AnimationCache {
     }
 
     public RegisterResult register(String pName, AnimationCacheNode pNode) {
-        if (this.registryFrozen
-                || pName == null) return new RegisterResult(false, pNode);
+        if (this.registryFrozen) {
+            return new RegisterResult(null, RegisterStatus.ILLEGAL_OPERATION, "failed.registry_frozen");
+        }
+
+        if (pName == null || pName.isBlank()) {
+            return new RegisterResult(null, RegisterStatus.ILLEGAL_PATH, "failed.empty_name");
+        }
 
         String namespace = this.getNamespace(pName);
         String name = this.getName(pName);
@@ -33,12 +38,14 @@ public class GenericAnimationCache implements AnimationCache {
     }
 
     public RegisterResult register(String pParent, String pName, AnimationCacheNode pNode) {
-        if (this.registryFrozen) return new RegisterResult(false, pNode);
+        if (this.registryFrozen) {
+            return new RegisterResult(null, RegisterStatus.ILLEGAL_OPERATION, "failed.registry_frozen");
+        }
 
         AnimationCacheNode parent = this.getNode(pParent);
 
         if (!(parent instanceof ChildrenContained node)) {
-            return new RegisterResult(false, pNode);
+            return new RegisterResult(null, RegisterStatus.ILLEGAL_PATH, "failed.unknown_parent");
         }
 
         RegisterResult result = this.register(pName, pNode);
@@ -52,16 +59,27 @@ public class GenericAnimationCache implements AnimationCache {
     }
 
     public RegisterResult registerNamespaced(String pNamespace, String pName, AnimationCacheNode pNode) {
-        if (this.registryFrozen
-                || pNamespace == null
-                || pNamespace.isBlank()) return new RegisterResult(false, pNode);
+        if (this.registryFrozen) {
+            return new RegisterResult(null, RegisterStatus.ILLEGAL_OPERATION, "failed.registry_frozen");
+        }
+
+        if (pNamespace == null || pNamespace.isBlank()) {
+            return new RegisterResult(pNode, RegisterStatus.ILLEGAL_PATH, "failed.empty_name");
+        }
+
         NamespaceNode namespace = this.namespaces.computeIfAbsent(pNamespace, NamespaceNode::new);
         AnimationCacheNode registered = namespace.getChild(pName);
+
         if (registered != null) {
-            return new RegisterResult(false, registered);
+            if (registered.getClass() != pNode.getClass()) {
+                return new RegisterResult(registered, RegisterStatus.DUPLICATED_CONFLICT, "failed.duplicated");
+            } else {
+                return new RegisterResult(registered, RegisterStatus.DUPLICATED_SAME, "failed.duplicated");
+            }
         }
+
         namespace.addChild(pName, pNode);
-        return new RegisterResult(true, pNode);
+        return new RegisterResult(pNode, RegisterStatus.SUCCESS, "success");
     }
 
     @Override

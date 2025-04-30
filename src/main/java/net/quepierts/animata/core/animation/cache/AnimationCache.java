@@ -17,8 +17,4 @@ public interface AnimationCache {
 
     AnimationCacheNode getCacheNode(String pPath);
 
-    record RegisterResult(
-            boolean success,
-            AnimationCacheNode node
-    ) {}
 }
