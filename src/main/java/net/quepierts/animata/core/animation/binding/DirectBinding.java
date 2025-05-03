@@ -7,20 +7,24 @@ import org.jetbrains.annotations.NotNull;
 
 @AllArgsConstructor
 public class DirectBinding implements Binding {
-    private final Source source;
     private final AnimationCacheNode node;
+    private final float[] source;
+
+    public DirectBinding(
+            @NotNull Source pSource,
+            @NotNull AnimationCacheNode pNode,
+            @NotNull ValueBuffer pBuffer
+    ) {
+        this.source = pBuffer.get(pSource);
+        this.node = pNode;
+    }
 
     @Override
     public void apply(@NotNull ValueBuffer pBuffer, boolean pUpdated) {
-        if (this.node == null) {
+        if (this.node == null || this.source == null) {
             return;
         }
 
-        float[] source = pBuffer.get(this.source);
-        if (source == null) {
-            return;
-        }
-
-        this.node.apply(source);
+        this.node.apply(this.source);
     }
 }

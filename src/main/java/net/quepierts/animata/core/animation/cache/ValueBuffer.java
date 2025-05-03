@@ -7,18 +7,16 @@ import java.util.Map;
 
 public class ValueBuffer {
     private final Map<Source, float[]> buffer = new IdentityHashMap<>();
-    private final Map<Source, float[]> pool = new IdentityHashMap<>();
 
     public void eval(float pTime) {
-        for (Map.Entry<Source, float[]> entry : this.pool.entrySet()) {
+        for (Map.Entry<Source, float[]> entry : this.buffer.entrySet()) {
             entry.getKey().eval(entry.getValue(), pTime);
-            this.buffer.put(entry.getKey(), entry.getValue());
         }
     }
 
     public void register(Source pSource) {
-        if (!this.pool.containsKey(pSource)) {
-            this.pool.put(pSource, new float[pSource.getDimension()]);
+        if (!this.buffer.containsKey(pSource)) {
+            this.buffer.put(pSource, new float[pSource.getDimension()]);
         }
     }
 

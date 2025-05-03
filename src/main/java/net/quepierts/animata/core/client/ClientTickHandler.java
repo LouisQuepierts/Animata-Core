@@ -1,8 +1,8 @@
 package net.quepierts.animata.core.client;
 
-import net.quepierts.animata.core.service.AnimataTimeProvider;
-import net.quepierts.animata.core.service.ServiceHelper;
+import net.quepierts.animata.core.service.IAnimataTimeProvider;
+import net.quepierts.animata.core.service.loader.ServiceFactory;
 
 public class ClientTickHandler {
-    public static final AnimataTimeProvider IMPLEMENT = ServiceHelper.load(AnimataTimeProvider.class);
+    public static final IAnimataTimeProvider IMPLEMENT = ServiceFactory.load(IAnimataTimeProvider.class);
 }

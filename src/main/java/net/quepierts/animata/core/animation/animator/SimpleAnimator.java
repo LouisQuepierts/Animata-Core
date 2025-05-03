@@ -9,17 +9,17 @@ import net.quepierts.animata.core.animation.target.Animatable;
 import net.quepierts.animata.core.animation.binding.factories.CascadeSourceFactory;
 import net.quepierts.animata.core.animation.binding.factories.EnableSourceFactory;
 import net.quepierts.animata.core.animation.binding.factories.ValueSourceFactory;
-import net.quepierts.animata.core.service.AnimataTimeProvider;
+import net.quepierts.animata.core.service.IAnimataTimeProvider;
 
 public class SimpleAnimator implements Animator {
     private final Animatable target;
     private final AnimationCache cache;
-    private final AnimataTimeProvider timer;
+    private final IAnimataTimeProvider timer;
 
     private final ImmutableList<CascadeSourceFactory> factories;
     private AnimationInstance instance;
 
-    public SimpleAnimator(Animatable target, AnimationCache animationCache, AnimataTimeProvider timer) {
+    public SimpleAnimator(Animatable target, AnimationCache animationCache, IAnimataTimeProvider timer) {
         this.target = target;
         this.cache = animationCache;
         this.timer = timer;

@@ -1,12 +1,12 @@
 package net.quepierts.animata.core.animation.animator;
 
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import net.quepierts.animata.core.animation.Animation;
 import net.quepierts.animata.core.animation.Animator;
 import net.quepierts.animata.core.animation.cache.AnimationCache;
 import net.quepierts.animata.core.animation.extension.AnimatorExtension;
-import net.quepierts.animata.core.service.AnimataTimeProvider;
-import org.apache.commons.compress.utils.Lists;
+import net.quepierts.animata.core.service.IAnimataTimeProvider;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ public abstract class BaseExtendableAnimator implements Animator {
     private final List<AnimatorExtension> extensions = Lists.newArrayList();
 
     protected final AnimationCache cache;
-    protected final AnimataTimeProvider timer;
+    protected final IAnimataTimeProvider timer;
 
-    protected BaseExtendableAnimator(AnimationCache cache, AnimataTimeProvider timer) {
+    protected BaseExtendableAnimator(AnimationCache cache, IAnimataTimeProvider timer) {
         this.cache = cache;
         this.timer = timer;
     }
@@ -30,6 +30,9 @@ public abstract class BaseExtendableAnimator implements Animator {
 
     @Override
     public void play(Animation pAnimation) {
+        // prevent cache change during working
+        this.cache.freezeRegistry();
+
         float time = this.timer.getCountedTime();
         for (AnimatorExtension extension : this.extensions) {
             extension.onPlay(this, pAnimation, time);

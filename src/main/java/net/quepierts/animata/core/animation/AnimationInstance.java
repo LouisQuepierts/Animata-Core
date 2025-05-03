@@ -7,13 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import net.quepierts.animata.core.animation.binding.DirectBinding;
 import net.quepierts.animata.core.animation.cache.*;
 import net.quepierts.animata.core.animation.target.Animatable;
-import net.quepierts.animata.core.animation.target.PreUpdatable;
 import net.quepierts.animata.core.animation.binding.Binding;
-import net.quepierts.animata.core.animation.target.PostUpdatable;
 import net.quepierts.animata.core.animation.binding.Source;
 import net.quepierts.animata.core.animation.binding.factories.CascadeSourceFactory;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -25,9 +22,6 @@ public class AnimationInstance {
 
     private final Animation animation;
     private final AnimationCache cache;
-
-    @Nullable private final PreUpdatable preUpdatable;
-    @Nullable private final PostUpdatable postUpdatable;
 
     private float startTick;
     private float timer;
@@ -44,9 +38,6 @@ public class AnimationInstance {
         this.animation = pAnimation;
         this.cache = pCache;
         this.startTick = pStartTick;
-
-        this.preUpdatable = pTarget instanceof PreUpdatable ? (PreUpdatable) pTarget : null;
-        this.postUpdatable = pTarget instanceof PostUpdatable ? (PostUpdatable) pTarget : null;
 
         this.init(pFactories);
     }
@@ -77,11 +68,6 @@ public class AnimationInstance {
         }
 
         this.cache.apply();
-
-        if (this.postUpdatable != null) {
-            this.postUpdatable.onPostUpdate(this.timer, this.updated);
-        }
-
         this.updated = false;
     }
 
@@ -117,7 +103,7 @@ public class AnimationInstance {
                 }
 
                 bound.add(node);
-                this.bindingList.add(new DirectBinding(source, node));
+                this.bindingList.add(new DirectBinding(source, node, this.buffer));
             } else {
                 log.warn("Source {} is not bound to any cache node, ignoring source.", source.getName());
             }
