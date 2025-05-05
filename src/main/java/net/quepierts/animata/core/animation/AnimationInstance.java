@@ -23,7 +23,7 @@ public class AnimationInstance {
     private final Animation animation;
     private final AnimationCache cache;
 
-    private float startTick;
+    private float lastTick;
     private float timer;
 
     private boolean updated = false;
@@ -37,7 +37,7 @@ public class AnimationInstance {
     ) {
         this.animation = pAnimation;
         this.cache = pCache;
-        this.startTick = pStartTick;
+        this.lastTick = pStartTick;
 
         this.init(pFactories);
     }
@@ -47,19 +47,19 @@ public class AnimationInstance {
     }
 
     public void tick(float pCurrentTime) {
+        float delta = pCurrentTime - this.lastTick;
 
-        float last = this.timer;
-        this.timer = pCurrentTime - this.startTick;
-
-        if (last != this.timer) {
+        if (delta > 0) {
+            this.timer += delta;
             this.updated = true;
             this.buffer.eval(this.timer);
         }
         // loop for debug
         if (this.animation.isFinished(this.timer)) {
             this.timer = 0;
-            this.startTick = pCurrentTime;
         }
+
+        this.lastTick = pCurrentTime;
     }
 
     public void apply() {
