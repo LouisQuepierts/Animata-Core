@@ -27,4 +27,9 @@ public class BooleanNode extends AbstractAnimationCacheNode implements Toggleabl
     public int getDimension() {
         return 1;
     }
+
+    @Override
+    public void get(float[] pOut) {
+        pOut[0] = this.enabled ? 1.0f : 0.0f;
+    }
 }

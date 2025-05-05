@@ -51,6 +51,13 @@ public class Vector3fNode extends AbstractAnimationCacheNode {
         return 3;
     }
 
+    @Override
+    public void get(float[] pOut) {
+        pOut[0] = this.cache.x;
+        pOut[1] = this.cache.y;
+        pOut[2] = this.cache.z;
+    }
+
     private static class Component extends AbstractAnimationCacheNode {
         private final Vector3f bound;
         private final char component;
@@ -73,6 +80,15 @@ public class Vector3fNode extends AbstractAnimationCacheNode {
         @Override
         public int getDimension() {
             return 1;
+        }
+
+        @Override
+        public void get(float[] pOut) {
+            switch (this.component) {
+                case 'x' -> pOut[0] = this.bound.x;
+                case 'y' -> pOut[0] = this.bound.y;
+                case 'z' -> pOut[0] = this.bound.z;
+            }
         }
     }
 }

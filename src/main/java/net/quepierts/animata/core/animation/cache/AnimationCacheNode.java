@@ -2,7 +2,7 @@ package net.quepierts.animata.core.animation.cache;
 
 import net.quepierts.animata.core.animation.path.PathResolvable;
 
-public interface AnimationCacheNode extends PathResolvable {
+public interface AnimationCacheNode extends PathResolvable, AnimationCacheView {
     void apply(float[] pValue);
 
     @Override

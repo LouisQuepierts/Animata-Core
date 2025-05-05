@@ -29,4 +29,9 @@ public class EnumNode<T extends Enum<T>> extends AbstractAnimationCacheNode {
     public T enumValue() {
         return this.values[this.value];
     }
+
+    @Override
+    public void get(float[] pOut) {
+        pOut [0] = this.value;
+    }
 }

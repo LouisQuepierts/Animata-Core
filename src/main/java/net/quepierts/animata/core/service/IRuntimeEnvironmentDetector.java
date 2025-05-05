@@ -1,9 +1,14 @@
 package net.quepierts.animata.core.service;
 
+import net.quepierts.animata.core.service.loader.Boostrap;
+import net.quepierts.animata.core.service.loader.FrameworkRequired;
 import net.quepierts.animata.core.service.loader.Singleton;
 
 @Singleton
-public interface IEnvironmentHelper {
+@FrameworkRequired
+public interface IRuntimeEnvironmentDetector {
+    IRuntimeEnvironmentDetector INSTANCE = Boostrap.load(IRuntimeEnvironmentDetector.class);
+
     /**
      * Check if the game is currently in a development environment.
      *

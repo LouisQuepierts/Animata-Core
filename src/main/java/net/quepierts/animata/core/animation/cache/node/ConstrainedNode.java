@@ -43,4 +43,9 @@ public class ConstrainedNode<T extends AnimationCacheNode> extends AbstractAnima
     public void setEnabled(boolean pEnabled) {
         this.enabled.setEnabled(pEnabled);
     }
+
+    @Override
+    public void get(float[] pOut) {
+        this.wrapped.get(pOut);
+    }
 }

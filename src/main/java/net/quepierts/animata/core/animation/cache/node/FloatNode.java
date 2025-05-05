@@ -26,4 +26,9 @@ public class FloatNode extends AbstractAnimationCacheNode {
     public int getDimension() {
         return 1;
     }
+
+    @Override
+    public void get(float[] pOut) {
+        pOut[0] = this.value;
+    }
 }

@@ -1,24 +1,18 @@
 package net.quepierts.animata.core.animation.cache.node;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.quepierts.animata.core.animation.cache.AnimationCacheNode;
 import net.quepierts.animata.core.animation.cache.ChildrenContained;
 
 import java.util.Map;
 
-public class NamespaceNode extends AbstractAnimationCacheNode implements ChildrenContained {
+@RequiredArgsConstructor
+public class NamespaceNode implements ChildrenContained {
     private final Map<String, AnimationCacheNode> children = new Object2ObjectOpenHashMap<>();
+    @Getter private final String name;
 
-    public NamespaceNode(String name) {
-        super(name);
-    }
-
-    @Override
-    public void apply(float[] pValue) {
-
-    }
-
-    @Override
     public AnimationCacheNode getChild(String pChildName) {
         return this.children.get(pChildName);
     }

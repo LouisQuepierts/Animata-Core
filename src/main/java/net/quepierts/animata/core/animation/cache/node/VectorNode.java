@@ -60,6 +60,11 @@ public class VectorNode implements AnimationCacheNode {
         return this.cache.length;
     }
 
+    @Override
+    public void get(float[] pOut) {
+        System.arraycopy(this.cache, 0, pOut, 0, Math.min(this.cache.length, pOut.length));
+    }
+
     private static class Component extends AbstractAnimationCacheNode {
         private final VectorNode parent;
         private final int index;
@@ -78,6 +83,11 @@ public class VectorNode implements AnimationCacheNode {
         @Override
         public int getDimension() {
             return 1;
+        }
+
+        @Override
+        public void get(float[] pOut) {
+            pOut[0] = this.parent.cache[this.index];
         }
     }
 }

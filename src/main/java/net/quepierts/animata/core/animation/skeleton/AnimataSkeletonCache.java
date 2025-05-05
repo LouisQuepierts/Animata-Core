@@ -252,5 +252,10 @@ public class AnimataSkeletonCache implements AnimationCache {
         public void setEnabled(boolean pEnabled) {
             this.enabled.setEnabled(pEnabled);
         }
+
+        @Override
+        public void get(float[] pOut) {
+
+        }
     }
 }
