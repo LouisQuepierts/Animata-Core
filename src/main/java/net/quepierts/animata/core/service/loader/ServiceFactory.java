@@ -85,7 +85,7 @@ public final class ServiceFactory {
         }
 
         boolean client = IRuntimeEnvironmentDetector.INSTANCE.isClient();
-        RuntimeEnvironment env = client ? RuntimeEnvironment.CLIENT : RuntimeEnvironment.SERVER;
+        ServiceEnvironment.Environment env = client ? ServiceEnvironment.Environment.CLIENT : ServiceEnvironment.Environment.SERVER;
 
         fallback = base;
         for (Class<?> sub : base.getDeclaredClasses()) {

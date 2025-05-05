@@ -1,6 +1,5 @@
 package net.quepierts.animata.core.service;
 
-import net.quepierts.animata.core.service.loader.RuntimeEnvironment;
 import net.quepierts.animata.core.service.loader.ServiceEnvironment;
 import net.quepierts.animata.core.service.loader.Singleton;
 
@@ -8,7 +7,7 @@ import net.quepierts.animata.core.service.loader.Singleton;
 public interface IAnimataTimeProvider {
     float getCountedTime();
 
-    @ServiceEnvironment(RuntimeEnvironment.CLIENT)
+    @ServiceEnvironment(ServiceEnvironment.Environment.CLIENT)
     interface Client extends IAnimataTimeProvider {
 
     }

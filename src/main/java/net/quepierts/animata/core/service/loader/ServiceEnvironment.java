@@ -8,5 +8,11 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ServiceEnvironment {
-    RuntimeEnvironment value() default RuntimeEnvironment.COMMON;
+    Environment value() default Environment.COMMON;
+
+    enum Environment {
+        COMMON,
+        CLIENT,
+        SERVER
+    }
 }
