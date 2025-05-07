@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import net.quepierts.animata.core.animation.cache.AnimationCache;
-import net.quepierts.animata.core.animation.cache.Property;
+import net.quepierts.animata.core.property.Property;
 import net.quepierts.animata.core.animation.runtime.field.CacheNodeField;
 import net.quepierts.animata.core.animation.runtime.field.ConstantField;
 import net.quepierts.animata.core.animation.runtime.field.RuntimeField;

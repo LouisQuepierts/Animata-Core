@@ -1,4 +1,4 @@
-package net.quepierts.animata.core.animation.property;
+package net.quepierts.animata.core.property;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +18,7 @@ public class FloatProperty extends AbstractProperty {
     }
 
     @Override
-    public void apply(float[] pValue) {
+    public void write(float[] pValue) {
         this.value = pValue[0];
     }
 

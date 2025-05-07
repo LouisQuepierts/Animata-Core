@@ -1,4 +1,4 @@
-package net.quepierts.animata.core.animation.cache;
+package net.quepierts.animata.core.property;
 
 public interface Toggleable {
     void setEnabled(boolean pEnabled);

@@ -1,7 +1,7 @@
 package net.quepierts.animata.core.animation.binding;
 
 import lombok.AllArgsConstructor;
-import net.quepierts.animata.core.animation.cache.Property;
+import net.quepierts.animata.core.property.Property;
 import net.quepierts.animata.core.animation.cache.ValueBuffer;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,6 +25,6 @@ public class DirectBinding implements Binding {
             return;
         }
 
-        this.node.apply(this.source);
+        this.node.write(this.source);
     }
 }

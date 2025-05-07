@@ -1,7 +1,6 @@
-package net.quepierts.animata.core.animation.property;
+package net.quepierts.animata.core.property;
 
 import lombok.Getter;
-import net.quepierts.animata.core.animation.cache.Property;
 import org.joml.Vector3f;
 
 public class Vector3fProperty extends AbstractProperty {
@@ -27,7 +26,7 @@ public class Vector3fProperty extends AbstractProperty {
     }
 
     @Override
-    public void apply(float[] pValue) {
+    public void write(float[] pValue) {
         this.cache.set(pValue[0], pValue[1], pValue[2]);
     }
 
@@ -69,7 +68,7 @@ public class Vector3fProperty extends AbstractProperty {
         }
 
         @Override
-        public void apply(float[] pValue) {
+        public void write(float[] pValue) {
             switch (this.component) {
                 case 'x' -> this.bound.x = pValue[0];
                 case 'y' -> this.bound.y = pValue[0];

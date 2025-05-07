@@ -1,5 +1,7 @@
 package net.quepierts.animata.core.animation.cache;
 
+import net.quepierts.animata.core.property.Property;
+
 public record RegisterResult(
         Property node,
         RegisterStatus status,

@@ -1,8 +1,6 @@
-package net.quepierts.animata.core.animation.property;
+package net.quepierts.animata.core.property;
 
 import lombok.Getter;
-import net.quepierts.animata.core.animation.cache.Property;
-import net.quepierts.animata.core.animation.cache.Toggleable;
 
 public class ConstrainedProperty<T extends Property> extends AbstractProperty
         implements Toggleable {
@@ -26,8 +24,8 @@ public class ConstrainedProperty<T extends Property> extends AbstractProperty
     }
 
     @Override
-    public void apply(float[] pValue) {
-        this.wrapped.apply(pValue);
+    public void write(float[] pValue) {
+        this.wrapped.write(pValue);
     }
 
     @Override

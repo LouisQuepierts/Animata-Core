@@ -1,6 +1,6 @@
 package net.quepierts.animata.core.animation.runtime.field;
 
-import net.quepierts.animata.core.animation.cache.Property;
+import net.quepierts.animata.core.property.Property;
 
 public class CacheNodeField implements RuntimeField {
     private final Property node;
@@ -16,7 +16,7 @@ public class CacheNodeField implements RuntimeField {
 
     @Override
     public void write(float[] pIn) {
-        this.node.apply(pIn);
+        this.node.write(pIn);
     }
 
     @Override

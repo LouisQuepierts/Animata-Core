@@ -3,8 +3,8 @@ package net.quepierts.animata.core.animation.skeleton;
 import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.quepierts.animata.core.animation.cache.*;
-import net.quepierts.animata.core.animation.property.*;
 import net.quepierts.animata.core.math.transform.Transformable;
+import net.quepierts.animata.core.property.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
@@ -191,7 +191,7 @@ public class AnimataSkeletonCache implements AnimationCache {
         }
 
         @Override
-        public void apply(float[] pValue) {
+        public void write(float[] pValue) {
 
         }
 
@@ -262,9 +262,9 @@ public class AnimataSkeletonCache implements AnimationCache {
         public void reset() {
             float[] one = new float[]{1.0f, 1.0f, 1.0f};
             float[] zero = new float[]{0.0f, 0.0f, 0.0f};
-            this.rotation.apply(zero);
-            this.position.apply(zero);
-            this.scale.apply(one);
+            this.rotation.write(zero);
+            this.position.write(zero);
+            this.scale.write(one);
 
             this.weight.setValue(1.0f);
             this.enabled.setEnabled(false);

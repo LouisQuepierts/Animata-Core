@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.quepierts.animata.core.animation.Animation;
 import net.quepierts.animata.core.animation.binding.DirectBinding;
 import net.quepierts.animata.core.animation.cache.*;
+import net.quepierts.animata.core.property.Property;
 import net.quepierts.animata.core.animation.target.Animatable;
 import net.quepierts.animata.core.animation.binding.Binding;
 import net.quepierts.animata.core.animation.binding.Source;

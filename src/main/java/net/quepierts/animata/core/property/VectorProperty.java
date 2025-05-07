@@ -1,7 +1,6 @@
-package net.quepierts.animata.core.animation.property;
+package net.quepierts.animata.core.property;
 
 import lombok.Getter;
-import net.quepierts.animata.core.animation.cache.Property;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,7 +29,7 @@ public class VectorProperty implements Property {
         this(name, length, 0);
     }
 
-    public void apply(float[] pValue) {
+    public void write(float[] pValue) {
         System.arraycopy(pValue, 0, this.cache, 0, Math.min(pValue.length, this.cache.length));
     }
 
@@ -76,7 +75,7 @@ public class VectorProperty implements Property {
         }
 
         @Override
-        public void apply(float[] pValue) {
+        public void write(float[] pValue) {
             this.parent.cache[this.index] = pValue[0];
         }
 

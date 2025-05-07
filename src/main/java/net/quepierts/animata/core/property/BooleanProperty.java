@@ -1,8 +1,7 @@
-package net.quepierts.animata.core.animation.property;
+package net.quepierts.animata.core.property;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.quepierts.animata.core.animation.cache.Toggleable;
 
 @Setter
 @Getter
@@ -19,7 +18,7 @@ public class BooleanProperty extends AbstractProperty implements Toggleable {
     }
     
     @Override
-    public void apply(float[] pValue) {
+    public void write(float[] pValue) {
         this.enabled = pValue[0] != 0.0f;
     }
 

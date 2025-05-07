@@ -1,8 +1,6 @@
-package net.quepierts.animata.core.animation.property;
+package net.quepierts.animata.core.property;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.quepierts.animata.core.animation.cache.Property;
-import net.quepierts.animata.core.animation.cache.ChildrenContained;
 
 import java.util.Map;
 
@@ -38,7 +36,7 @@ public class NamespaceNode extends AbstractProperty implements ChildrenContained
     }
 
     @Override
-    public void apply(float[] pValue) {
+    public void write(float[] pValue) {
 
     }
 

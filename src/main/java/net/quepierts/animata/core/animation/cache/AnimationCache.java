@@ -1,6 +1,7 @@
 package net.quepierts.animata.core.animation.cache;
 
-import net.quepierts.animata.core.animation.property.NamespaceNode;
+import net.quepierts.animata.core.property.NamespaceNode;
+import net.quepierts.animata.core.property.Property;
 import org.jetbrains.annotations.NotNull;
 
 public interface AnimationCache {

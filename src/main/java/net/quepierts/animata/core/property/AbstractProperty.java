@@ -1,8 +1,7 @@
-package net.quepierts.animata.core.animation.property;
+package net.quepierts.animata.core.property;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.quepierts.animata.core.animation.cache.Property;
 
 @Getter
 @RequiredArgsConstructor

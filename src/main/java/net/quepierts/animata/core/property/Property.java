@@ -1,10 +1,11 @@
-package net.quepierts.animata.core.animation.cache;
+package net.quepierts.animata.core.property;
 
 import net.quepierts.animata.core.animation.path.PathResolvable;
 
-public interface Property extends PathResolvable, AnimationCacheView {
-    void apply(float[] pValue);
+public interface Property extends PathResolvable {
+    void fetch(float[] pOut);
 
+    void write(float[] pValue);
     @Override
     Property getChild(String pChildName);
 

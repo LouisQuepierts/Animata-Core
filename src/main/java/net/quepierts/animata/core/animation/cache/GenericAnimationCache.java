@@ -1,7 +1,10 @@
 package net.quepierts.animata.core.animation.cache;
 
 import lombok.Getter;
-import net.quepierts.animata.core.animation.property.NamespaceNode;
+import net.quepierts.animata.core.property.ChildrenContained;
+import net.quepierts.animata.core.property.NamespaceNode;
+import net.quepierts.animata.core.property.Property;
+import net.quepierts.animata.core.property.Toggleable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

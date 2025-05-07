@@ -1,4 +1,4 @@
-package net.quepierts.animata.core.animation.property;
+package net.quepierts.animata.core.property;
 
 import net.quepierts.animata.core.util.Generic;
 
@@ -17,7 +17,7 @@ public class EnumProperty<T extends Enum<T>> extends AbstractProperty {
     }
 
     @Override
-    public void apply(float[] pValue) {
+    public void write(float[] pValue) {
         this.value = (int) pValue[0];
     }
 
