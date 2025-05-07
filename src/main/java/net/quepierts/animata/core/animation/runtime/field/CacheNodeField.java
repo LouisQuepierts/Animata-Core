@@ -1,11 +1,11 @@
 package net.quepierts.animata.core.animation.runtime.field;
 
-import net.quepierts.animata.core.animation.cache.AnimationCacheNode;
+import net.quepierts.animata.core.animation.cache.Property;
 
 public class CacheNodeField implements RuntimeField {
-    private final AnimationCacheNode node;
+    private final Property node;
 
-    public CacheNodeField(AnimationCacheNode node) {
+    public CacheNodeField(Property node) {
         this.node = node;
     }
 

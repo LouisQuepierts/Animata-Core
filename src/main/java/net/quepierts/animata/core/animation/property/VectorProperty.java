@@ -1,12 +1,12 @@
-package net.quepierts.animata.core.animation.cache.node;
+package net.quepierts.animata.core.animation.property;
 
 import lombok.Getter;
-import net.quepierts.animata.core.animation.cache.AnimationCacheNode;
+import net.quepierts.animata.core.animation.cache.Property;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class VectorNode implements AnimationCacheNode {
+public class VectorProperty implements Property {
     private static final String[] COMPONENTS = new String[] { "x", "y", "z" };
     private static final Pattern CHILDREN_PATTERN = Pattern.compile("^children\\[(\\d+)]$");
 
@@ -14,7 +14,7 @@ public class VectorNode implements AnimationCacheNode {
     @Getter private final float[] cache;
     private final Component[] components;
 
-    public VectorNode(String pName, int pLength, float pValue) {
+    public VectorProperty(String pName, int pLength, float pValue) {
         this.name = pName;
         this.cache = new float[pLength];
         this.components = new Component[pLength];
@@ -26,7 +26,7 @@ public class VectorNode implements AnimationCacheNode {
         }
     }
 
-    public VectorNode(String name, int length) {
+    public VectorProperty(String name, int length) {
         this(name, length, 0);
     }
 
@@ -35,7 +35,7 @@ public class VectorNode implements AnimationCacheNode {
     }
 
     @Override
-    public AnimationCacheNode getChild(String pChildName) {
+    public Property getChild(String pChildName) {
         if (pChildName.length() == 1) {
             return switch (pChildName) {
                 case "x" -> this.components[0];
@@ -65,11 +65,11 @@ public class VectorNode implements AnimationCacheNode {
         System.arraycopy(this.cache, 0, pOut, 0, Math.min(this.cache.length, pOut.length));
     }
 
-    private static class Component extends AbstractAnimationCacheNode {
-        private final VectorNode parent;
+    private static class Component extends AbstractProperty {
+        private final VectorProperty parent;
         private final int index;
 
-        private Component(String name, VectorNode parent, int index) {
+        private Component(String name, VectorProperty parent, int index) {
             super(name);
             this.parent = parent;
             this.index = index;

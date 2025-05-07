@@ -1,7 +1,7 @@
 package net.quepierts.animata.core.animation.cache;
 
 import lombok.Getter;
-import net.quepierts.animata.core.animation.cache.node.NamespaceNode;
+import net.quepierts.animata.core.animation.property.NamespaceNode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,7 +23,7 @@ public class GenericAnimationCache implements AnimationCache {
         this.namespaces.put(useDomain, user);
     }
 
-    public RegisterResult register(String pName, AnimationCacheNode pNode) {
+    public RegisterResult register(String pName, Property pProperty) {
         if (this.registryFrozen) {
             return new RegisterResult(null, RegisterStatus.ILLEGAL_OPERATION, "failed.registry_frozen");
         }
@@ -34,37 +34,37 @@ public class GenericAnimationCache implements AnimationCache {
 
         String namespace = this.getNamespace(pName);
         String name = this.getName(pName);
-        return this.registerNamespaced(namespace, name, pNode);
+        return this.registerNamespaced(namespace, name, pProperty);
     }
 
-    public RegisterResult register(String pParent, String pName, AnimationCacheNode pNode) {
+    public RegisterResult register(String pParent, String pName, Property pProperty) {
         if (this.registryFrozen) {
             return new RegisterResult(null, RegisterStatus.ILLEGAL_OPERATION, "failed.registry_frozen");
         }
 
-        AnimationCacheNode parent = this.getNode(pParent);
+        Property parent = this.getNode(pParent);
 
         if (!(parent instanceof ChildrenContained node)) {
             return new RegisterResult(null, RegisterStatus.ILLEGAL_PATH, "failed.unknown_parent");
         }
 
-        RegisterResult result = this.register(pName, pNode);
+        RegisterResult result = this.register(pName, pProperty);
 
         if (result.success()) {
             String name = this.getName(pName);
-            node.addChild(name, pNode);
+            node.addChild(name, pProperty);
         }
 
         return result;
     }
 
-    public RegisterResult registerNamespaced(String pNamespace, String pName, AnimationCacheNode pNode) {
+    public RegisterResult registerNamespaced(String pNamespace, String pName, Property pProperty) {
         if (this.registryFrozen) {
             return new RegisterResult(null, RegisterStatus.ILLEGAL_OPERATION, "failed.registry_frozen");
         }
 
         if (pNamespace == null || pNamespace.isBlank()) {
-            return new RegisterResult(pNode, RegisterStatus.ILLEGAL_PATH, "failed.empty_name");
+            return new RegisterResult(pProperty, RegisterStatus.ILLEGAL_PATH, "failed.empty_name");
         }
 
         if (pNamespace.equals(RUNTIME)) {
@@ -72,26 +72,26 @@ public class GenericAnimationCache implements AnimationCache {
         }
         
         NamespaceNode namespace = this.namespaces.computeIfAbsent(pNamespace, NamespaceNode::new);
-        AnimationCacheNode registered = namespace.getChild(pName);
+        Property registered = namespace.getChild(pName);
 
         if (registered != null) {
-            if (registered.getClass() != pNode.getClass()) {
+            if (registered.getClass() != pProperty.getClass()) {
                 return new RegisterResult(registered, RegisterStatus.DUPLICATED_CONFLICT, "failed.duplicated");
             } else {
                 return new RegisterResult(registered, RegisterStatus.DUPLICATED_SAME, "failed.duplicated");
             }
         }
 
-        namespace.addChild(pName, pNode);
-        return new RegisterResult(pNode, RegisterStatus.SUCCESS, "success");
+        namespace.addChild(pName, pProperty);
+        return new RegisterResult(pProperty, RegisterStatus.SUCCESS, "success");
     }
 
     @Override
-    public AnimationCacheNode getCacheNode(String pPath) {
+    public Property getCacheNode(String pPath) {
         if (pPath == null || pPath.isBlank()) return null;
 
         String[] names = pPath.split("\\.");
-        AnimationCacheNode node = this.getNode(names[0]);
+        Property node = this.getNode(names[0]);
 
         if (node instanceof Toggleable) {
             ((Toggleable) node).setEnabled(true);
@@ -118,7 +118,7 @@ public class GenericAnimationCache implements AnimationCache {
         }
         
         NamespaceNode runtime = this.namespaces.computeIfAbsent(AnimationCache.RUNTIME, NamespaceNode::new);
-        AnimationCacheNode domain = runtime.getChild(pName);
+        Property domain = runtime.getChild(pName);
         if (domain instanceof NamespaceNode node) {
             return node;
         }
@@ -128,7 +128,7 @@ public class GenericAnimationCache implements AnimationCache {
     }
 
     @Override
-    public void addTransientNode(String pDomain, String pName, AnimationCacheNode pNode) {
+    public void addTransientNode(String pDomain, String pName, Property pProperty) {
         if (pDomain == null || pDomain.isBlank()) {
             throw new IllegalArgumentException("failed.empty_name");
         }
@@ -137,7 +137,7 @@ public class GenericAnimationCache implements AnimationCache {
     }
 
     @Override
-    public AnimationCacheNode getTransientNode(String pDomain, String pName) {
+    public Property getTransientNode(String pDomain, String pName) {
         if (pDomain == null || pDomain.isBlank()) {
             throw new IllegalArgumentException("failed.empty_name");
         }
@@ -186,7 +186,7 @@ public class GenericAnimationCache implements AnimationCache {
         }
     }
 
-    private @Nullable AnimationCacheNode getNode(@NotNull String pPath) {
+    private @Nullable Property getNode(@NotNull String pPath) {
         String namespace = this.getNamespace(pPath);
         NamespaceNode namespaceNode = this.namespaces.get(namespace);
 

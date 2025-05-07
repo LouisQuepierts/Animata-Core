@@ -1,25 +1,25 @@
-package net.quepierts.animata.core.animation.cache.node;
+package net.quepierts.animata.core.animation.property;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.quepierts.animata.core.animation.cache.AnimationCacheNode;
+import net.quepierts.animata.core.animation.cache.Property;
 import net.quepierts.animata.core.animation.cache.ChildrenContained;
 
 import java.util.Map;
 
-public class NamespaceNode extends AbstractAnimationCacheNode implements ChildrenContained {
-    private final Map<String, AnimationCacheNode> children = new Object2ObjectOpenHashMap<>();
+public class NamespaceNode extends AbstractProperty implements ChildrenContained {
+    private final Map<String, Property> children = new Object2ObjectOpenHashMap<>();
 
     public NamespaceNode(String name) {
         super(name);
     }
 
-    public AnimationCacheNode getChild(String pChildName) {
+    public Property getChild(String pChildName) {
         return this.children.get(pChildName);
     }
 
     @Override
-    public void addChild(String pName, AnimationCacheNode pNode) {
-        this.children.put(pName, pNode);
+    public void addChild(String pName, Property pProperty) {
+        this.children.put(pName, pProperty);
     }
 
     public void print() {

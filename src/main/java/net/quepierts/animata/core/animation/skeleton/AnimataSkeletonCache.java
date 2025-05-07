@@ -3,7 +3,7 @@ package net.quepierts.animata.core.animation.skeleton;
 import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.quepierts.animata.core.animation.cache.*;
-import net.quepierts.animata.core.animation.cache.node.*;
+import net.quepierts.animata.core.animation.property.*;
 import net.quepierts.animata.core.math.transform.Transformable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -43,18 +43,18 @@ public class AnimataSkeletonCache implements AnimationCache {
     }
 
     @Override
-    public RegisterResult register(String pName, AnimationCacheNode pNode) {
-        return this.delegate.register(pName, pNode);
+    public RegisterResult register(String pName, Property pProperty) {
+        return this.delegate.register(pName, pProperty);
     }
 
     @Override
-    public RegisterResult register(String pParent, String pName, AnimationCacheNode pNode) {
-        return this.delegate.register(pParent, pName, pNode);
+    public RegisterResult register(String pParent, String pName, Property pProperty) {
+        return this.delegate.register(pParent, pName, pProperty);
     }
 
     @Override
-    public RegisterResult registerNamespaced(String pNamespace, String pName, AnimationCacheNode pNode) {
-        return this.delegate.registerNamespaced(pNamespace, pName, pNode);
+    public RegisterResult registerNamespaced(String pNamespace, String pName, Property pProperty) {
+        return this.delegate.registerNamespaced(pNamespace, pName, pProperty);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class AnimataSkeletonCache implements AnimationCache {
     }
 
     @Override
-    public AnimationCacheNode getCacheNode(String pPath) {
+    public Property getCacheNode(String pPath) {
         return this.delegate.getCacheNode(pPath);
     }
 
@@ -94,12 +94,12 @@ public class AnimataSkeletonCache implements AnimationCache {
     }
 
     @Override
-    public void addTransientNode(String pDomain, String pName, AnimationCacheNode pNode) {
-        this.delegate.addTransientNode(pDomain, pName, pNode);
+    public void addTransientNode(String pDomain, String pName, Property pProperty) {
+        this.delegate.addTransientNode(pDomain, pName, pProperty);
     }
 
     @Override
-    public AnimationCacheNode getTransientNode(String pDomain, String pName) {
+    public Property getTransientNode(String pDomain, String pName) {
         return this.delegate.getTransientNode(pDomain, pName);
     }
 
@@ -109,32 +109,32 @@ public class AnimataSkeletonCache implements AnimationCache {
     }
 
     private static final class CacheEntry
-            implements AnimationCacheNode, ChildrenContained, Toggleable {
+            implements Property, ChildrenContained, Toggleable {
 
-        private final ConstrainedNode<Vector3fNode> rotation;
-        private final ConstrainedNode<Vector3fNode> position;
-        private final ConstrainedNode<Vector3fNode> scale;
-        private final ConstrainedNode<Vector3fNode> pivot;
+        private final ConstrainedProperty<Vector3fProperty> rotation;
+        private final ConstrainedProperty<Vector3fProperty> position;
+        private final ConstrainedProperty<Vector3fProperty> scale;
+        private final ConstrainedProperty<Vector3fProperty> pivot;
 
-        private final FloatNode weight;
-        private final BooleanNode enabled;
-        private final EnumNode<SkeletonBlendMode> blendMode;
+        private final FloatProperty weight;
+        private final BooleanProperty enabled;
+        private final EnumProperty<SkeletonBlendMode> blendMode;
 
         private final AnimataBone bone;
 
-        private final Map<String, AnimationCacheNode> children = new Object2ObjectOpenHashMap<>();
+        private final Map<String, Property> children = new Object2ObjectOpenHashMap<>();
 
         private @Nullable CacheEntry parent;
 
         private CacheEntry(AnimataBone bone) {
             this.bone = bone;
-            this.rotation = new ConstrainedNode<>("rotation", new Vector3fNode("rotation"));
-            this.position = new ConstrainedNode<>("position", new Vector3fNode("position"));
-            this.scale = new ConstrainedNode<>("scale", new Vector3fNode("scale", 1.0f));
-            this.pivot = new ConstrainedNode<>("pivot", new Vector3fNode("pivot"));
-            this.weight = new FloatNode("weight", 1.0f);
-            this.enabled = new BooleanNode("enabled", false);
-            this.blendMode = new EnumNode<>("blend", SkeletonBlendMode.class);
+            this.rotation = new ConstrainedProperty<>("rotation", new Vector3fProperty("rotation"));
+            this.position = new ConstrainedProperty<>("position", new Vector3fProperty("position"));
+            this.scale = new ConstrainedProperty<>("scale", new Vector3fProperty("scale", 1.0f));
+            this.pivot = new ConstrainedProperty<>("pivot", new Vector3fProperty("pivot"));
+            this.weight = new FloatProperty("weight", 1.0f);
+            this.enabled = new BooleanProperty("enabled", false);
+            this.blendMode = new EnumProperty<>("blend", SkeletonBlendMode.class);
 
             this.children.put("rotation", this.rotation);
             this.children.put("position", this.position);
@@ -196,13 +196,13 @@ public class AnimataSkeletonCache implements AnimationCache {
         }
 
         @Override
-        public AnimationCacheNode getChild(String pChildName) {
+        public Property getChild(String pChildName) {
             return this.children.get(pChildName);
         }
 
         @Override
-        public void addChild(String pName, AnimationCacheNode pNode) {
-            this.children.put(pName, pNode);
+        public void addChild(String pName, Property pProperty) {
+            this.children.put(pName, pProperty);
         }
 
         private void blend(

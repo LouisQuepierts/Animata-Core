@@ -10,5 +10,5 @@ public interface CascadeSourceFactory {
 
     Set<String> getHandledSuffixes();
 
-    void registerSource(PathNode pNode, String pPrefix, Animation pAnimation);
+    void registerSource(PathNode pProperty, String pPrefix, Animation pAnimation);
 }

@@ -19,10 +19,10 @@ public class ValueSourceFactory implements CascadeSourceFactory {
     }
 
     @Override
-    public void registerSource(PathNode pNode, String pPrefix, Animation pAnimation) {
+    public void registerSource(PathNode pProperty, String pPrefix, Animation pAnimation) {
         Source source = pAnimation.getSource(pPrefix);
         if (source != null) {
-            pNode.sources.put("value", source);
+            pProperty.sources.put("value", source);
         }
     }
 }

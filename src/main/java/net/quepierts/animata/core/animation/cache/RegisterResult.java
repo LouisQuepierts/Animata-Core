@@ -1,7 +1,7 @@
 package net.quepierts.animata.core.animation.cache;
 
 public record RegisterResult(
-        AnimationCacheNode node,
+        Property node,
         RegisterStatus status,
         String message
 ) {

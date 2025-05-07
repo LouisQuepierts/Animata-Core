@@ -2,11 +2,11 @@ package net.quepierts.animata.core.animation.cache;
 
 import net.quepierts.animata.core.animation.path.PathResolvable;
 
-public interface AnimationCacheNode extends PathResolvable, AnimationCacheView {
+public interface Property extends PathResolvable, AnimationCacheView {
     void apply(float[] pValue);
 
     @Override
-    AnimationCacheNode getChild(String pChildName);
+    Property getChild(String pChildName);
 
     default int getDimension() {
         return 0;

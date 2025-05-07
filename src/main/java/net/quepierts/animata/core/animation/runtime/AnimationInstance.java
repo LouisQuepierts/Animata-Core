@@ -93,7 +93,7 @@ public class AnimationInstance {
         this.animation.getRequiredFields(requiredFields);
 
         for (RequiredField field : requiredFields) {
-            AnimationCacheNode node = this.cache.getCacheNode(field.name());
+            Property node = this.cache.getCacheNode(field.name());
 
             if (node == null) {
                 if (field.type() == RequiredField.Type.READ) {
@@ -107,13 +107,13 @@ public class AnimationInstance {
         List<Source> sources = new ObjectArrayList<>();
         this.animation.getSources(sources);
 
-        Set<AnimationCacheNode> bound = new HashSet<>();
+        Set<Property> bound = new HashSet<>();
 
         for (Source source : sources) {
             this.buffer.register(source);
             String name = source.getName();
 
-            AnimationCacheNode node = this.cache.getCacheNode(name);
+            Property node = this.cache.getCacheNode(name);
 
             if (node != null) {
                 if (bound.contains(node)) {

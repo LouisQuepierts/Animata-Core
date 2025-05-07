@@ -1,24 +1,24 @@
-package net.quepierts.animata.core.animation.cache.node;
+package net.quepierts.animata.core.animation.property;
 
 import lombok.Getter;
-import net.quepierts.animata.core.animation.cache.AnimationCacheNode;
+import net.quepierts.animata.core.animation.cache.Property;
 import net.quepierts.animata.core.animation.cache.Toggleable;
 
-public class ConstrainedNode<T extends AnimationCacheNode> extends AbstractAnimationCacheNode
+public class ConstrainedProperty<T extends Property> extends AbstractProperty
         implements Toggleable {
     public static final String ENABLED_NAME = "enabled";
 
     @Getter private final T wrapped;
-    private final BooleanNode enabled;
+    private final BooleanProperty enabled;
 
-    public ConstrainedNode(String name, T node) {
+    public ConstrainedProperty(String name, T node) {
         super(name);
         this.wrapped = node;
-        this.enabled = new BooleanNode(ENABLED_NAME, false);
+        this.enabled = new BooleanProperty(ENABLED_NAME, false);
     }
 
     @Override
-    public AnimationCacheNode getChild(String pChildName) {
+    public Property getChild(String pChildName) {
         if (ENABLED_NAME.equals(pChildName)) {
             return this.enabled;
         }

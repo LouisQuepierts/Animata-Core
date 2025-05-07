@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import net.quepierts.animata.core.animation.cache.AnimationCache;
-import net.quepierts.animata.core.animation.cache.AnimationCacheNode;
+import net.quepierts.animata.core.animation.cache.Property;
 import net.quepierts.animata.core.animation.runtime.field.CacheNodeField;
 import net.quepierts.animata.core.animation.runtime.field.ConstantField;
 import net.quepierts.animata.core.animation.runtime.field.RuntimeField;
@@ -42,8 +42,8 @@ public class RuntimeContext {
             return this;
         }
 
-        public Builder node(String pPath, AnimationCacheNode pNode) {
-            this.fields.put(pPath, new CacheNodeField(pNode));
+        public Builder node(String pPath, Property pProperty) {
+            this.fields.put(pPath, new CacheNodeField(pProperty));
             return this;
         }
 

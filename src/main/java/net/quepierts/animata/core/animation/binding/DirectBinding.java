@@ -1,22 +1,22 @@
 package net.quepierts.animata.core.animation.binding;
 
 import lombok.AllArgsConstructor;
-import net.quepierts.animata.core.animation.cache.AnimationCacheNode;
+import net.quepierts.animata.core.animation.cache.Property;
 import net.quepierts.animata.core.animation.cache.ValueBuffer;
 import org.jetbrains.annotations.NotNull;
 
 @AllArgsConstructor
 public class DirectBinding implements Binding {
-    private final AnimationCacheNode node;
+    private final Property node;
     private final float[] source;
 
     public DirectBinding(
             @NotNull Source pSource,
-            @NotNull AnimationCacheNode pNode,
+            @NotNull Property pProperty,
             @NotNull ValueBuffer pBuffer
     ) {
         this.source = pBuffer.get(pSource);
-        this.node = pNode;
+        this.node = pProperty;
     }
 
     @Override

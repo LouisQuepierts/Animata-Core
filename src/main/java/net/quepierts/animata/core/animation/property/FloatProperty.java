@@ -1,18 +1,18 @@
-package net.quepierts.animata.core.animation.cache.node;
+package net.quepierts.animata.core.animation.property;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-public class FloatNode extends AbstractAnimationCacheNode {
+public class FloatProperty extends AbstractProperty {
     private float value;
 
-    public FloatNode(String name) {
+    public FloatProperty(String name) {
         super(name);
     }
 
-    public FloatNode(String name, float value) {
+    public FloatProperty(String name, float value) {
         super(name);
         this.value = value;
     }

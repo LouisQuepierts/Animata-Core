@@ -1,22 +1,22 @@
-package net.quepierts.animata.core.animation.cache.node;
+package net.quepierts.animata.core.animation.property;
 
 import lombok.Getter;
-import net.quepierts.animata.core.animation.cache.AnimationCacheNode;
+import net.quepierts.animata.core.animation.cache.Property;
 import org.joml.Vector3f;
 
-public class Vector3fNode extends AbstractAnimationCacheNode {
+public class Vector3fProperty extends AbstractProperty {
     @Getter private final Vector3f cache;
     private final Component[] components;
 
-    public Vector3fNode(String name) {
+    public Vector3fProperty(String name) {
         this(name, new Vector3f());
     }
 
-    public Vector3fNode(String name, float value) {
+    public Vector3fProperty(String name, float value) {
         this(name, new Vector3f(value));
     }
 
-    public Vector3fNode(String name, Vector3f value) {
+    public Vector3fProperty(String name, Vector3f value) {
         super(name);
         this.cache = value;
         this.components = new Component[]{
@@ -32,7 +32,7 @@ public class Vector3fNode extends AbstractAnimationCacheNode {
     }
 
     @Override
-    public AnimationCacheNode getChild(String pChildName) {
+    public Property getChild(String pChildName) {
         if (pChildName.length() == 1) {
             char comp = pChildName.charAt(0);
             return switch (comp) {
@@ -58,7 +58,7 @@ public class Vector3fNode extends AbstractAnimationCacheNode {
         pOut[2] = this.cache.z;
     }
 
-    private static class Component extends AbstractAnimationCacheNode {
+    private static class Component extends AbstractProperty {
         private final Vector3f bound;
         private final char component;
 

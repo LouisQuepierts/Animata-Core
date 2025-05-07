@@ -1,4 +1,4 @@
-package net.quepierts.animata.core.animation.cache.node;
+package net.quepierts.animata.core.animation.property;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,14 +6,14 @@ import net.quepierts.animata.core.animation.cache.Toggleable;
 
 @Setter
 @Getter
-public class BooleanNode extends AbstractAnimationCacheNode implements Toggleable {
+public class BooleanProperty extends AbstractProperty implements Toggleable {
     private boolean enabled;
 
-    public BooleanNode(String pName) {
+    public BooleanProperty(String pName) {
         super(pName);
     }
     
-    public BooleanNode(String pName, boolean pValue) {
+    public BooleanProperty(String pName, boolean pValue) {
         super(pName);
         this.enabled = pValue;
     }

@@ -20,8 +20,8 @@ public class EnableSourceFactory implements CascadeSourceFactory {
     }
 
     @Override
-    public void registerSource(PathNode pNode, String pPrefix, Animation pAnimation) {
+    public void registerSource(PathNode pProperty, String pPrefix, Animation pAnimation) {
         Source source = pAnimation.getSource(pPrefix + ".enable");
-        pNode.sources.put("enable", source == null ? new ConstantSource(pPrefix + ".enable", 1.0f) : source);
+        pProperty.sources.put("enable", source == null ? new ConstantSource(pPrefix + ".enable", 1.0f) : source);
     }
 }

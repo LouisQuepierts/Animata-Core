@@ -1,17 +1,17 @@
 package net.quepierts.animata.core.animation.cache;
 
-import net.quepierts.animata.core.animation.cache.node.NamespaceNode;
+import net.quepierts.animata.core.animation.property.NamespaceNode;
 import org.jetbrains.annotations.NotNull;
 
 public interface AnimationCache {
     String INPUT_NAMESPACE = "input";
     String RUNTIME = "runtime";
 
-    RegisterResult register(String pName, AnimationCacheNode pNode);
+    RegisterResult register(String pName, Property pProperty);
 
-    RegisterResult register(String pParent, String pName, AnimationCacheNode pNode);
+    RegisterResult register(String pParent, String pName, Property pProperty);
 
-    RegisterResult registerNamespaced(String pNamespace, String pName, AnimationCacheNode pNode);
+    RegisterResult registerNamespaced(String pNamespace, String pName, Property pProperty);
 
     void reset();
 
@@ -21,13 +21,13 @@ public interface AnimationCache {
 
     boolean isRegistryFrozen();
 
-    AnimationCacheNode getCacheNode(String pPath);
+    Property getCacheNode(String pPath);
 
     @NotNull NamespaceNode getTransientDomain(String pName);
 
-    void addTransientNode(String pDomain, String pName, AnimationCacheNode pNode);
+    void addTransientNode(String pDomain, String pName, Property pProperty);
 
-    AnimationCacheNode getTransientNode(String pDomain, String pName);
+    Property getTransientNode(String pDomain, String pName);
 
     void dispose(String pRuntimeDomain);
 }
