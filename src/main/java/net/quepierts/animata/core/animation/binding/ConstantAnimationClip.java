@@ -5,14 +5,14 @@ import net.quepierts.animata.core.animation.runtime.RuntimeContext;
 
 import java.util.Arrays;
 
-public class ConstantSource implements Source {
-    public static final Source ZERO = new ConstantSource("__zero", 0f);
-    public static final Source ONE = new ConstantSource("__one", 1f);
+public class ConstantAnimationClip implements AnimationClip {
+    public static final AnimationClip ZERO = new ConstantAnimationClip("__zero", 0f);
+    public static final AnimationClip ONE = new ConstantAnimationClip("__one", 1f);
 
     @Getter private final String name;
     private final float value;
 
-    public ConstantSource(String name, float value) {
+    public ConstantAnimationClip(String name, float value) {
         this.name = name;
         this.value = value;
     }

@@ -4,8 +4,8 @@ import net.quepierts.animata.core.animation.runtime.RuntimeContext;
 
 import java.util.Arrays;
 
-public interface Source {
-    Source ONE = new Source() {
+public interface AnimationClip {
+    AnimationClip ONE = new AnimationClip() {
         @Override
         public void eval(float[] pBuffer, RuntimeContext pContext) {
             Arrays.fill(pBuffer, 1f);

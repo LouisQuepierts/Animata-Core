@@ -2,7 +2,7 @@ package net.quepierts.animata.core.animation.animator;
 
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import net.quepierts.animata.core.animation.Animation;
+import net.quepierts.animata.core.animation.AnimationSequence;
 import net.quepierts.animata.core.animation.Animator;
 import net.quepierts.animata.core.animation.cache.AnimationCache;
 import net.quepierts.animata.core.animation.extension.AnimatorExtension;
@@ -29,15 +29,15 @@ public abstract class BaseExtendableAnimator implements Animator {
     }
 
     @Override
-    public void play(Animation pAnimation) {
+    public void play(AnimationSequence pAnimationSequence) {
         // prevent cache change during working
         this.cache.freezeRegistry();
 
         float time = this.timer.getCountedTime();
         for (AnimatorExtension extension : this.extensions) {
-            extension.onPlay(this, pAnimation, time);
+            extension.onPlay(this, pAnimationSequence, time);
         }
-        this.onPlay(pAnimation, time);
+        this.onPlay(pAnimationSequence, time);
     }
 
     @Override
@@ -77,7 +77,7 @@ public abstract class BaseExtendableAnimator implements Animator {
         }
     }
 
-    protected abstract void onPlay(Animation pAnimation, float pGlobalTime);
+    protected abstract void onPlay(AnimationSequence pAnimationSequence, float pGlobalTime);
 
     protected abstract void onUpdate(float pGlobalTime);
 

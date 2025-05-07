@@ -1,9 +1,8 @@
 package net.quepierts.animata.core.animation.runtime.field;
 
-public interface RuntimeField {
-    void fetch(float[] pOut);
+import net.quepierts.animata.core.property.Readable;
+import net.quepierts.animata.core.property.Writable;
 
-    void write(float[] pIn);
-
+public interface RuntimeField extends Readable, Writable {
     int getDimension();
 }

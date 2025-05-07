@@ -131,12 +131,21 @@ public class GenericAnimationCache implements AnimationCache {
     }
 
     @Override
-    public void addTransientNode(String pDomain, String pName, Property pProperty) {
+    public RegisterResult addTransientNode(String pDomain, String pName, Property pProperty) {
         if (pDomain == null || pDomain.isBlank()) {
-            throw new IllegalArgumentException("failed.empty_name");
+            return new RegisterResult(null, RegisterStatus.ILLEGAL_PATH, "failed.empty_name");
         }
         NamespaceNode domain = this.getTransientDomain(pDomain);
-        
+        Property property = domain.getChild(pName);
+        if (property != null) {
+            if (property.getClass() != pProperty.getClass()) {
+                return new RegisterResult(property, RegisterStatus.DUPLICATED_CONFLICT, "failed.duplicated");
+            } else {
+                return new RegisterResult(property, RegisterStatus.DUPLICATED_SAME, "failed.duplicated");
+            }
+        }
+        domain.addChild(pName, pProperty);
+        return new RegisterResult(pProperty, RegisterStatus.SUCCESS, "success");
     }
 
     @Override
@@ -144,8 +153,13 @@ public class GenericAnimationCache implements AnimationCache {
         if (pDomain == null || pDomain.isBlank()) {
             throw new IllegalArgumentException("failed.empty_name");
         }
-        
-        return null;
+
+        if (pName == null || pName.isBlank()) {
+            throw new IllegalArgumentException("failed.empty_name");
+        }
+
+        NamespaceNode domain = this.getTransientDomain(pDomain);
+        return domain.getChild(pName);
     }
 
     @Override

@@ -6,6 +6,7 @@ public interface Property extends PathResolvable {
     void fetch(float[] pOut);
 
     void write(float[] pValue);
+
     @Override
     Property getChild(String pChildName);
 

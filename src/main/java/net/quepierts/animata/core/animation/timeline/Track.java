@@ -1,11 +1,11 @@
 package net.quepierts.animata.core.animation.timeline;
 
-import net.quepierts.animata.core.animation.binding.Source;
+import net.quepierts.animata.core.animation.binding.AnimationClip;
 import net.quepierts.animata.core.animation.runtime.RuntimeContext;
 import net.quepierts.animata.core.data.Duration;
 import net.quepierts.animata.core.math.interpolate.Interpolator;
 
-public interface Track extends Source {
+public interface Track extends AnimationClip {
     @Override
     default void eval(float[] pBuffer, RuntimeContext pContext) {
         float time = pContext.getTime();

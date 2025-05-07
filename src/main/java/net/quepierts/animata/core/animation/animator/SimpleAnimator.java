@@ -1,7 +1,7 @@
 package net.quepierts.animata.core.animation.animator;
 
 import net.quepierts.animata.core.animation.cache.AnimationCache;
-import net.quepierts.animata.core.animation.Animation;
+import net.quepierts.animata.core.animation.AnimationSequence;
 import net.quepierts.animata.core.animation.Animator;
 import net.quepierts.animata.core.animation.runtime.AnimationInstance;
 import net.quepierts.animata.core.animation.target.Animatable;
@@ -22,9 +22,9 @@ public class SimpleAnimator implements Animator {
     }
 
     @Override
-    public void play(Animation pAnimation) {
+    public void play(AnimationSequence pAnimationSequence) {
         this.instance = new AnimationInstance(
-                pAnimation,
+                pAnimationSequence,
                 this.target,
                 this.cache,
                 0,

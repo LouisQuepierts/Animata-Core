@@ -94,8 +94,8 @@ public class AnimataSkeletonCache implements AnimationCache {
     }
 
     @Override
-    public void addTransientNode(String pDomain, String pName, Property pProperty) {
-        this.delegate.addTransientNode(pDomain, pName, pProperty);
+    public RegisterResult addTransientNode(String pDomain, String pName, Property pProperty) {
+        return this.delegate.addTransientNode(pDomain, pName, pProperty);
     }
 
     @Override

@@ -26,7 +26,7 @@ public interface AnimationCache {
 
     @NotNull NamespaceNode getTransientDomain(String pName);
 
-    void addTransientNode(String pDomain, String pName, Property pProperty);
+    RegisterResult addTransientNode(String pDomain, String pName, Property pProperty);
 
     Property getTransientNode(String pDomain, String pName);
 

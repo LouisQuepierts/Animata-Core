@@ -11,11 +11,11 @@ public class DirectBinding implements Binding {
     private final float[] source;
 
     public DirectBinding(
-            @NotNull Source pSource,
+            @NotNull AnimationClip pAnimationClip,
             @NotNull Property pProperty,
             @NotNull ValueBuffer pBuffer
     ) {
-        this.source = pBuffer.get(pSource);
+        this.source = pBuffer.get(pAnimationClip);
         this.node = pProperty;
     }
 

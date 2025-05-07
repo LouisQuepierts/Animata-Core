@@ -1,7 +1,7 @@
 package net.quepierts.animata.core.reference;
 
-import net.quepierts.animata.core.animation.Animation;
-import net.quepierts.animata.core.animation.timeline.ImmutableTimelineAnimation;
+import net.quepierts.animata.core.animation.AnimationSequence;
+import net.quepierts.animata.core.animation.timeline.ImmutableTimelineAnimationSequence;
 import net.quepierts.animata.core.animation.timeline.ImmutableTrack;
 import net.quepierts.animata.core.animation.timeline.VectorKeyFrame;
 import net.quepierts.animata.core.data.DataType;
@@ -9,7 +9,7 @@ import net.quepierts.animata.core.data.Duration;
 import net.quepierts.animata.core.data.ConstantVector;
 
 public class Animations {
-    public static final Animation TIMELINE = ImmutableTimelineAnimation.of(
+    public static final AnimationSequence TIMELINE = ImmutableTimelineAnimationSequence.of(
             ImmutableTrack.of(
                     "root.body",
                     DataType.FLOAT3,
