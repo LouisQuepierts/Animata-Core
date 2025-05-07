@@ -52,7 +52,7 @@ public class Vector3fNode extends AbstractAnimationCacheNode {
     }
 
     @Override
-    public void get(float[] pOut) {
+    public void fetch(float[] pOut) {
         pOut[0] = this.cache.x;
         pOut[1] = this.cache.y;
         pOut[2] = this.cache.z;
@@ -83,7 +83,7 @@ public class Vector3fNode extends AbstractAnimationCacheNode {
         }
 
         @Override
-        public void get(float[] pOut) {
+        public void fetch(float[] pOut) {
             switch (this.component) {
                 case 'x' -> pOut[0] = this.bound.x;
                 case 'y' -> pOut[0] = this.bound.y;

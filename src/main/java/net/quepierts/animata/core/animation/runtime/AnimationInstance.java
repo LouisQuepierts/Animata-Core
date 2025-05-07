@@ -1,15 +1,15 @@
-package net.quepierts.animata.core.animation;
+package net.quepierts.animata.core.animation.runtime;
 
-import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.quepierts.animata.core.animation.Animation;
 import net.quepierts.animata.core.animation.binding.DirectBinding;
 import net.quepierts.animata.core.animation.cache.*;
 import net.quepierts.animata.core.animation.target.Animatable;
 import net.quepierts.animata.core.animation.binding.Binding;
 import net.quepierts.animata.core.animation.binding.Source;
-import net.quepierts.animata.core.animation.binding.factories.CascadeSourceFactory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -22,9 +22,12 @@ public class AnimationInstance {
 
     private final Animation animation;
     private final AnimationCache cache;
+    private final RuntimeContext context;
 
-    private float lastTick;
-    private float timer;
+    @Getter private final int animationID;
+    @Getter private final String domainName;
+
+    private float lastTime;
 
     private boolean updated = false;
 
@@ -32,34 +35,40 @@ public class AnimationInstance {
             @NotNull Animation pAnimation,
             @NotNull Animatable pTarget,
             @NotNull AnimationCache pCache,
-            @NotNull ImmutableList<CascadeSourceFactory> pFactories,
+            int animationID,
             float pStartTick
     ) {
         this.animation = pAnimation;
         this.cache = pCache;
-        this.lastTick = pStartTick;
+        this.animationID = animationID;
+        this.lastTime = pStartTick;
 
-        this.init(pFactories);
+        this.domainName = animationID < 1 ? "instance" : String.format("instance%02x", this.animationID);
+        this.context = this.init();
     }
 
     public void reset() {
-
+        this.cache.reset();
+        this.context.setTime(0);
+        this.updated = false;
     }
 
-    public void tick(float pCurrentTime) {
-        float delta = pCurrentTime - this.lastTick;
+    public void update(float pCurrentTime) {
+        float delta = pCurrentTime - this.lastTime;
+        float time = this.context.getTime();
 
         if (delta > 0) {
-            this.timer += delta;
+            this.context.setTime(time + delta);
             this.updated = true;
-            this.buffer.eval(this.timer);
+            this.animation.update(this.context);
+            this.buffer.eval(this.context);
         }
         // loop for debug
-        if (this.animation.isFinished(this.timer)) {
-            this.timer = 0;
+        if (this.animation.isFinished(time)) {
+            this.context.setTime(0);
         }
 
-        this.lastTick = pCurrentTime;
+        this.lastTime = pCurrentTime;
     }
 
     public void apply() {
@@ -72,13 +81,28 @@ public class AnimationInstance {
     }
 
     public boolean isRunning() {
-        return this.animation != null && !this.animation.isFinished(this.timer);
+        return this.animation != null && !this.animation.isFinished(this.context.getTime());
     }
 
-    private void init(@NotNull ImmutableList<CascadeSourceFactory> pFactories) {
-//        PathNode root = this.buildPathTree(pFactories);
-//        this.registerSources(root, pFactories);
-//        this.buildBindings(root);
+    private RuntimeContext init() {
+        this.cache.getTransientDomain(this.domainName);
+
+        RuntimeContext.Builder builder = new RuntimeContext.Builder(this.cache);
+
+        List<RequiredField> requiredFields = new ObjectArrayList<>();
+        this.animation.getRequiredFields(requiredFields);
+
+        for (RequiredField field : requiredFields) {
+            AnimationCacheNode node = this.cache.getCacheNode(field.name());
+
+            if (node == null) {
+                if (field.type() == RequiredField.Type.READ) {
+                    builder.value(field.name(), field.defaultValue());
+                } else {
+
+                }
+            }
+        }
 
         List<Source> sources = new ObjectArrayList<>();
         this.animation.getSources(sources);
@@ -108,5 +132,7 @@ public class AnimationInstance {
                 log.warn("Source {} is not bound to any cache node, ignoring source.", source.getName());
             }
         }
+
+        return builder.build();
     }
 }

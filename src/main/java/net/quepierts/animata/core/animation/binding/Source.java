@@ -1,11 +1,13 @@
 package net.quepierts.animata.core.animation.binding;
 
+import net.quepierts.animata.core.animation.runtime.RuntimeContext;
+
 import java.util.Arrays;
 
 public interface Source {
     Source ONE = new Source() {
         @Override
-        public void eval(float[] pBuffer, float time) {
+        public void eval(float[] pBuffer, RuntimeContext pContext) {
             Arrays.fill(pBuffer, 1f);
         }
 
@@ -20,7 +22,7 @@ public interface Source {
         }
     };
 
-    void eval(float[] pBuffer, float time);
+    void eval(float[] pBuffer, RuntimeContext time);
 
     int getDimension();
 

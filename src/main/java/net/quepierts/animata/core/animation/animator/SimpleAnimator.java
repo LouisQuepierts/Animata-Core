@@ -2,9 +2,9 @@ package net.quepierts.animata.core.animation.animator;
 
 import com.google.common.collect.ImmutableList;
 import net.quepierts.animata.core.animation.cache.AnimationCache;
-import net.quepierts.animata.core.animation.AnimationInstance;
 import net.quepierts.animata.core.animation.Animation;
 import net.quepierts.animata.core.animation.Animator;
+import net.quepierts.animata.core.animation.runtime.AnimationInstance;
 import net.quepierts.animata.core.animation.target.Animatable;
 import net.quepierts.animata.core.animation.binding.factories.CascadeSourceFactory;
 import net.quepierts.animata.core.animation.binding.factories.EnableSourceFactory;
@@ -36,7 +36,7 @@ public class SimpleAnimator implements Animator {
                 pAnimation,
                 this.target,
                 this.cache,
-                this.factories,
+                0,
                 this.timer.getCountedTime()
         );
     }
@@ -54,7 +54,7 @@ public class SimpleAnimator implements Animator {
         }
 
         float ticks = this.timer.getCountedTime();
-        this.instance.tick(ticks);
+        this.instance.update(ticks);
     }
 
     @Override

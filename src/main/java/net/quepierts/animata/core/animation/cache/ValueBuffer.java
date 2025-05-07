@@ -1,6 +1,7 @@
 package net.quepierts.animata.core.animation.cache;
 
 import net.quepierts.animata.core.animation.binding.Source;
+import net.quepierts.animata.core.animation.runtime.RuntimeContext;
 
 import java.util.IdentityHashMap;
 import java.util.Map;
@@ -8,9 +9,9 @@ import java.util.Map;
 public class ValueBuffer {
     private final Map<Source, float[]> buffer = new IdentityHashMap<>();
 
-    public void eval(float pTime) {
+    public void eval(RuntimeContext pContext) {
         for (Map.Entry<Source, float[]> entry : this.buffer.entrySet()) {
-            entry.getKey().eval(entry.getValue(), pTime);
+            entry.getKey().eval(entry.getValue(), pContext);
         }
     }
 

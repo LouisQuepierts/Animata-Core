@@ -67,6 +67,10 @@ public class GenericAnimationCache implements AnimationCache {
             return new RegisterResult(pNode, RegisterStatus.ILLEGAL_PATH, "failed.empty_name");
         }
 
+        if (pNamespace.equals(RUNTIME)) {
+            return new RegisterResult(null, RegisterStatus.SYSTEM_REGISTERED, "failed.runtime_namespace");
+        }
+        
         NamespaceNode namespace = this.namespaces.computeIfAbsent(pNamespace, NamespaceNode::new);
         AnimationCacheNode registered = namespace.getChild(pName);
 
@@ -108,8 +112,58 @@ public class GenericAnimationCache implements AnimationCache {
     }
 
     @Override
-    public void reset() {
+    public @NotNull NamespaceNode getTransientDomain(String pName) {
+        if (pName == null || pName.isBlank()) {
+            throw new IllegalArgumentException("failed.empty_name");
+        }
+        
+        NamespaceNode runtime = this.namespaces.computeIfAbsent(AnimationCache.RUNTIME, NamespaceNode::new);
+        AnimationCacheNode domain = runtime.getChild(pName);
+        if (domain instanceof NamespaceNode node) {
+            return node;
+        }
+        NamespaceNode node = new NamespaceNode(pName);
+        runtime.addChild(pName, node);
+        return node;
+    }
 
+    @Override
+    public void addTransientNode(String pDomain, String pName, AnimationCacheNode pNode) {
+        if (pDomain == null || pDomain.isBlank()) {
+            throw new IllegalArgumentException("failed.empty_name");
+        }
+        NamespaceNode domain = this.getTransientDomain(pDomain);
+        
+    }
+
+    @Override
+    public AnimationCacheNode getTransientNode(String pDomain, String pName) {
+        if (pDomain == null || pDomain.isBlank()) {
+            throw new IllegalArgumentException("failed.empty_name");
+        }
+        
+        return null;
+    }
+
+    @Override
+    public void dispose(String pRuntimeDomain) {
+        if (pRuntimeDomain == null || pRuntimeDomain.isBlank()) {
+            this.namespaces.remove(RUNTIME);
+        } else {
+            NamespaceNode runtime = this.namespaces.get(RUNTIME);
+            if (runtime != null) {
+                runtime.dispose(pRuntimeDomain);
+            }
+        }
+    }
+
+    @Override
+    public void reset() {
+        NamespaceNode node = this.namespaces.get(RUNTIME);
+        if (node != null) {
+            node.dispose("");
+        }
+        this.namespaces.remove(RUNTIME);
     }
 
     @Override

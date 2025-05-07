@@ -61,7 +61,7 @@ public class VectorNode implements AnimationCacheNode {
     }
 
     @Override
-    public void get(float[] pOut) {
+    public void fetch(float[] pOut) {
         System.arraycopy(this.cache, 0, pOut, 0, Math.min(this.cache.length, pOut.length));
     }
 
@@ -86,7 +86,7 @@ public class VectorNode implements AnimationCacheNode {
         }
 
         @Override
-        public void get(float[] pOut) {
+        public void fetch(float[] pOut) {
             pOut[0] = this.parent.cache[this.index];
         }
     }

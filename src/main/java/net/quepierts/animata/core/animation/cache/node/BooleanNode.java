@@ -29,7 +29,7 @@ public class BooleanNode extends AbstractAnimationCacheNode implements Toggleabl
     }
 
     @Override
-    public void get(float[] pOut) {
+    public void fetch(float[] pOut) {
         pOut[0] = this.enabled ? 1.0f : 0.0f;
     }
 }

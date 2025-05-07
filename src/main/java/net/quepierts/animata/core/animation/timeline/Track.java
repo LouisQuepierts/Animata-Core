@@ -1,19 +1,22 @@
 package net.quepierts.animata.core.animation.timeline;
 
 import net.quepierts.animata.core.animation.binding.Source;
+import net.quepierts.animata.core.animation.runtime.RuntimeContext;
 import net.quepierts.animata.core.data.Duration;
 import net.quepierts.animata.core.math.interpolate.Interpolator;
 
 public interface Track extends Source {
     @Override
-    default void eval(float[] pBuffer, float pTime) {
-        int lower = this.getLowerIndex(pTime);
-        int upper = this.getUpperIndex(pTime);
+    default void eval(float[] pBuffer, RuntimeContext pContext) {
+        float time = pContext.getTime();
 
-        VectorKeyFrame last = this.getLowerEntry(pTime);
-        VectorKeyFrame next = this.getUpperEntry(pTime);
+        int lower = this.getLowerIndex(time);
+        int upper = this.getUpperIndex(time);
 
-        float delta = Math.clamp((pTime - last.getTime()) / (next.getTime() - last.getTime()), 0f, 1f);
+        VectorKeyFrame last = this.getLowerEntry(time);
+        VectorKeyFrame next = this.getUpperEntry(time);
+
+        float delta = Math.clamp((time - last.getTime()) / (next.getTime() - last.getTime()), 0f, 1f);
 
         Interpolator interpolator = last.interpolator().select(next.interpolator());
         interpolator.accept(pBuffer, this, lower, upper, delta);

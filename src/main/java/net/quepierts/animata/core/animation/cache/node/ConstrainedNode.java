@@ -45,7 +45,7 @@ public class ConstrainedNode<T extends AnimationCacheNode> extends AbstractAnima
     }
 
     @Override
-    public void get(float[] pOut) {
-        this.wrapped.get(pOut);
+    public void fetch(float[] pOut) {
+        this.wrapped.fetch(pOut);
     }
 }

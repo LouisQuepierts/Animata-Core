@@ -1,6 +1,7 @@
 package net.quepierts.animata.core.animation.binding;
 
 import lombok.Getter;
+import net.quepierts.animata.core.animation.runtime.RuntimeContext;
 
 import java.util.Arrays;
 
@@ -17,7 +18,7 @@ public class ConstantSource implements Source {
     }
 
     @Override
-    public void eval(float[] pBuffer, float time) {
+    public void eval(float[] pBuffer, RuntimeContext pContext) {
         Arrays.fill(pBuffer, this.value);
     }
 

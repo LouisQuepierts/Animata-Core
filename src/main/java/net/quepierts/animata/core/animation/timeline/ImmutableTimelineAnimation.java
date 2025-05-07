@@ -11,6 +11,7 @@ import net.quepierts.animata.core.animation.binding.Source;
 import net.quepierts.animata.core.data.Duration;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collection;
 import java.util.List;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -38,7 +39,7 @@ public class ImmutableTimelineAnimation implements Animation {
     }
 
     @Override
-    public void getSources(List<Source> pOut) {
+    public void getSources(Collection<Source> pOut) {
         pOut.addAll(this.tracks);
     }
 

@@ -13,13 +13,13 @@ import org.joml.Vector3f;
 import java.util.Map;
 
 public class AnimataSkeletonCache implements AnimationCache {
-    private final GenericAnimationCache cache;
+    private final GenericAnimationCache delegate;
     private final AnimataSkeleton skeleton;
 
     private final CacheEntry[] bones;
 
     public AnimataSkeletonCache(@NotNull AnimataSkeleton pSkeleton) {
-        this.cache = new GenericAnimationCache("skeleton");
+        this.delegate = new GenericAnimationCache("skeleton");
         this.skeleton = pSkeleton;
 
         ImmutableList<AnimataBone> bones = this.skeleton.getBones();
@@ -27,7 +27,7 @@ public class AnimataSkeletonCache implements AnimationCache {
 
         this.bones[0] = new CacheEntry(this.skeleton.getRoot());
 
-        this.cache.register(AnimataSkeleton.IDENTIFIER_ROOT, this.bones[0]);
+        this.delegate.register(AnimataSkeleton.IDENTIFIER_ROOT, this.bones[0]);
 
         for (int i = 1; i < bones.size(); i++) {
             AnimataBone bone = bones.get(i);
@@ -35,7 +35,7 @@ public class AnimataSkeletonCache implements AnimationCache {
 
             assert bone.getParent() != null;
             String parent = bone.getParent().getName();
-            this.cache.register(parent, bone.getName(), this.bones[i]);
+            this.delegate.register(parent, bone.getName(), this.bones[i]);
 
             int parentIndex = this.skeleton.getChildIndex(parent);
             this.bones[i].parent = this.bones[parentIndex];
@@ -44,21 +44,22 @@ public class AnimataSkeletonCache implements AnimationCache {
 
     @Override
     public RegisterResult register(String pName, AnimationCacheNode pNode) {
-        return this.cache.register(pName, pNode);
+        return this.delegate.register(pName, pNode);
     }
 
     @Override
     public RegisterResult register(String pParent, String pName, AnimationCacheNode pNode) {
-        return this.cache.register(pParent, pName, pNode);
+        return this.delegate.register(pParent, pName, pNode);
     }
 
     @Override
     public RegisterResult registerNamespaced(String pNamespace, String pName, AnimationCacheNode pNode) {
-        return this.cache.registerNamespaced(pNamespace, pName, pNode);
+        return this.delegate.registerNamespaced(pNamespace, pName, pNode);
     }
 
     @Override
     public void reset() {
+        this.delegate.reset();
         for (CacheEntry bone : this.bones) {
             bone.reset();
         }
@@ -66,6 +67,7 @@ public class AnimataSkeletonCache implements AnimationCache {
 
     @Override
     public void apply() {
+        this.delegate.reset();
         for (CacheEntry bone : this.bones) {
             bone.apply();
         }
@@ -73,17 +75,37 @@ public class AnimataSkeletonCache implements AnimationCache {
 
     @Override
     public void freezeRegistry() {
-        this.cache.freezeRegistry();
+        this.delegate.freezeRegistry();
     }
 
     @Override
     public boolean isRegistryFrozen() {
-        return this.cache.isRegistryFrozen();
+        return this.delegate.isRegistryFrozen();
     }
 
     @Override
     public AnimationCacheNode getCacheNode(String pPath) {
-        return this.cache.getCacheNode(pPath);
+        return this.delegate.getCacheNode(pPath);
+    }
+
+    @Override
+    public @NotNull NamespaceNode getTransientDomain(String pName) {
+        return this.delegate.getTransientDomain(pName);
+    }
+
+    @Override
+    public void addTransientNode(String pDomain, String pName, AnimationCacheNode pNode) {
+        this.delegate.addTransientNode(pDomain, pName, pNode);
+    }
+
+    @Override
+    public AnimationCacheNode getTransientNode(String pDomain, String pName) {
+        return this.delegate.getTransientNode(pDomain, pName);
+    }
+
+    @Override
+    public void dispose(String pRuntimeDomain) {
+        this.delegate.dispose(pRuntimeDomain);
     }
 
     private static final class CacheEntry
@@ -254,7 +276,7 @@ public class AnimataSkeletonCache implements AnimationCache {
         }
 
         @Override
-        public void get(float[] pOut) {
+        public void fetch(float[] pOut) {
 
         }
     }

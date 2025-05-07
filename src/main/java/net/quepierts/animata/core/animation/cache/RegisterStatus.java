@@ -9,7 +9,8 @@ public enum RegisterStatus {
     DUPLICATED_SAME(false, true),
     DUPLICATED_CONFLICT(false, true),
     ILLEGAL_PATH(false, false),
-    ILLEGAL_OPERATION(false, false);
+    ILLEGAL_OPERATION(false, false),
+    SYSTEM_REGISTERED(false, false);
 
     private final boolean success;
     private final boolean hasResult;

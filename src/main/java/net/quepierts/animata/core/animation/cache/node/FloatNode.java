@@ -28,7 +28,7 @@ public class FloatNode extends AbstractAnimationCacheNode {
     }
 
     @Override
-    public void get(float[] pOut) {
+    public void fetch(float[] pOut) {
         pOut[0] = this.value;
     }
 }
