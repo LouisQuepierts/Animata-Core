@@ -1,4 +1,4 @@
-package net.quepierts.animata.core.animation.path;
+package net.quepierts.animata.core.path;
 
 import lombok.AccessLevel;
 import lombok.Getter;

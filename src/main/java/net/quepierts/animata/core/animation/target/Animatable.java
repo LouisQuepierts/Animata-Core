@@ -1,6 +1,6 @@
 package net.quepierts.animata.core.animation.target;
 
-import net.quepierts.animata.core.animation.path.PathResolvable;
+import net.quepierts.animata.core.path.PathResolvable;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;

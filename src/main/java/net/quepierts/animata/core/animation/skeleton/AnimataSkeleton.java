@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import net.quepierts.animata.core.animation.cache.AnimationCache;
 import net.quepierts.animata.core.animation.cache.AnimationCacheProvider;
-import net.quepierts.animata.core.animation.path.PathResolvable;
+import net.quepierts.animata.core.path.PathResolvable;
 import net.quepierts.animata.core.animation.target.Animatable;
 import net.quepierts.animata.core.math.transform.Transformable;
 import net.quepierts.animata.core.math.transform.Transform;
