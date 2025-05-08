@@ -1,6 +1,7 @@
 package net.quepierts.animata.core.property;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import net.quepierts.animata.core.path.PathResolver;
 
 import java.util.Map;
 
@@ -12,7 +13,19 @@ public class NamespaceNode extends AbstractProperty implements ChildrenContained
     }
 
     public Property getChild(String pChildName) {
-        return this.children.get(pChildName);
+        Property direct = this.children.get(pChildName);
+        if (direct != null) {
+            return direct;
+        }
+
+        if (pChildName.indexOf('.') > -1) {
+            PathResolver.Result result = PathResolver.resolve(pChildName, this);
+            if (result.getTarget() instanceof Property property) {
+                return property;
+            }
+        }
+
+        return null;
     }
 
     @Override

@@ -8,11 +8,11 @@ public interface AnimationCache {
     String INPUT_NAMESPACE = "input";
     String RUNTIME = "runtime";
 
-    RegisterResult register(String pName, Property pProperty);
+    RegisterResult register(@NotNull String pName, @NotNull Property pProperty);
 
-    RegisterResult register(String pParent, String pName, Property pProperty);
+    RegisterResult register(@NotNull String pParent, @NotNull String pName, @NotNull Property pProperty);
 
-    RegisterResult registerNamespaced(String pNamespace, String pName, Property pProperty);
+    RegisterResult registerNamespaced(@NotNull String pNamespace, @NotNull String pName, @NotNull Property pProperty);
 
     void reset();
 
@@ -22,13 +22,13 @@ public interface AnimationCache {
 
     boolean isRegistryFrozen();
 
-    Property getCacheNode(String pPath);
+    Property getCacheProperty(@NotNull String pPath);
 
-    @NotNull NamespaceNode getTransientDomain(String pName);
+    @NotNull NamespaceNode getTransientDomain(@NotNull String pName);
 
-    RegisterResult addTransientNode(String pDomain, String pName, Property pProperty);
+    RegisterResult addTransientProperty(@NotNull String pDomain, @NotNull String pName, @NotNull Property pProperty);
 
-    Property getTransientNode(String pDomain, String pName);
+    Property getTransientProperty(@NotNull String pDomain, @NotNull String pName);
 
     void dispose(String pRuntimeDomain);
 }

@@ -7,9 +7,4 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public abstract class AbstractProperty implements Property {
     private final String name;
-
-    @Override
-    public Property getChild(String pChildName) {
-        return null;
-    }
 }

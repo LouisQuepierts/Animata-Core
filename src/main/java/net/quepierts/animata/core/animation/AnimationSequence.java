@@ -1,30 +1,32 @@
 package net.quepierts.animata.core.animation;
 
+import net.quepierts.animata.core.animation.runtime.RequiredFieldProvider;
 import net.quepierts.animata.core.animation.runtime.RuntimeContext;
-import net.quepierts.animata.core.animation.binding.AnimationClip;
 import net.quepierts.animata.core.animation.runtime.RequiredField;
 import net.quepierts.animata.core.data.Duration;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
-import java.util.List;
 
-public interface AnimationSequence {
-    default boolean isFinished(float pTime) {
-        return pTime >= this.getLength().getTick();
+public interface AnimationSequence
+        extends RequiredFieldProvider {
+    default boolean isFinished(RuntimeContext pContext) {
+        return pContext.getTime() >= this.getLength().getTick();
     }
 
-    default void getRequiredFields(List<RequiredField> pOut) {
+    @Override
+    default void getRequiredFields(@NotNull Collection<RequiredField> pOut) {
 
     }
 
-    default void update(RuntimeContext pContext) {
+    default void update(@NotNull RuntimeContext pContext) {
 
     }
 
     Duration getLength();
 
-    void getAnimationClips(Collection<AnimationClip> pOut);
+    void getAnimationClips(@NotNull Collection<AnimationClip> pOut);
 
-    @Nullable AnimationClip getAnimationClip(String name);
+    @Nullable AnimationClip getAnimationClip(@NotNull String name);
 }

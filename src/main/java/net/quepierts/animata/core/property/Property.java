@@ -8,7 +8,9 @@ public interface Property extends PathResolvable {
     void write(float[] pValue);
 
     @Override
-    Property getChild(String pChildName);
+    default Property getChild(String pChildName) {
+        return null;
+    }
 
     default int getDimension() {
         return 0;

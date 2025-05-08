@@ -43,17 +43,17 @@ public class AnimataSkeletonCache implements AnimationCache {
     }
 
     @Override
-    public RegisterResult register(String pName, Property pProperty) {
+    public RegisterResult register(@NotNull String pName, @NotNull Property pProperty) {
         return this.delegate.register(pName, pProperty);
     }
 
     @Override
-    public RegisterResult register(String pParent, String pName, Property pProperty) {
+    public RegisterResult register(@NotNull String pParent, @NotNull String pName, @NotNull Property pProperty) {
         return this.delegate.register(pParent, pName, pProperty);
     }
 
     @Override
-    public RegisterResult registerNamespaced(String pNamespace, String pName, Property pProperty) {
+    public RegisterResult registerNamespaced(@NotNull String pNamespace, @NotNull String pName, @NotNull Property pProperty) {
         return this.delegate.registerNamespaced(pNamespace, pName, pProperty);
     }
 
@@ -84,23 +84,23 @@ public class AnimataSkeletonCache implements AnimationCache {
     }
 
     @Override
-    public Property getCacheNode(String pPath) {
-        return this.delegate.getCacheNode(pPath);
+    public Property getCacheProperty(@NotNull String pPath) {
+        return this.delegate.getCacheProperty(pPath);
     }
 
     @Override
-    public @NotNull NamespaceNode getTransientDomain(String pName) {
+    public @NotNull NamespaceNode getTransientDomain(@NotNull String pName) {
         return this.delegate.getTransientDomain(pName);
     }
 
     @Override
-    public RegisterResult addTransientNode(String pDomain, String pName, Property pProperty) {
-        return this.delegate.addTransientNode(pDomain, pName, pProperty);
+    public RegisterResult addTransientProperty(@NotNull String pDomain, @NotNull String pName, @NotNull Property pProperty) {
+        return this.delegate.addTransientProperty(pDomain, pName, pProperty);
     }
 
     @Override
-    public Property getTransientNode(String pDomain, String pName) {
-        return this.delegate.getTransientNode(pDomain, pName);
+    public Property getTransientProperty(@NotNull String pDomain, @NotNull String pName) {
+        return this.delegate.getTransientProperty(pDomain, pName);
     }
 
     @Override

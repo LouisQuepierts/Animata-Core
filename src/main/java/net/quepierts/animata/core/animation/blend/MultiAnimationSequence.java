@@ -4,8 +4,9 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import lombok.Getter;
 import net.quepierts.animata.core.animation.AnimationSequence;
-import net.quepierts.animata.core.animation.binding.AnimationClip;
+import net.quepierts.animata.core.animation.AnimationClip;
 import net.quepierts.animata.core.data.Duration;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -37,12 +38,12 @@ public class MultiAnimationSequence implements AnimationSequence {
     }
 
     @Override
-    public void getAnimationClips(Collection<AnimationClip> pOut) {
+    public void getAnimationClips(@NotNull Collection<AnimationClip> pOut) {
 
     }
 
     @Override
-    public @Nullable AnimationClip getAnimationClip(String name) {
+    public @Nullable AnimationClip getAnimationClip(@NotNull String name) {
         return null;
     }
 }

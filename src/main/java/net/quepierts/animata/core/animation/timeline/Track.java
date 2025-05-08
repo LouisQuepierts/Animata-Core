@@ -1,6 +1,6 @@
 package net.quepierts.animata.core.animation.timeline;
 
-import net.quepierts.animata.core.animation.binding.AnimationClip;
+import net.quepierts.animata.core.animation.AnimationClip;
 import net.quepierts.animata.core.animation.runtime.RuntimeContext;
 import net.quepierts.animata.core.data.Duration;
 import net.quepierts.animata.core.math.interpolate.Interpolator;

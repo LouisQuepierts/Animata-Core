@@ -7,8 +7,9 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.quepierts.animata.core.animation.AnimationSequence;
-import net.quepierts.animata.core.animation.binding.AnimationClip;
+import net.quepierts.animata.core.animation.AnimationClip;
 import net.quepierts.animata.core.data.Duration;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -38,12 +39,12 @@ public class ImmutableTimelineAnimationSequence implements AnimationSequence {
     }
 
     @Override
-    public void getAnimationClips(Collection<AnimationClip> pOut) {
+    public void getAnimationClips(@NotNull Collection<AnimationClip> pOut) {
         pOut.addAll(this.tracks);
     }
 
     @Override
-    public @Nullable AnimationClip getAnimationClip(String name) {
+    public @Nullable AnimationClip getAnimationClip(@NotNull String name) {
         int i = this.keys.getOrDefault(name, -1);
         return i != -1 ? this.tracks.get(i) : null;
     }

@@ -12,20 +12,8 @@ public class PathResolver {
     ) {
         if (pPath.isBlank()) return Result.EMPTY;
 
-        int colon = pPath.indexOf(':');
-
+        String[] names = pPath.split("\\.");
         PathResolvable target = pRoot;
-        String path = pPath;
-        if (colon != -1) {
-            String name = pPath.substring(0, colon);
-            if (!name.equals(target.getName())) {
-                return Result.EMPTY;
-            }
-
-            path = pPath.substring(colon + 1);
-        }
-
-        String[] names = path.split("\\.");
         int i = 0;
 
         while (i < names.length) {

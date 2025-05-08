@@ -26,12 +26,15 @@ public class GenericAnimationCache implements AnimationCache {
         this.namespaces.put(useDomain, user);
     }
 
-    public RegisterResult register(String pName, Property pProperty) {
+    public RegisterResult register(
+            @NotNull String pName,
+            @NotNull Property pProperty
+    ) {
         if (this.registryFrozen) {
             return new RegisterResult(null, RegisterStatus.ILLEGAL_OPERATION, "failed.registry_frozen");
         }
 
-        if (pName == null || pName.isBlank()) {
+        if (pName.isBlank()) {
             return new RegisterResult(null, RegisterStatus.ILLEGAL_PATH, "failed.empty_name");
         }
 
@@ -40,7 +43,11 @@ public class GenericAnimationCache implements AnimationCache {
         return this.registerNamespaced(namespace, name, pProperty);
     }
 
-    public RegisterResult register(String pParent, String pName, Property pProperty) {
+    public RegisterResult register(
+            @NotNull String pParent,
+            @NotNull String pName,
+            @NotNull Property pProperty
+    ) {
         if (this.registryFrozen) {
             return new RegisterResult(null, RegisterStatus.ILLEGAL_OPERATION, "failed.registry_frozen");
         }
@@ -61,12 +68,16 @@ public class GenericAnimationCache implements AnimationCache {
         return result;
     }
 
-    public RegisterResult registerNamespaced(String pNamespace, String pName, Property pProperty) {
+    public RegisterResult registerNamespaced(
+            @NotNull String pNamespace,
+            @NotNull String pName,
+            @NotNull Property pProperty
+    ) {
         if (this.registryFrozen) {
             return new RegisterResult(null, RegisterStatus.ILLEGAL_OPERATION, "failed.registry_frozen");
         }
 
-        if (pNamespace == null || pNamespace.isBlank()) {
+        if (pNamespace.isBlank()) {
             return new RegisterResult(pProperty, RegisterStatus.ILLEGAL_PATH, "failed.empty_name");
         }
 
@@ -90,8 +101,8 @@ public class GenericAnimationCache implements AnimationCache {
     }
 
     @Override
-    public Property getCacheNode(String pPath) {
-        if (pPath == null || pPath.isBlank()) return null;
+    public Property getCacheProperty(@NotNull String pPath) {
+        if (pPath.isBlank()) return null;
 
         String[] names = pPath.split("\\.");
         Property node = this.getNode(names[0]);
@@ -115,8 +126,8 @@ public class GenericAnimationCache implements AnimationCache {
     }
 
     @Override
-    public @NotNull NamespaceNode getTransientDomain(String pName) {
-        if (pName == null || pName.isBlank()) {
+    public @NotNull NamespaceNode getTransientDomain(@NotNull String pName) {
+        if (pName.isBlank()) {
             throw new IllegalArgumentException("failed.empty_name");
         }
         
@@ -131,10 +142,15 @@ public class GenericAnimationCache implements AnimationCache {
     }
 
     @Override
-    public RegisterResult addTransientNode(String pDomain, String pName, Property pProperty) {
-        if (pDomain == null || pDomain.isBlank()) {
+    public RegisterResult addTransientProperty(
+            @NotNull String pDomain,
+            @NotNull String pName,
+            @NotNull Property pProperty
+    ) {
+        if (pDomain.isBlank()) {
             return new RegisterResult(null, RegisterStatus.ILLEGAL_PATH, "failed.empty_name");
         }
+
         NamespaceNode domain = this.getTransientDomain(pDomain);
         Property property = domain.getChild(pName);
         if (property != null) {
@@ -144,17 +160,21 @@ public class GenericAnimationCache implements AnimationCache {
                 return new RegisterResult(property, RegisterStatus.DUPLICATED_SAME, "failed.duplicated");
             }
         }
+
         domain.addChild(pName, pProperty);
         return new RegisterResult(pProperty, RegisterStatus.SUCCESS, "success");
     }
 
     @Override
-    public Property getTransientNode(String pDomain, String pName) {
-        if (pDomain == null || pDomain.isBlank()) {
+    public Property getTransientProperty(
+            @NotNull String pDomain,
+            @NotNull String pName
+    ) {
+        if (pDomain.isBlank()) {
             throw new IllegalArgumentException("failed.empty_name");
         }
 
-        if (pName == null || pName.isBlank()) {
+        if (pName.isBlank()) {
             throw new IllegalArgumentException("failed.empty_name");
         }
 

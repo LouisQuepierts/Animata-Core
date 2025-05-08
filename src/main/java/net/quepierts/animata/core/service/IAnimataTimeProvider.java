@@ -7,6 +7,8 @@ import net.quepierts.animata.core.service.loader.Singleton;
 public interface IAnimataTimeProvider {
     float getCountedTime();
 
+    boolean isPaused();
+
     @ServiceEnvironment(ServiceEnvironment.Environment.CLIENT)
     interface Client extends IAnimataTimeProvider {
 

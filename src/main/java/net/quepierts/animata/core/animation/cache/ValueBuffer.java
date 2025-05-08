@@ -1,6 +1,6 @@
 package net.quepierts.animata.core.animation.cache;
 
-import net.quepierts.animata.core.animation.binding.AnimationClip;
+import net.quepierts.animata.core.animation.AnimationClip;
 import net.quepierts.animata.core.animation.runtime.RuntimeContext;
 
 import java.util.IdentityHashMap;
@@ -16,12 +16,14 @@ public class ValueBuffer {
     }
 
     public void register(AnimationClip pAnimationClip) {
-        if (!this.buffer.containsKey(pAnimationClip)) {
-            this.buffer.put(pAnimationClip, new float[pAnimationClip.getDimension()]);
-        }
+        this.buffer.computeIfAbsent(pAnimationClip, clip -> new float[clip.getDimension()]);
     }
 
     public float[] get(AnimationClip pAnimationClip) {
         return this.buffer.get(pAnimationClip);
+    }
+
+    public void release() {
+        this.buffer.clear();
     }
 }

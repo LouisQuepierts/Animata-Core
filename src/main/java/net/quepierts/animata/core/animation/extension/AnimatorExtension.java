@@ -1,23 +1,24 @@
 package net.quepierts.animata.core.animation.extension;
 
-import net.quepierts.animata.core.animation.AnimationSequence;
-import net.quepierts.animata.core.animation.Animator;
+import net.quepierts.animata.core.animation.animator.Animator;
 import net.quepierts.animata.core.animation.cache.AnimationCacheRegistrar;
 
-public interface AnimatorExtension extends Comparable<AnimatorExtension> {
-    default void onRegister(Animator pAnimator, AnimationCacheRegistrar pCacheRegistrar) {}
+@SuppressWarnings({"unused", "rawtypes"})
+public interface AnimatorExtension<TAnimator extends Animator<TKey, TAnimation>, TKey, TAnimation>
+        extends Comparable<AnimatorExtension> {
+    default void onRegister(TAnimator pAnimator, AnimationCacheRegistrar pCacheRegistrar) {}
 
-    default void onPlay(Animator pAnimator, AnimationSequence pAnimationSequence, float pGlobalTime) {}
+    default void onPlay(TAnimator pAnimator, TAnimation pAnimationSequence, float pGlobalTime) {}
 
-    default void onPreUpdate(Animator pAnimator, float pGlobalTime) {}
+    default void onPreUpdate(TAnimator pAnimator, float pGlobalTime) {}
 
-    default void onPostUpdate(Animator pAnimator, float pGlobalTime) {}
+    default void onPostUpdate(TAnimator pAnimator, float pGlobalTime) {}
 
-    default void onPreApply(Animator pAnimator) {}
+    default void onPreApply(TAnimator pAnimator) {}
 
-    default void onPostApply(Animator pAnimator) {}
+    default void onPostApply(TAnimator pAnimator) {}
 
-    default void onStop(Animator pAnimator) {}
+    default void onStop(TAnimator pAnimator) {}
 
     default int getPriority() {
         return 0;

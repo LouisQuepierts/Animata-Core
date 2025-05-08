@@ -1,6 +1,7 @@
 package net.quepierts.animata.core.animation.binding;
 
 import lombok.AllArgsConstructor;
+import net.quepierts.animata.core.animation.AnimationClip;
 import net.quepierts.animata.core.property.Property;
 import net.quepierts.animata.core.animation.cache.ValueBuffer;
 import org.jetbrains.annotations.NotNull;
@@ -20,7 +21,7 @@ public class DirectBinding implements Binding {
     }
 
     @Override
-    public void apply(@NotNull ValueBuffer pBuffer, boolean pUpdated) {
+    public void apply(@NotNull ValueBuffer pBuffer) {
         if (this.node == null || this.source == null) {
             return;
         }

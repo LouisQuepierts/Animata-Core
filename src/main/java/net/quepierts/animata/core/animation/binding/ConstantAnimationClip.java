@@ -1,6 +1,7 @@
 package net.quepierts.animata.core.animation.binding;
 
 import lombok.Getter;
+import net.quepierts.animata.core.animation.AnimationClip;
 import net.quepierts.animata.core.animation.runtime.RuntimeContext;
 
 import java.util.Arrays;

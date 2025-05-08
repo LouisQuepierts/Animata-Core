@@ -1,59 +1,27 @@
 package net.quepierts.animata.core.animation.runtime;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import net.quepierts.animata.core.animation.cache.AnimationCache;
-import net.quepierts.animata.core.property.Property;
-import net.quepierts.animata.core.animation.runtime.field.CacheNodeField;
-import net.quepierts.animata.core.animation.runtime.field.ConstantField;
-import net.quepierts.animata.core.animation.runtime.field.RuntimeField;
+public interface RuntimeContext {
+    /**
+     * Fetch the current value of the property
+     * The dimension should be pOut.length
+     *
+     * @param pPath the path of the property
+     * @param pOut  the array to store the value
+     */
+    void fetch(String pPath, float[] pOut);
 
-import java.util.Map;
+    /**
+     * Write the value of the property
+     * The dimension should be pIn.length
+     *
+     * @param pPath the path of the property
+     * @param pIn   the array to store the value
+     */
+    void write(String pPath, float[] pIn);
 
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class RuntimeContext {
-    private final AnimationCache delegateCache;
-    private final Map<String, RuntimeField> cached;
-
-    @Getter
-    @Setter(AccessLevel.PACKAGE)
-    private float time;
-
-    public void fetch(String pPath, float[] pReceptor) {
-
-    }
-
-    public void assign(String pPath, float[] pValues) {
-
-    }
-
-    @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-    static class Builder {
-        private final AnimationCache delegateCache;
-
-        private final Map<String, RuntimeField> fields = new Object2ObjectOpenHashMap<>();
-        private float time;
-
-        public Builder time(float pTime) {
-            this.time = pTime;
-            return this;
-        }
-
-        public Builder node(String pPath, Property pProperty) {
-            this.fields.put(pPath, new CacheNodeField(pProperty));
-            return this;
-        }
-
-        public Builder value(String pPath, float[] pValues) {
-            this.fields.put(pPath, new ConstantField(pValues));
-            return this;
-        }
-
-        public RuntimeContext build() {
-            return new RuntimeContext(delegateCache, fields);
-        }
-    }
+    /**
+     * Get the current time
+     * @return the current time
+     */
+    float getTime();
 }
