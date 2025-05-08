@@ -1,6 +1,6 @@
 package net.quepierts.animata.core.animation.animator;
 
-import net.quepierts.animata.core.animation.AnimationControlBlock;
+import net.quepierts.animata.core.animation.handle.AnimationControlBlock;
 import net.quepierts.animata.core.animation.cache.AnimationCache;
 import net.quepierts.animata.core.animation.AnimationSequence;
 import net.quepierts.animata.core.animation.runtime.CachedAnimationControlBlock;
@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SimpleAnimator
-        implements Animator<AnimationCache, AnimationSequence> {
+        implements Animator<Animatable, AnimationSequence> {
     private final Animatable target;
     private final AnimationCache cache;
     private final IAnimataTimeProvider timer;
@@ -62,34 +62,33 @@ public class SimpleAnimator
     }
 
     @Override
-    public void pause(@Nullable AnimationCache key) {
+    public void pause(@Nullable Animatable key) {
         this.paused = true;
     }
 
     @Override
-    public void resume(AnimationCache key) {
+    public void resume(Animatable key) {
         this.paused = false;
     }
 
     @Override
-    public boolean isPaused(AnimationCache key) {
+    public boolean isPaused(Animatable key) {
         return false;
     }
 
     @Override
-    public AnimationControlBlock<AnimationCache, AnimationSequence> play(@Nullable AnimationCache pKey, @NotNull AnimationSequence pAnimation) {
+    public AnimationControlBlock<Animatable, AnimationSequence> play(@Nullable Animatable pKey, @NotNull AnimationSequence pAnimation) {
         this.instance = new CachedAnimationControlBlock(
                 pAnimation,
                 this.target,
                 this.cache,
-                0,
-                this.timer.getCountedTime()
+                -1
         );
         return this.instance;
     }
 
     @Override
-    public void stop(@Nullable AnimationCache pKey) {
+    public void stop(@Nullable Animatable pKey) {
         this.instance.release();
         this.instance = null;
     }

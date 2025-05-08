@@ -1,6 +1,6 @@
 package net.quepierts.animata.core.animation.animator;
 
-import net.quepierts.animata.core.animation.AnimationControlBlock;
+import net.quepierts.animata.core.animation.handle.AnimationControlBlock;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

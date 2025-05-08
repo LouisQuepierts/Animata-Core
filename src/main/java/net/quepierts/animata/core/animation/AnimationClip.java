@@ -2,26 +2,7 @@ package net.quepierts.animata.core.animation;
 
 import net.quepierts.animata.core.animation.runtime.RuntimeContext;
 
-import java.util.Arrays;
-
 public interface AnimationClip {
-    AnimationClip ONE = new AnimationClip() {
-        @Override
-        public void eval(float[] pBuffer, RuntimeContext pContext) {
-            Arrays.fill(pBuffer, 1f);
-        }
-
-        @Override
-        public int getDimension() {
-            return 1;
-        }
-
-        @Override
-        public String getName() {
-            return "ONE";
-        }
-    };
-
     void eval(float[] pBuffer, RuntimeContext pContext);
 
     int getDimension();

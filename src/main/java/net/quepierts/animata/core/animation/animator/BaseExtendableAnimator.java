@@ -1,56 +1,54 @@
 package net.quepierts.animata.core.animation.animator;
 
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
-import net.quepierts.animata.core.animation.AnimationControlBlock;
-import net.quepierts.animata.core.animation.AnimationSequence;
+import net.quepierts.animata.core.animation.handle.AnimationControlBlock;
 import net.quepierts.animata.core.animation.cache.AnimationCache;
+import net.quepierts.animata.core.animation.extension.AnimationExtensionDispatcher;
 import net.quepierts.animata.core.animation.extension.AnimatorExtension;
 import net.quepierts.animata.core.service.IAnimataTimeProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-
 @Slf4j
-public abstract class BaseExtendableAnimator<K, T>
-        implements Animator<K, T> {
-    private final List<AnimatorExtension<BaseExtendableAnimator<K, T>, K, T>> extensions = Lists.newArrayList();
+public abstract class BaseExtendableAnimator<TKey, TAnimation>
+        implements Animator<TKey, TAnimation> {
+    private final AnimationExtensionDispatcher<BaseExtendableAnimator<TKey, TAnimation>, TKey, TAnimation> dispatcher;
 
     protected final AnimationCache cache;
     protected final IAnimataTimeProvider timer;
 
+    private float lastUpdateTime;
+    private float deltaTime;
+
     protected BaseExtendableAnimator(AnimationCache cache, IAnimataTimeProvider timer) {
         this.cache = cache;
         this.timer = timer;
+
+        this.dispatcher = new AnimationExtensionDispatcher<>(this);
+        this.lastUpdateTime = timer.getCountedTime();
     }
 
-    public void registerExtension(AnimatorExtension<BaseExtendableAnimator<K, T>, K, T> extension) {
-        extension.onRegister(this, this.cache::register);
-        this.extensions.add(extension);
-        this.extensions.sort(AnimatorExtension::compareTo);
+    public void registerExtension(AnimatorExtension<BaseExtendableAnimator<TKey, TAnimation>, TKey, TAnimation> extension) {
+        this.dispatcher.register(extension, this.cache::register);
     }
 
     @Override
-    public AnimationControlBlock<K, T> play(
-            @Nullable K pKey,
-            @NotNull T pAnimation
+    public AnimationControlBlock<TKey, TAnimation> play(
+            @Nullable TKey pKey,
+            @NotNull TAnimation pAnimation
     ) {
-        this.cache.freezeRegistry();
+//        this.cache.freezeRegistry();
 
         float time = this.timer.getCountedTime();
-        for (AnimatorExtension<BaseExtendableAnimator<K, T>, K, T> extension : this.extensions) {
-            extension.onPlay(this, pAnimation, time);
-        }
+        this.lastUpdateTime = time;
+        this.dispatcher.onPlay(pKey, pAnimation, time);
         return this.onPlay(pKey, pAnimation, time);
     }
 
     @Override
-    public void stop(@Nullable K pKey) {
-        for (val extension : this.extensions) {
-            extension.onStop(this);
-        }
+    public void stop(@Nullable TKey pKey) {
+        float time = this.timer.getCountedTime();
+        this.dispatcher.onStop(pKey, time);
         this.onStop();
 
         this.cache.reset();
@@ -59,38 +57,33 @@ public abstract class BaseExtendableAnimator<K, T>
     @Override
     public void update() {
         float time = this.timer.getCountedTime();
-        for (val extension : this.extensions) {
-            extension.onPreUpdate(this, time);
-        }
+        this.deltaTime = time - this.lastUpdateTime;
 
+        this.dispatcher.onPreUpdate(time, this.deltaTime);
         this.onUpdate(time);
-
-        for (val extension : this.extensions) {
-            extension.onPostUpdate(this, time);
-        }
+        this.dispatcher.onPostUpdate(time, this.deltaTime);
+        this.lastUpdateTime = time;
     }
 
     @Override
     public void process() {
-
+        float time = this.timer.getCountedTime();
+        this.dispatcher.onPreProcess(time, this.deltaTime);
+        this.onProcess();
+        this.dispatcher.onPostProcess(time, this.deltaTime);
     }
 
     @Override
     public void apply() {
-        for (val extension : this.extensions) {
-            extension.onPreApply(this);
-        }
-
+        float time = this.timer.getCountedTime();
+        this.dispatcher.onPreApply(time, this.deltaTime);
         this.onApply();
-
-        for (val extension : this.extensions) {
-            extension.onPostApply(this);
-        }
+        this.dispatcher.onPostApply(time, this.deltaTime);
     }
 
-    protected abstract AnimationControlBlock<K, T> onPlay(
-            @NotNull K pKey,
-            @NotNull T pAnimation,
+    protected abstract AnimationControlBlock<TKey, TAnimation> onPlay(
+            @Nullable TKey pKey,
+            @NotNull TAnimation pAnimation,
             float pGlobalTime
     );
 

@@ -4,11 +4,11 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.quepierts.animata.core.animation.AnimationControlBlock;
 import net.quepierts.animata.core.animation.AnimationSequence;
 import net.quepierts.animata.core.animation.AnimationClip;
 import net.quepierts.animata.core.animation.binding.DirectBinding;
 import net.quepierts.animata.core.animation.cache.*;
+import net.quepierts.animata.core.animation.handle.AnimationControlBlock;
 import net.quepierts.animata.core.property.Property;
 import net.quepierts.animata.core.animation.target.Animatable;
 import net.quepierts.animata.core.animation.binding.Binding;
@@ -20,7 +20,7 @@ import java.util.*;
 @Slf4j
 @RequiredArgsConstructor
 public class CachedAnimationControlBlock
-        implements AnimationControlBlock<AnimationCache, AnimationSequence> {
+        implements AnimationControlBlock<Animatable, AnimationSequence> {
 
     private final List<Binding> bindingList = new ArrayList<>();
     private final ValueBuffer buffer = new ValueBuffer();
@@ -32,23 +32,19 @@ public class CachedAnimationControlBlock
     @Getter private final int animationID;
     @Getter private final String domainName;
 
-    private float lastTime;
-
     private boolean updated = false;
 
     public CachedAnimationControlBlock(
             @NotNull AnimationSequence pAnimationSequence,
             @NotNull Animatable pTarget,
             @NotNull AnimationCache pCache,
-            int animationID,
-            float pStartTick
+            int animationID
     ) {
         this.animation = pAnimationSequence;
         this.cache = pCache;
         this.animationID = animationID;
-        this.lastTime = pStartTick;
 
-        this.domainName = animationID < 1 ? "instance" : String.format("instance%02x", this.animationID);
+        this.domainName = animationID < 0 ? "instance" : String.format("instance%02x", this.animationID);
         this.context = this.init();
     }
 
@@ -67,12 +63,11 @@ public class CachedAnimationControlBlock
     }
 
     @Override
-    public void update(float pCurrentTime) {
-        float delta = pCurrentTime - this.lastTime;
+    public void update(float pDeltaTime) {
         float time = this.context.getTime();
 
-        if (delta > 0) {
-            this.context.setTime(time + delta);
+        if (pDeltaTime > 0) {
+            this.context.setTime(time + pDeltaTime);
             this.updated = true;
             this.animation.update(this.context);
         }
@@ -80,8 +75,6 @@ public class CachedAnimationControlBlock
         if (this.animation.isFinished(this.context)) {
             this.context.setTime(0);
         }
-
-        this.lastTime = pCurrentTime;
     }
 
     public void process() {
