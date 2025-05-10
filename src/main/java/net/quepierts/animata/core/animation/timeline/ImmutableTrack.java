@@ -3,6 +3,7 @@ package net.quepierts.animata.core.animation.timeline;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.quepierts.animata.core.animation.runtime.RuntimeContext;
 import net.quepierts.animata.core.data.DataType;
 import net.quepierts.animata.core.data.Duration;
 import net.quepierts.animata.core.util.collection.ImmutableFloatTreeMap;
@@ -51,6 +52,11 @@ public class ImmutableTrack implements Track {
     @Override
     public VectorKeyFrame get(int pIndex) {
         return this.keyframe.get(pIndex);
+    }
+
+    @Override
+    public boolean isFinished(RuntimeContext pContext) {
+        return pContext.getProgress() >= this.keyframe.last().getTime();
     }
 
     @Override

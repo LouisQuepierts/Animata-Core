@@ -23,5 +23,11 @@ public interface RuntimeContext {
      * Get the current time
      * @return the current time
      */
-    float getTime();
+    float getProgress();
+
+    /**
+     * Set the current time
+     * @param pProgress the time to set
+     */
+    void setProgress(float pProgress);
 }

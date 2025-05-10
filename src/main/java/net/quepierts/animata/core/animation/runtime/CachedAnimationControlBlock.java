@@ -36,7 +36,6 @@ public class CachedAnimationControlBlock
 
     public CachedAnimationControlBlock(
             @NotNull AnimationSequence pAnimationSequence,
-            @NotNull Animatable pTarget,
             @NotNull AnimationCache pCache,
             int animationID
     ) {
@@ -51,7 +50,7 @@ public class CachedAnimationControlBlock
     @Override
     public void reset() {
         this.cache.reset();
-        this.context.setTime(0);
+        this.context.setProgress(0);
         this.updated = false;
     }
 
@@ -64,17 +63,13 @@ public class CachedAnimationControlBlock
 
     @Override
     public void update(float pDeltaTime) {
-        float time = this.context.getTime();
+        if (pDeltaTime <= 0) {
+            return;
+        }
 
-        if (pDeltaTime > 0) {
-            this.context.setTime(time + pDeltaTime);
-            this.updated = true;
-            this.animation.update(this.context);
-        }
-        // loop for debug
-        if (this.animation.isFinished(this.context)) {
-            this.context.setTime(0);
-        }
+        this.context.increaseTime(pDeltaTime);
+        this.updated = true;
+        this.animation.update(this.context);
     }
 
     public void process() {
@@ -97,12 +92,12 @@ public class CachedAnimationControlBlock
 
     @Override
     public float getProgress() {
-        return this.context.getTime();
+        return this.context.getProgress();
     }
 
     @Override
     public void setProgress(float progress) {
-        this.context.setTime(progress);
+        this.context.setProgress(progress);
     }
 
     public boolean isRunning() {

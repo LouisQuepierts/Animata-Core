@@ -16,6 +16,8 @@ public interface AnimationCache {
 
     void reset();
 
+    void process();
+
     void apply();
 
     void freezeRegistry();

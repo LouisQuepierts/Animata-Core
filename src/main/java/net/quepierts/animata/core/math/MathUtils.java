@@ -8,4 +8,18 @@ public class MathUtils {
 
     public static final float DEG2RAD = PI / 180f;
     public static final float RAD2DEG = 180f / PI;
+
+    public static float clamp(float value, float min, float max) {
+        if (Float.isNaN(value)) {
+            return min;
+        }
+        return Math.max(min, Math.min(max, value));
+    }
+
+    public static float saturate(float value) {
+        if (Float.isNaN(value)) {
+            return 0f;
+        }
+        return Math.max(0f, Math.min(1f, value));
+    }
 }

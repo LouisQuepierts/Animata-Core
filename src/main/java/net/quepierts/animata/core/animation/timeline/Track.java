@@ -3,12 +3,13 @@ package net.quepierts.animata.core.animation.timeline;
 import net.quepierts.animata.core.animation.AnimationClip;
 import net.quepierts.animata.core.animation.runtime.RuntimeContext;
 import net.quepierts.animata.core.data.Duration;
+import net.quepierts.animata.core.math.MathUtils;
 import net.quepierts.animata.core.math.interpolate.Interpolator;
 
 public interface Track extends AnimationClip {
     @Override
     default void eval(float[] pBuffer, RuntimeContext pContext) {
-        float time = pContext.getTime();
+        float time = pContext.getProgress();
 
         int lower = this.getLowerIndex(time);
         int upper = this.getUpperIndex(time);
@@ -16,7 +17,7 @@ public interface Track extends AnimationClip {
         VectorKeyFrame last = this.getLowerEntry(time);
         VectorKeyFrame next = this.getUpperEntry(time);
 
-        float delta = Math.clamp((time - last.getTime()) / (next.getTime() - last.getTime()), 0f, 1f);
+        float delta = MathUtils.saturate((time - last.getTime()) / (next.getTime() - last.getTime()));
 
         Interpolator interpolator = last.interpolator().select(next.interpolator());
         interpolator.accept(pBuffer, this, lower, upper, delta);

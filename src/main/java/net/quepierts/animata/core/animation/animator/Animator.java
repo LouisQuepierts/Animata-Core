@@ -33,7 +33,7 @@ package net.quepierts.animata.core.animation.animator;
  */
 @SuppressWarnings("unused")
 public interface Animator<TKey, TAnimation>
-        extends PlayControl<TKey, TAnimation>, PauseControl<TKey>, ExtensibleAnimator<TKey, TAnimation> {
+        extends PlayControl<TKey, TAnimation>, PauseControl<TKey> {
 
     /**
      * Evaluates the internal state of all active animations based on the current time delta.

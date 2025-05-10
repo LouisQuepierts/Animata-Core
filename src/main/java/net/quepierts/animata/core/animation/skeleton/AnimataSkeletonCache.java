@@ -66,8 +66,12 @@ public class AnimataSkeletonCache implements AnimationCache {
     }
 
     @Override
+    public void process() {
+
+    }
+
+    @Override
     public void apply() {
-        this.delegate.reset();
         for (CacheEntry bone : this.bones) {
             bone.apply();
         }
@@ -143,6 +147,46 @@ public class AnimataSkeletonCache implements AnimationCache {
             this.children.put("enabled", this.enabled);
             this.children.put("weight", this.weight);
             this.children.put("blend", this.blendMode);
+        }
+
+        public void process() {
+            if (!this.enabled.isEnabled()) {
+                return;
+            }
+
+            Transformable bound = this.bone.getBound();
+            Vector3f rotation = bound.getRotation();
+
+            if (this.rotation.isEnabled()) {
+                this.blend(rotation, this.rotation.getWrapped().getCache());
+                bound.setRotation(rotation);
+            }
+
+            boolean positionEnabled = this.position.isEnabled();
+            boolean pivotEnabled = this.pivot.isEnabled();
+            if (positionEnabled || pivotEnabled) {
+                Vector3f position = bound.getPosition();
+
+                if (pivotEnabled) {
+                    Quaternionf rot = new Quaternionf().rotateZYX(rotation.z, rotation.y, rotation.x);
+                    Vector3f pivot = this.pivot.getWrapped().getCache();
+                    position.add(pivot)
+                            .rotate(rot)
+                            .sub(pivot);
+                }
+
+                if (positionEnabled) {
+                    this.blend(position, this.position.getWrapped().getCache());
+                }
+
+                bound.setPosition(position);
+            }
+
+            if (this.scale.isEnabled()) {
+                Vector3f scale = bound.getScale();
+                this.blend(scale, this.scale.getWrapped().getCache());
+                bound.setScale(scale);
+            }
         }
 
         public void apply() {

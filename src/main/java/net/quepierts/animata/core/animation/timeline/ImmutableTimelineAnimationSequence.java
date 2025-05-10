@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.quepierts.animata.core.animation.AnimationSequence;
 import net.quepierts.animata.core.animation.AnimationClip;
+import net.quepierts.animata.core.animation.runtime.RuntimeContext;
 import net.quepierts.animata.core.data.Duration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -36,6 +37,11 @@ public class ImmutableTimelineAnimationSequence implements AnimationSequence {
             length = Duration.max(length, track.getLength());
         }
         return new ImmutableTimelineAnimationSequence(keys, ObjectList.of(tracks), length);
+    }
+
+    @Override
+    public boolean isFinished(RuntimeContext pContext) {
+        return pContext.getProgress() >= this.length.getTick();
     }
 
     @Override

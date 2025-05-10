@@ -204,6 +204,11 @@ public class GenericAnimationCache implements AnimationCache {
     }
 
     @Override
+    public void process() {
+
+    }
+
+    @Override
     public void apply() {
 
     }

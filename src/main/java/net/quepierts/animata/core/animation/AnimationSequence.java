@@ -11,9 +11,7 @@ import java.util.Collection;
 
 public interface AnimationSequence
         extends RequiredFieldProvider {
-    default boolean isFinished(RuntimeContext pContext) {
-        return pContext.getTime() >= this.getLength().getTick();
-    }
+    boolean isFinished(RuntimeContext pContext);
 
     @Override
     default void getRequiredFields(@NotNull Collection<RequiredField> pOut) {
@@ -21,10 +19,10 @@ public interface AnimationSequence
     }
 
     default void update(@NotNull RuntimeContext pContext) {
-
+        if (this.isFinished(pContext)) {
+            pContext.setProgress(0);
+        }
     }
-
-    Duration getLength();
 
     void getAnimationClips(@NotNull Collection<AnimationClip> pOut);
 

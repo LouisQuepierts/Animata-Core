@@ -23,8 +23,12 @@ public class CachedRuntimeContext implements RuntimeContext {
     private final String domainName;
 
     @Getter
-    @Setter(AccessLevel.PACKAGE)
-    private float time;
+    @Setter
+    private float progress;
+
+    void increaseTime(float pDelta) {
+        this.progress += pDelta;
+    }
 
     @Override
     public void fetch(String pPath, float[] pOut) {
@@ -93,7 +97,7 @@ public class CachedRuntimeContext implements RuntimeContext {
 
         public CachedRuntimeContext build() {
             CachedRuntimeContext context = new CachedRuntimeContext(delegateCache, fields, domainName);
-            context.setTime(time);
+            context.setProgress(time);
             return context;
         }
     }

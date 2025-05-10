@@ -5,13 +5,14 @@ import net.quepierts.animata.core.animation.handle.AnimationControlBlock;
 import net.quepierts.animata.core.animation.cache.AnimationCache;
 import net.quepierts.animata.core.animation.extension.AnimationExtensionDispatcher;
 import net.quepierts.animata.core.animation.extension.AnimatorExtension;
+import net.quepierts.animata.core.animation.handle.AnimationHandle;
 import net.quepierts.animata.core.service.IAnimataTimeProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Slf4j
 public abstract class BaseExtendableAnimator<TKey, TAnimation>
-        implements Animator<TKey, TAnimation> {
+        implements Animator<TKey, TAnimation>, ExtensibleAnimator<TKey, TAnimation> {
     private final AnimationExtensionDispatcher<BaseExtendableAnimator<TKey, TAnimation>, TKey, TAnimation> dispatcher;
 
     protected final AnimationCache cache;
@@ -33,7 +34,7 @@ public abstract class BaseExtendableAnimator<TKey, TAnimation>
     }
 
     @Override
-    public AnimationControlBlock<TKey, TAnimation> play(
+    public AnimationHandle<TKey, TAnimation> play(
             @Nullable TKey pKey,
             @NotNull TAnimation pAnimation
     ) {

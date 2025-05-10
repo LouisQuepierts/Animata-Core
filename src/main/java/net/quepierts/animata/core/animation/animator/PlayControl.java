@@ -1,27 +1,28 @@
 package net.quepierts.animata.core.animation.animator;
 
-import net.quepierts.animata.core.animation.handle.AnimationControlBlock;
+import net.quepierts.animata.core.animation.handle.AnimationHandle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Animation play control
- * @param <K> the identity key type used to distinguish animation control blocks
- * @param <T> the animation type (e.g., AnimationClip or AnimationSequence)
+ * @param <TKey> the identity reference type used to distinguish animation control blocks
+ * @param <TAnimation> the animation type (e.g., AnimationClip or AnimationSequence)
  */
 @SuppressWarnings("unused")
-public interface PlayControl<K, T> {
+public interface PlayControl<TKey, TAnimation> {
     /**
      * Play animation
-     * @param pKey identity reference of animation, null to play default animation
+     *
+     * @param pKey       identity reference of animation, null to play default animation
      * @param pAnimation the animation to play
      * @return the animation control block
      */
-    AnimationControlBlock<K, T> play(@Nullable K pKey, @NotNull T pAnimation);
+    AnimationHandle<TKey, TAnimation> play(@Nullable TKey pKey, @NotNull TAnimation pAnimation);
 
     /**
      * Stop animation
      * @param pKey identity reference of animation, null to stop default animation
      */
-    void stop(@Nullable K pKey);
+    void stop(@Nullable TKey pKey);
 }

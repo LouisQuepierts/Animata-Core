@@ -19,6 +19,11 @@ public class ConstantAnimationClip implements AnimationClip {
     }
 
     @Override
+    public boolean isFinished(RuntimeContext pContext) {
+        return true;
+    }
+
+    @Override
     public void eval(float[] pBuffer, RuntimeContext pContext) {
         Arrays.fill(pBuffer, this.value);
     }

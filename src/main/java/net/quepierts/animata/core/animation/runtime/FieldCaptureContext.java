@@ -44,8 +44,12 @@ public class FieldCaptureContext
     }
 
     @Override
-    public float getTime() {
+    public float getProgress() {
         return 0;
+    }
+
+    public void setProgress(float pProgress) {
+
     }
 
     @Override

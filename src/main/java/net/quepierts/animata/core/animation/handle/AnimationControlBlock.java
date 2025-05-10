@@ -8,11 +8,7 @@ public interface AnimationControlBlock<TKey, TAnimation>
 
     void update(float pDeltaTime);
 
-    interface Processable<TKey, TAnimation> extends AnimationControlBlock<TKey, TAnimation> {
-        void process();
-    }
+    default void process() {}
 
-    interface Applicable<TKey, TAnimation> extends AnimationControlBlock<TKey, TAnimation> {
-        void apply();
-    }
+    default void apply() {}
 }
