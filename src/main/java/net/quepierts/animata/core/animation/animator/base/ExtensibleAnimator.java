@@ -1,4 +1,4 @@
-package net.quepierts.animata.core.animation.animator;
+package net.quepierts.animata.core.animation.animator.base;
 
 import net.quepierts.animata.core.animation.animator.extension.AnimatorExtension;
 

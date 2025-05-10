@@ -3,6 +3,7 @@ package net.quepierts.animata.core.animation.animator;
 import lombok.Getter;
 import lombok.Setter;
 import net.quepierts.animata.core.animation.AnimationClip;
+import net.quepierts.animata.core.animation.animator.base.BaseAnimator;
 import net.quepierts.animata.core.animation.handle.AnimationControlBlock;
 import net.quepierts.animata.core.animation.handle.AnimationHandle;
 import net.quepierts.animata.core.animation.runtime.RuntimeContext;

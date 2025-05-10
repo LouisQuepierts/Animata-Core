@@ -1,6 +1,8 @@
 package net.quepierts.animata.core.animation.animator;
 
 import net.quepierts.animata.core.animation.AnimationSequence;
+import net.quepierts.animata.core.animation.animator.base.AnimationControlBlockFactory;
+import net.quepierts.animata.core.animation.animator.base.BaseAnimator;
 import net.quepierts.animata.core.animation.cache.AnimationCache;
 import net.quepierts.animata.core.animation.handle.AnimationControlBlock;
 import net.quepierts.animata.core.animation.handle.AnimationHandle;

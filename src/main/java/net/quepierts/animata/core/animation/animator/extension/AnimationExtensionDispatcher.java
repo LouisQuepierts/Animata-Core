@@ -2,7 +2,7 @@ package net.quepierts.animata.core.animation.animator.extension;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
-import net.quepierts.animata.core.animation.animator.Animator;
+import net.quepierts.animata.core.animation.animator.base.Animator;
 import net.quepierts.animata.core.animation.cache.AnimationCacheRegistrar;
 import net.quepierts.animata.core.util.Generic;
 import org.jetbrains.annotations.NotNull;

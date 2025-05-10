@@ -1,4 +1,4 @@
-package net.quepierts.animata.core.animation.animator;
+package net.quepierts.animata.core.animation.animator.base;
 
 /**
  * Represents a generic animation controller capable of managing and playing animations of type {@code T}

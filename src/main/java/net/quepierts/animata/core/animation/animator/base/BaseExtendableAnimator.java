@@ -1,4 +1,4 @@
-package net.quepierts.animata.core.animation.animator;
+package net.quepierts.animata.core.animation.animator.base;
 
 import lombok.extern.slf4j.Slf4j;
 import net.quepierts.animata.core.animation.handle.AnimationControlBlock;
