@@ -1,16 +1,16 @@
-package net.quepierts.animata.core.animation.extension;
+package net.quepierts.animata.core.animation.animator.extension;
 
 import net.quepierts.animata.core.animation.animator.Animator;
 import org.jetbrains.annotations.NotNull;
 
-public interface ProcessHook<TAnimator extends Animator<?, ?>> extends Extension {
-    default void onPreProcess(
+public interface UpdateHook<TAnimator extends Animator<?, ?>> extends Extension {
+    default void onPreUpdate(
             @NotNull TAnimator pAnimator,
             float pGlobalTime,
             float pDeltaTime
     ) {}
 
-    default void onPostProcess(
+    default void onPostUpdate(
             @NotNull TAnimator pAnimator,
             float pGlobalTime,
             float pDeltaTime

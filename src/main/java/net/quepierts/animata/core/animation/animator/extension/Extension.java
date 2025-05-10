@@ -1,4 +1,4 @@
-package net.quepierts.animata.core.animation.extension;
+package net.quepierts.animata.core.animation.animator.extension;
 
 public interface Extension extends Comparable<Extension> {
     default int getPriority() {
