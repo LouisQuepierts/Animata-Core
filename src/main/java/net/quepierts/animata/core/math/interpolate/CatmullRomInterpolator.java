@@ -1,9 +1,9 @@
 package net.quepierts.animata.core.math.interpolate;
 
-import net.quepierts.animata.core.data.DataType;
-import net.quepierts.animata.core.data.IVectorValue;
 import net.quepierts.animata.core.animation.timeline.Track;
 import net.quepierts.animata.core.animation.timeline.VectorKeyFrame;
+import net.quepierts.animata.core.data.DataType;
+import net.quepierts.animata.core.data.IVectorValue;
 import net.quepierts.animata.core.reference.Interpolations;
 
 public class CatmullRomInterpolator extends Interpolator {

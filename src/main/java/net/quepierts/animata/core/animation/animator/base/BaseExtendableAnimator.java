@@ -2,10 +2,10 @@ package net.quepierts.animata.core.animation.animator.base;
 
 import lombok.extern.slf4j.Slf4j;
 import net.quepierts.animata.core.animation.animator.control.AnimationControlBlock;
-import net.quepierts.animata.core.animation.cache.AnimationCache;
+import net.quepierts.animata.core.animation.animator.control.AnimationHandle;
 import net.quepierts.animata.core.animation.animator.extension.AnimationExtensionDispatcher;
 import net.quepierts.animata.core.animation.animator.extension.AnimatorExtension;
-import net.quepierts.animata.core.animation.animator.control.AnimationHandle;
+import net.quepierts.animata.core.animation.cache.AnimationCache;
 import net.quepierts.animata.core.service.IAnimataTimeProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

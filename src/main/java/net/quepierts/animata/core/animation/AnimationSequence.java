@@ -1,9 +1,8 @@
 package net.quepierts.animata.core.animation;
 
+import net.quepierts.animata.core.animation.runtime.RequiredField;
 import net.quepierts.animata.core.animation.runtime.RequiredFieldProvider;
 import net.quepierts.animata.core.animation.runtime.RuntimeContext;
-import net.quepierts.animata.core.animation.runtime.RequiredField;
-import net.quepierts.animata.core.data.Duration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

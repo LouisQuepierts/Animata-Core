@@ -1,8 +1,8 @@
 package net.quepierts.animata.core.math.interpolate;
 
+import net.quepierts.animata.core.animation.timeline.Track;
 import net.quepierts.animata.core.data.DataType;
 import net.quepierts.animata.core.data.IVectorValue;
-import net.quepierts.animata.core.animation.timeline.Track;
 
 public class LinearInterpolator extends Interpolator {
     private final LerpFunction lerpFunction;

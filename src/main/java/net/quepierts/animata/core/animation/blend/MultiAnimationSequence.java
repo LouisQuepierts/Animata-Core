@@ -2,11 +2,9 @@ package net.quepierts.animata.core.animation.blend;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import lombok.Getter;
-import net.quepierts.animata.core.animation.AnimationSequence;
 import net.quepierts.animata.core.animation.AnimationClip;
+import net.quepierts.animata.core.animation.AnimationSequence;
 import net.quepierts.animata.core.animation.runtime.RuntimeContext;
-import net.quepierts.animata.core.data.Duration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

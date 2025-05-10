@@ -4,21 +4,25 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.quepierts.animata.core.animation.AnimationSequence;
 import net.quepierts.animata.core.animation.AnimationClip;
+import net.quepierts.animata.core.animation.AnimationSequence;
+import net.quepierts.animata.core.animation.binding.Binding;
 import net.quepierts.animata.core.animation.binding.DirectBinding;
-import net.quepierts.animata.core.animation.cache.*;
+import net.quepierts.animata.core.animation.cache.AnimationCache;
+import net.quepierts.animata.core.animation.cache.ValueBuffer;
 import net.quepierts.animata.core.animation.runtime.CachedRuntimeContext;
 import net.quepierts.animata.core.animation.runtime.FieldCaptureContext;
 import net.quepierts.animata.core.animation.runtime.RequiredField;
 import net.quepierts.animata.core.animation.runtime.RequiredFieldProvider;
-import net.quepierts.animata.core.property.Property;
 import net.quepierts.animata.core.animation.target.Animatable;
-import net.quepierts.animata.core.animation.binding.Binding;
+import net.quepierts.animata.core.property.Property;
 import net.quepierts.animata.core.property.VectorProperty;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @RequiredArgsConstructor

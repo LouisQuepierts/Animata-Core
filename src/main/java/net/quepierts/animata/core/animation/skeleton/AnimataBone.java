@@ -2,8 +2,8 @@ package net.quepierts.animata.core.animation.skeleton;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
-import net.quepierts.animata.core.math.transform.Transformable;
 import net.quepierts.animata.core.math.transform.Transform;
+import net.quepierts.animata.core.math.transform.Transformable;
 
 import java.util.Map;
 

@@ -2,7 +2,9 @@ package net.quepierts.animata.core.animation.skeleton;
 
 import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.quepierts.animata.core.animation.cache.*;
+import net.quepierts.animata.core.animation.cache.AnimationCache;
+import net.quepierts.animata.core.animation.cache.GenericAnimationCache;
+import net.quepierts.animata.core.animation.cache.RegisterResult;
 import net.quepierts.animata.core.math.transform.Transformable;
 import net.quepierts.animata.core.property.*;
 import org.jetbrains.annotations.NotNull;

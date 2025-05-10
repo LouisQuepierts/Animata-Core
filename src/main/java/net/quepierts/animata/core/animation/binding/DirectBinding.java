@@ -2,8 +2,8 @@ package net.quepierts.animata.core.animation.binding;
 
 import lombok.AllArgsConstructor;
 import net.quepierts.animata.core.animation.AnimationClip;
-import net.quepierts.animata.core.property.Property;
 import net.quepierts.animata.core.animation.cache.ValueBuffer;
+import net.quepierts.animata.core.property.Property;
 import org.jetbrains.annotations.NotNull;
 
 @AllArgsConstructor

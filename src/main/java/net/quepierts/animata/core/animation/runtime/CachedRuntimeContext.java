@@ -6,10 +6,10 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import net.quepierts.animata.core.animation.cache.AnimationCache;
-import net.quepierts.animata.core.property.Property;
 import net.quepierts.animata.core.animation.runtime.field.CacheNodeField;
 import net.quepierts.animata.core.animation.runtime.field.ConstantField;
 import net.quepierts.animata.core.animation.runtime.field.RuntimeField;
+import net.quepierts.animata.core.property.Property;
 import net.quepierts.animata.platform.services.IRuntimePlatformDetector;
 
 import java.util.Map;
@@ -68,7 +68,7 @@ public class CachedRuntimeContext implements RuntimeContext {
         }
     }
 
-    @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+    @RequiredArgsConstructor
     public static class Builder {
         private final AnimationCache delegateCache;
         private final String domainName;

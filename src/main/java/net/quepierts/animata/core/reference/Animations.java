@@ -4,9 +4,9 @@ import net.quepierts.animata.core.animation.AnimationSequence;
 import net.quepierts.animata.core.animation.timeline.ImmutableTimelineAnimationSequence;
 import net.quepierts.animata.core.animation.timeline.ImmutableTrack;
 import net.quepierts.animata.core.animation.timeline.VectorKeyFrame;
+import net.quepierts.animata.core.data.ConstantVector;
 import net.quepierts.animata.core.data.DataType;
 import net.quepierts.animata.core.data.Duration;
-import net.quepierts.animata.core.data.ConstantVector;
 
 public class Animations {
     public static final AnimationSequence TIMELINE = ImmutableTimelineAnimationSequence.of(

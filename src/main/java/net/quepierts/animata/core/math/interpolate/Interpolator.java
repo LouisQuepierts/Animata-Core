@@ -1,8 +1,8 @@
 package net.quepierts.animata.core.math.interpolate;
 
 import lombok.Getter;
-import net.quepierts.animata.core.data.DataType;
 import net.quepierts.animata.core.animation.timeline.Track;
+import net.quepierts.animata.core.data.DataType;
 
 // TODO: Implement for InterpolateStrategies
 @Getter
