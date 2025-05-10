@@ -1,6 +1,5 @@
 package net.quepierts.animata.core.animation.animator;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.quepierts.animata.core.animation.AnimationClip;
@@ -16,10 +15,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
-public class LiteParallelAnimator extends BaseAnimator<Property, AnimationClip> {
+@SuppressWarnings("unused")
+public class DirectParallelAnimator extends BaseAnimator<Property, AnimationClip> {
     private final Map<Property, ClipControlBlock> running;
 
-    public LiteParallelAnimator(@NotNull IAnimataTimeProvider pTimeProvider) {
+    public DirectParallelAnimator(@NotNull IAnimataTimeProvider pTimeProvider) {
         super(pTimeProvider);
 
         this.running = new IdentityHashMap<>();
@@ -96,7 +96,6 @@ public class LiteParallelAnimator extends BaseAnimator<Property, AnimationClip> 
         private final Property property;
         private final float[] buffer;
 
-        @Setter(AccessLevel.PRIVATE)
         private AnimationClip clip;
 
         @Setter

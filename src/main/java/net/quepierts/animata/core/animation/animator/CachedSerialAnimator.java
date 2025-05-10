@@ -10,6 +10,7 @@ import net.quepierts.animata.core.service.IAnimataTimeProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("unused")
 public class CachedSerialAnimator<T> extends BaseAnimator<T, AnimationSequence> {
 
     public static CachedSerialAnimator<Animatable> simple(
