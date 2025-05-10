@@ -1,4 +1,4 @@
-package net.quepierts.animata.core.animation.animator;
+package net.quepierts.animata.core.animation.animator.impl;
 
 import lombok.Getter;
 import lombok.Setter;

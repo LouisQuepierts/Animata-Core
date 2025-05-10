@@ -1,4 +1,4 @@
-package net.quepierts.animata.core.animation.animator;
+package net.quepierts.animata.core.animation.animator.impl;
 
 import net.quepierts.animata.core.animation.AnimationSequence;
 import net.quepierts.animata.core.animation.animator.base.AnimationControlBlockFactory;
