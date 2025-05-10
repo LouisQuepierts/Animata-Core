@@ -1,4 +1,4 @@
-package net.quepierts.animata.core.animation.handle;
+package net.quepierts.animata.core.animation.animator.control;
 
 public interface AnimationHandle<K, T> {
     float getProgress();

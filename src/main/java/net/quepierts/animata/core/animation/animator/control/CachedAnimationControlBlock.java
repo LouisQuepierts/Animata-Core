@@ -1,4 +1,4 @@
-package net.quepierts.animata.core.animation.runtime;
+package net.quepierts.animata.core.animation.animator.control;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Getter;
@@ -8,7 +8,10 @@ import net.quepierts.animata.core.animation.AnimationSequence;
 import net.quepierts.animata.core.animation.AnimationClip;
 import net.quepierts.animata.core.animation.binding.DirectBinding;
 import net.quepierts.animata.core.animation.cache.*;
-import net.quepierts.animata.core.animation.handle.AnimationControlBlock;
+import net.quepierts.animata.core.animation.runtime.CachedRuntimeContext;
+import net.quepierts.animata.core.animation.runtime.FieldCaptureContext;
+import net.quepierts.animata.core.animation.runtime.RequiredField;
+import net.quepierts.animata.core.animation.runtime.RequiredFieldProvider;
 import net.quepierts.animata.core.property.Property;
 import net.quepierts.animata.core.animation.target.Animatable;
 import net.quepierts.animata.core.animation.binding.Binding;

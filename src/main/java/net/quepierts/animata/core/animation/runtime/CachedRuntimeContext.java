@@ -26,7 +26,7 @@ public class CachedRuntimeContext implements RuntimeContext {
     @Setter
     private float progress;
 
-    void increaseTime(float pDelta) {
+    public void increaseTime(float pDelta) {
         this.progress += pDelta;
     }
 
@@ -69,7 +69,7 @@ public class CachedRuntimeContext implements RuntimeContext {
     }
 
     @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-    static class Builder {
+    public static class Builder {
         private final AnimationCache delegateCache;
         private final String domainName;
 

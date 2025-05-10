@@ -1,6 +1,6 @@
 package net.quepierts.animata.core.animation.animator.base;
 
-import net.quepierts.animata.core.animation.handle.AnimationControlBlock;
+import net.quepierts.animata.core.animation.animator.control.AnimationControlBlock;
 import org.jetbrains.annotations.NotNull;
 
 @FunctionalInterface
