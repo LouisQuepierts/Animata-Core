@@ -1,10 +1,11 @@
 package net.quepierts.animata.core.animation.animator.extension;
 
 import net.quepierts.animata.core.animation.animator.base.Animator;
+import net.quepierts.animata.core.animation.animator.base.ExtensibleAnimator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public interface LifecycleHook<TAnimator extends Animator<TKey, TAnimation>, TKey, TAnimation>
+public interface LifecycleHook<TAnimator extends ExtensibleAnimator<TTarget, TAnimation>, TTarget, TAnimation>
         extends Extension {
 
     /**
@@ -16,7 +17,7 @@ public interface LifecycleHook<TAnimator extends Animator<TKey, TAnimation>, TKe
      */
     default void onPlay(
             @NotNull TAnimator pAnimator,
-            @Nullable TKey pKey,
+            @Nullable TTarget pKey,
             @NotNull TAnimation pAnimation
     ) {}
 
@@ -28,7 +29,7 @@ public interface LifecycleHook<TAnimator extends Animator<TKey, TAnimation>, TKe
      */
     default void onStop(
             @NotNull TAnimator pAnimator,
-            @Nullable TKey pKey
+            @Nullable TTarget pKey
     ) {}
 
     /**
@@ -39,17 +40,17 @@ public interface LifecycleHook<TAnimator extends Animator<TKey, TAnimation>, TKe
      */
     default void onFinished(
             @NotNull TAnimator animator,
-            @Nullable TKey pKey
+            @Nullable TTarget pKey
     ) {}
 
     // not so far to use
     /*default void onPause(
             @NotNull TAnimator animator,
-            @Nullable TKey pKey
+            @Nullable TTarget pKey
     ) {}
 
     default void onResume(
             @NotNull TAnimator animator,
-            @Nullable TKey pKey
+            @Nullable TTarget pKey
     ) {}*/
 }

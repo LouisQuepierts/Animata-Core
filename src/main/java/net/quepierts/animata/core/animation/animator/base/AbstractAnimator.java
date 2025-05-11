@@ -7,7 +7,7 @@ import net.quepierts.animata.core.service.IAnimataTimeProvider;
 import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
-public abstract class AbstractAnimator<TKey, TAnimation> implements Animator<TKey, TAnimation> {
+public abstract class AbstractAnimator<TTarget, TAnimation> implements Animator<TTarget, TAnimation> {
 
     protected final @NotNull IAnimataTimeProvider timeProvider;
 

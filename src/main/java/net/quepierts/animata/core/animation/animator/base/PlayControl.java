@@ -6,11 +6,11 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Animation play control
- * @param <TKey> the identity reference type used to distinguish animation control blocks
+ * @param <TTarget> the identity reference type used to distinguish animation control blocks
  * @param <TAnimation> the animation type (e.g., AnimationClip or AnimationSequence)
  */
 @SuppressWarnings("unused")
-public interface PlayControl<TKey, TAnimation> {
+public interface PlayControl<TTarget, TAnimation> {
     /**
      * Play animation
      *
@@ -18,11 +18,11 @@ public interface PlayControl<TKey, TAnimation> {
      * @param pAnimation the animation to play
      * @return the animation control block
      */
-    AnimationHandle<TKey, TAnimation> play(@Nullable TKey pKey, @NotNull TAnimation pAnimation);
+    AnimationHandle<TTarget, TAnimation> play(@Nullable TTarget pKey, @NotNull TAnimation pAnimation);
 
     /**
      * Stop animation
      * @param pKey identity reference of animation, null to stop default animation
      */
-    void stop(@Nullable TKey pKey);
+    void stop(@Nullable TTarget pKey);
 }

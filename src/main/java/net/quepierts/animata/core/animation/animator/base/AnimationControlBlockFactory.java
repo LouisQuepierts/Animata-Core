@@ -4,10 +4,10 @@ import net.quepierts.animata.core.animation.animator.control.AnimationControlBlo
 import org.jetbrains.annotations.NotNull;
 
 @FunctionalInterface
-public interface AnimationControlBlockFactory<TAnimator extends Animator<TKey, TAnimation>, TKey, TAnimation> {
-    AnimationControlBlock<TKey, TAnimation> create(
+public interface AnimationControlBlockFactory<TAnimator extends Animator<TTarget, TAnimation>, TTarget, TAnimation> {
+    AnimationControlBlock<TTarget, TAnimation> create(
             @NotNull TAnimator pAnimator,
-            @NotNull TKey pKey,
+            @NotNull TTarget pKey,
             @NotNull TAnimation pAnimation
     );
 }

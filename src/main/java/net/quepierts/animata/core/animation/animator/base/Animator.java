@@ -28,12 +28,12 @@ package net.quepierts.animata.core.animation.animator.base;
  * then {@code apply()} per frame or tick.
  * </p>
  *
- * @param <TKey> the identity key type used to distinguish animation control blocks
+ * @param <TTarget> the identity key type used to distinguish animation control blocks
  * @param <TAnimation> the animation type (e.g., AnimationClip or AnimationSequence)
  */
 @SuppressWarnings("unused")
-public interface Animator<TKey, TAnimation>
-        extends PlayControl<TKey, TAnimation>, PauseControl<TKey> {
+public interface Animator<TTarget, TAnimation>
+        extends PlayControl<TTarget, TAnimation>, PauseControl<TTarget> {
 
     /**
      * Evaluates the internal state of all active animations based on the current time delta.

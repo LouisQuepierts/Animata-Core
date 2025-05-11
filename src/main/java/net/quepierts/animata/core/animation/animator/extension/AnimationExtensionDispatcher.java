@@ -2,7 +2,7 @@ package net.quepierts.animata.core.animation.animator.extension;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
-import net.quepierts.animata.core.animation.animator.base.Animator;
+import net.quepierts.animata.core.animation.animator.base.ExtensibleAnimator;
 import net.quepierts.animata.core.animation.cache.AnimationCacheRegistrar;
 import net.quepierts.animata.core.util.Generic;
 import org.jetbrains.annotations.NotNull;
@@ -12,18 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class AnimationExtensionDispatcher<TAnimator extends Animator<TKey, TAnimation>, TKey, TAnimation> {
+public class AnimationExtensionDispatcher<TTarget, TAnimation> {
     private static final int INITIAL_CAPACITY = 16;
 
-    private final TAnimator animator;
+    private final ExtensibleAnimator<TTarget, TAnimation> animator;
 
-    private final List<LifecycleHook<TAnimator, TKey, TAnimation>> lifecycleHooks = new ArrayList<>(INITIAL_CAPACITY);
-    private final List<UpdateHook<TAnimator>> updateHooks = new ArrayList<>(INITIAL_CAPACITY);
-    private final List<ProcessHook<TAnimator>> processHooks = new ArrayList<>(INITIAL_CAPACITY);
-    private final List<ApplyHook<TAnimator>> applyHooks = new ArrayList<>(INITIAL_CAPACITY);
+    private final List<LifecycleHook<ExtensibleAnimator<TTarget, TAnimation>, TTarget, TAnimation>> lifecycleHooks = new ArrayList<>(INITIAL_CAPACITY);
+    private final List<UpdateHook<ExtensibleAnimator<TTarget, TAnimation>>> updateHooks = new ArrayList<>(INITIAL_CAPACITY);
+    private final List<ProcessHook<ExtensibleAnimator<TTarget, TAnimation>>> processHooks = new ArrayList<>(INITIAL_CAPACITY);
+    private final List<ApplyHook<ExtensibleAnimator<TTarget, TAnimation>>> applyHooks = new ArrayList<>(INITIAL_CAPACITY);
 
     public void register(
-            @NotNull AnimatorExtension<TAnimator, TKey, TAnimation> pExtension,
+            @NotNull AnimatorExtension<TTarget, TAnimation> pExtension,
             @NotNull AnimationCacheRegistrar pCacheRegistrar
     ) {
         pExtension.onRegister(this.animator, pCacheRegistrar);
@@ -50,7 +50,7 @@ public class AnimationExtensionDispatcher<TAnimator extends Animator<TKey, TAnim
     }
 
     public void onPlay(
-            @Nullable TKey pKey,
+            @Nullable TTarget pKey,
             @NotNull TAnimation pAnimation
     ) {
         for (val hook : this.lifecycleHooks) {
@@ -58,13 +58,13 @@ public class AnimationExtensionDispatcher<TAnimator extends Animator<TKey, TAnim
         }
     }
 
-    public void onStop(@Nullable TKey pKey) {
+    public void onStop(@Nullable TTarget pKey) {
         for (val hook : this.lifecycleHooks) {
             hook.onStop(this.animator, pKey);
         }
     }
 
-    public void onFinished(@Nullable TKey pKey) {
+    public void onFinished(@Nullable TTarget pKey) {
         for (val hook : this.lifecycleHooks) {
             hook.onFinished(this.animator, pKey);
         }

@@ -5,7 +5,6 @@ import net.quepierts.animata.core.animation.animator.base.AbstractExtensibleAnim
 import net.quepierts.animata.core.animation.animator.base.AnimationControlBlockFactory;
 import net.quepierts.animata.core.animation.animator.control.AnimationControlBlock;
 import net.quepierts.animata.core.animation.animator.control.CachedAnimationControlBlock;
-import net.quepierts.animata.core.animation.animator.extension.AnimationExtensionDispatcher;
 import net.quepierts.animata.core.animation.cache.AnimationCache;
 import net.quepierts.animata.core.animation.target.Animatable;
 import net.quepierts.animata.core.service.IAnimataTimeProvider;
@@ -14,7 +13,6 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("unused")
 public class CachedSerialAnimator<T> extends AbstractExtensibleAnimator<T, AnimationSequence> {
-
     public static CachedSerialAnimator<Animatable> simple(
             @NotNull IAnimataTimeProvider pTimeProvider,
             @NotNull Animatable pTarget,
@@ -45,7 +43,7 @@ public class CachedSerialAnimator<T> extends AbstractExtensibleAnimator<T, Anima
             @NotNull T pTarget,
             @NotNull AnimationCache pCache
     ) {
-        super(pTimeProvider);
+        super(pTimeProvider, pCache::register);
         this.factory = pFactory;
         this.cache = pCache;
         this.target = pTarget;
