@@ -7,17 +7,17 @@ import net.quepierts.animata.core.service.IAnimataTimeProvider;
 import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
-public abstract class BaseAnimator<TKey, TAnimation> implements Animator<TKey, TAnimation> {
+public abstract class AbstractAnimator<TKey, TAnimation> implements Animator<TKey, TAnimation> {
 
     protected final @NotNull IAnimataTimeProvider timeProvider;
 
-    @Getter(AccessLevel.PROTECTED) private float lastUpdatedTime;
-    @Getter(AccessLevel.PROTECTED) private float deltaTime;
+    @Getter(AccessLevel.PROTECTED) float lastUpdatedTime;
+    @Getter(AccessLevel.PROTECTED) float deltaTime;
 
-    protected abstract void onUpdate();
+    protected abstract boolean onUpdate();
 
     @Override
-    public final void update() {
+    public void update() {
         float ticks = this.timeProvider.getCountedTime();
         this.deltaTime = ticks - this.lastUpdatedTime;
 

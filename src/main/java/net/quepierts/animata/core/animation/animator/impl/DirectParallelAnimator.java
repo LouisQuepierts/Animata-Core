@@ -3,7 +3,7 @@ package net.quepierts.animata.core.animation.animator.impl;
 import lombok.Getter;
 import lombok.Setter;
 import net.quepierts.animata.core.animation.AnimationClip;
-import net.quepierts.animata.core.animation.animator.base.BaseAnimator;
+import net.quepierts.animata.core.animation.animator.base.AbstractAnimator;
 import net.quepierts.animata.core.animation.animator.control.AnimationControlBlock;
 import net.quepierts.animata.core.animation.animator.control.AnimationHandle;
 import net.quepierts.animata.core.animation.runtime.RuntimeContext;
@@ -17,7 +17,7 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 
 @SuppressWarnings("unused")
-public class DirectParallelAnimator extends BaseAnimator<Property, AnimationClip> {
+public class DirectParallelAnimator extends AbstractAnimator<Property, AnimationClip> {
     private final Map<Property, ClipControlBlock> running;
 
     public DirectParallelAnimator(@NotNull IAnimataTimeProvider pTimeProvider) {
@@ -27,10 +27,11 @@ public class DirectParallelAnimator extends BaseAnimator<Property, AnimationClip
     }
 
     @Override
-    protected void onUpdate() {
+    protected boolean onUpdate() {
         for (ClipControlBlock block : this.running.values()) {
             block.update(this.getDeltaTime());
         }
+        return false;
     }
 
     @Override

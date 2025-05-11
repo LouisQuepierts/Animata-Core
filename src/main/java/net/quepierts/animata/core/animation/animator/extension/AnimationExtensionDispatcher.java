@@ -51,20 +51,22 @@ public class AnimationExtensionDispatcher<TAnimator extends Animator<TKey, TAnim
 
     public void onPlay(
             @Nullable TKey pKey,
-            @NotNull TAnimation pAnimation,
-            float pGlobalTime
+            @NotNull TAnimation pAnimation
     ) {
         for (val hook : this.lifecycleHooks) {
             hook.onPlay(this.animator, pKey, pAnimation);
         }
     }
 
-    public void onStop(
-            @Nullable TKey pKey,
-            float pGlobalTime
-    ) {
+    public void onStop(@Nullable TKey pKey) {
         for (val hook : this.lifecycleHooks) {
             hook.onStop(this.animator, pKey);
+        }
+    }
+
+    public void onFinished(@Nullable TKey pKey) {
+        for (val hook : this.lifecycleHooks) {
+            hook.onFinished(this.animator, pKey);
         }
     }
 

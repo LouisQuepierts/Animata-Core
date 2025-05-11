@@ -1,11 +1,11 @@
 package net.quepierts.animata.core.animation.animator.impl;
 
 import net.quepierts.animata.core.animation.AnimationSequence;
+import net.quepierts.animata.core.animation.animator.base.AbstractExtensibleAnimator;
 import net.quepierts.animata.core.animation.animator.base.AnimationControlBlockFactory;
-import net.quepierts.animata.core.animation.animator.base.BaseAnimator;
 import net.quepierts.animata.core.animation.animator.control.AnimationControlBlock;
-import net.quepierts.animata.core.animation.animator.control.AnimationHandle;
 import net.quepierts.animata.core.animation.animator.control.CachedAnimationControlBlock;
+import net.quepierts.animata.core.animation.animator.extension.AnimationExtensionDispatcher;
 import net.quepierts.animata.core.animation.cache.AnimationCache;
 import net.quepierts.animata.core.animation.target.Animatable;
 import net.quepierts.animata.core.service.IAnimataTimeProvider;
@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("unused")
-public class CachedSerialAnimator<T> extends BaseAnimator<T, AnimationSequence> {
+public class CachedSerialAnimator<T> extends AbstractExtensibleAnimator<T, AnimationSequence> {
 
     public static CachedSerialAnimator<Animatable> simple(
             @NotNull IAnimataTimeProvider pTimeProvider,
@@ -52,30 +52,56 @@ public class CachedSerialAnimator<T> extends BaseAnimator<T, AnimationSequence> 
     }
 
     @Override
-    protected void onUpdate() {
+    protected boolean onUpdate() {
         if (this.paused || !this.isRunning()) {
-            return;
+            return false;
         }
 
         this.block.update(this.getDeltaTime());
-    }
 
-    @Override
-    public void process() {
-        if (this.paused || !this.isRunning()) {
-            return;
+        if (this.block.isFinished()) {
+            this.onFinished(this.target);
         }
 
-        this.block.process();
+        return true;
     }
 
     @Override
-    public void apply() {
+    protected boolean onApply() {
         if (!this.isRunning()) {
-            return;
+            return false;
         }
 
         this.block.apply();
+        return true;
+    }
+
+    @Override
+    protected boolean onProcess() {
+        if (this.paused || !this.isRunning()) {
+            return false;
+        }
+
+        this.block.process();
+        return true;
+    }
+
+    @Override
+    protected AnimationControlBlock<T, AnimationSequence> onPlay(@Nullable T pKey, @NotNull AnimationSequence pAnimation) {
+        if (this.block != null) {
+            this.block.release();
+        }
+
+        this.block = this.factory.create(this, this.target, pAnimation);
+        return this.block;
+    }
+
+    @Override
+    protected void onStop(@Nullable T pKey) {
+        if (this.block != null) {
+            this.block.release();
+            this.block = null;
+        }
     }
 
     @Override
@@ -96,23 +122,5 @@ public class CachedSerialAnimator<T> extends BaseAnimator<T, AnimationSequence> 
     @Override
     public boolean isPaused(T key) {
         return this.paused;
-    }
-
-    @Override
-    public AnimationHandle<T, AnimationSequence> play(@Nullable T pKey, @NotNull AnimationSequence pAnimation) {
-        if (this.block != null) {
-            this.block.release();
-        }
-
-        this.block = this.factory.create(this, this.target, pAnimation);
-        return this.block;
-    }
-
-    @Override
-    public void stop(@Nullable T pKey) {
-        if (this.block != null) {
-            this.block.release();
-            this.block = null;
-        }
     }
 }
