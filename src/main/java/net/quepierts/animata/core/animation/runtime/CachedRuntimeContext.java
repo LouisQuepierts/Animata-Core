@@ -10,7 +10,7 @@ import net.quepierts.animata.core.animation.runtime.field.CacheNodeField;
 import net.quepierts.animata.core.animation.runtime.field.ConstantField;
 import net.quepierts.animata.core.animation.runtime.field.RuntimeField;
 import net.quepierts.animata.core.property.Property;
-import net.quepierts.animata.platform.services.IRuntimePlatformDetector;
+import net.quepierts.animata.core.service.IRuntimeEnvironmentDetector;
 
 import java.util.Map;
 
@@ -47,7 +47,7 @@ public class CachedRuntimeContext implements RuntimeContext {
             return field;
         }
 
-        if (!IRuntimePlatformDetector.INSTANCE.isDevelopmentEnvironment()) {
+        if (!IRuntimeEnvironmentDetector.INSTANCE.isDevelopmentEnvironment()) {
             throw new RuntimeException("No field found for " + pPath);
         }
 
