@@ -14,7 +14,6 @@ import net.quepierts.animata.core.animation.runtime.CachedRuntimeContext;
 import net.quepierts.animata.core.animation.runtime.FieldCaptureContext;
 import net.quepierts.animata.core.animation.runtime.RequiredField;
 import net.quepierts.animata.core.animation.runtime.RequiredFieldProvider;
-import net.quepierts.animata.core.animation.target.Animatable;
 import net.quepierts.animata.core.property.Property;
 import net.quepierts.animata.core.property.VectorProperty;
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +26,7 @@ import java.util.Set;
 @Slf4j
 @RequiredArgsConstructor
 public class CachedAnimationControlBlock
-        implements AnimationControlBlock<Animatable, AnimationSequence> {
+        implements AnimationControlBlock {
 
     private final List<Binding> bindingList = new ArrayList<>();
     private final ValueBuffer buffer = new ValueBuffer();
@@ -89,6 +88,7 @@ public class CachedAnimationControlBlock
         for (Binding binding : this.bindingList) {
             binding.apply(this.buffer);
         }
+        this.cache.process();
 
         this.updated = false;
     }
@@ -137,7 +137,7 @@ public class CachedAnimationControlBlock
             this.buffer.register(animationClip);
             String name = animationClip.getName();
 
-            Property node = this.cache.getCacheProperty(name);
+            Property node = this.cache.getProperty(name);
 
             if (node != null) {
                 if (bound.contains(node)) {
@@ -173,7 +173,7 @@ public class CachedAnimationControlBlock
                 continue;
             }
 
-            Property node = this.cache.getCacheProperty(field.name());
+            Property node = this.cache.getProperty(field.name());
             if (node == null) {
                 node = this.cache.getTransientProperty(this.domainName, field.name());
             }

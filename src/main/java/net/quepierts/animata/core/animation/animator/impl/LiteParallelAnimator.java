@@ -17,10 +17,10 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 
 @SuppressWarnings("unused")
-public class DirectParallelAnimator extends AbstractAnimator<Property, AnimationClip> {
+public class LiteParallelAnimator extends AbstractAnimator<Property, AnimationClip> {
     private final Map<Property, ClipControlBlock> running;
 
-    public DirectParallelAnimator(@NotNull IAnimataTimeProvider pTimeProvider) {
+    public LiteParallelAnimator(@NotNull IAnimataTimeProvider pTimeProvider) {
         super(pTimeProvider);
 
         this.running = new IdentityHashMap<>();
@@ -72,7 +72,7 @@ public class DirectParallelAnimator extends AbstractAnimator<Property, Animation
     }
 
     @Override
-    public AnimationHandle<Property, AnimationClip> play(@Nullable Property pKey, @NotNull AnimationClip pAnimation) {
+    public AnimationHandle play(@Nullable Property pKey, @NotNull AnimationClip pAnimation) {
         Property key = pKey == null ? DummyProperty.INSTANCE : pKey;
         ClipControlBlock block = this.running.get(key);
         if (block == null) {
@@ -93,7 +93,7 @@ public class DirectParallelAnimator extends AbstractAnimator<Property, Animation
     }
 
     private static class ClipControlBlock
-            implements AnimationControlBlock<Property, AnimationClip>, RuntimeContext {
+            implements AnimationControlBlock, RuntimeContext {
 
         private final Property property;
         private final float[] buffer;

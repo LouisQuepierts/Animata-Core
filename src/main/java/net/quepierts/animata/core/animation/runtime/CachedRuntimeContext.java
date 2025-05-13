@@ -54,7 +54,7 @@ public class CachedRuntimeContext implements RuntimeContext {
         Property property = this.cache.getTransientProperty(this.domainName, pPath);
 
         if (property == null) {
-            property = this.cache.getCacheProperty(pPath);
+            property = this.cache.getProperty(pPath);
         }
 
         if (property != null && property.getDimension() >= dimension) {

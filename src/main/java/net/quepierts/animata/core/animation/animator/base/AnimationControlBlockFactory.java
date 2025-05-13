@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 @FunctionalInterface
 public interface AnimationControlBlockFactory<TAnimator extends Animator<TTarget, TAnimation>, TTarget, TAnimation> {
-    AnimationControlBlock<TTarget, TAnimation> create(
+    AnimationControlBlock create(
             @NotNull TAnimator pAnimator,
             @NotNull TTarget pKey,
             @NotNull TAnimation pAnimation

@@ -1,13 +1,11 @@
 package net.quepierts.animata.core.animation.target;
 
 import net.quepierts.animata.core.path.PathResolvable;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public interface Animatable extends PathResolvable {
+public interface Animatable extends PathResolvable, BindableTarget {
 
     void getChildren(List<Animatable> pOut);
 
-    @Nullable Animatable getParent();
 }

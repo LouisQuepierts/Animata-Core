@@ -7,6 +7,8 @@ public class ConstrainedProperty<T extends Property> extends AbstractProperty
     public static final String ENABLED_NAME = "enabled";
 
     @Getter private final T wrapped;
+
+    @AnimataProperty(ENABLED_NAME)
     private final BooleanProperty enabled;
 
     public ConstrainedProperty(String name, T node) {

@@ -6,6 +6,7 @@ import net.quepierts.animata.core.animation.animator.base.AnimationControlBlockF
 import net.quepierts.animata.core.animation.animator.control.AnimationControlBlock;
 import net.quepierts.animata.core.animation.animator.control.CachedAnimationControlBlock;
 import net.quepierts.animata.core.animation.cache.AnimationCache;
+import net.quepierts.animata.core.animation.cache.AnimationCacheProvider;
 import net.quepierts.animata.core.animation.target.Animatable;
 import net.quepierts.animata.core.service.IAnimataTimeProvider;
 import org.jetbrains.annotations.NotNull;
@@ -13,11 +14,10 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("unused")
 public class CachedSerialAnimator<T> extends AbstractExtensibleAnimator<T, AnimationSequence> {
-    public static CachedSerialAnimator<Animatable> simple(
+    public static <T extends Animatable & AnimationCacheProvider> CachedSerialAnimator<T> simple(
             @NotNull IAnimataTimeProvider pTimeProvider,
-            @NotNull Animatable pTarget,
-            @NotNull AnimationCache pCache
-    ) {
+            @NotNull T pTarget
+            ) {
         return new CachedSerialAnimator<>(
                 pTimeProvider,
                 (pAnimator, pKey, pAnimation) -> new CachedAnimationControlBlock(
@@ -26,7 +26,7 @@ public class CachedSerialAnimator<T> extends AbstractExtensibleAnimator<T, Anima
                         -1
                 ),
                 pTarget,
-                pCache
+                pTarget.createAnimationCache()
         );
     }
 
@@ -34,7 +34,7 @@ public class CachedSerialAnimator<T> extends AbstractExtensibleAnimator<T, Anima
     private final AnimationCache cache;
     private final T target;
 
-    private AnimationControlBlock<T, AnimationSequence> block;
+    private AnimationControlBlock block;
     private boolean paused;
 
     public CachedSerialAnimator(
@@ -85,7 +85,7 @@ public class CachedSerialAnimator<T> extends AbstractExtensibleAnimator<T, Anima
     }
 
     @Override
-    protected AnimationControlBlock<T, AnimationSequence> onPlay(@Nullable T pKey, @NotNull AnimationSequence pAnimation) {
+    protected AnimationControlBlock onPlay(@Nullable T pKey, @NotNull AnimationSequence pAnimation) {
         if (this.block != null) {
             this.block.release();
         }

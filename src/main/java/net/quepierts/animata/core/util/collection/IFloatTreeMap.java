@@ -15,6 +15,8 @@ public interface IFloatTreeMap<T> {
 
     T get(int pIndex);
 
+    float getKey(int pIndex);
+
     void insert(float pKey, T pValue);
 
     void removeSpecific(float pKey);

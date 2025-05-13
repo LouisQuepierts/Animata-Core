@@ -1,7 +1,7 @@
 package net.quepierts.animata.core.animation.animator.control;
 
-public interface AnimationControlBlock<TTarget, TAnimation>
-        extends AnimationHandle<TTarget, TAnimation> {
+public interface AnimationControlBlock
+        extends AnimationHandle {
     void reset();
 
     void release();

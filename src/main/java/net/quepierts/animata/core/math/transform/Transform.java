@@ -129,13 +129,13 @@ public class Transform implements Transformable {
 
     @Override
     public void getTransform(Matrix4f matrix4f) {
-        matrix4f.translate(this.position.x / 16.0F, this.position.y / 16.0F, this.position.z / 16.0F);
+        matrix4f.translate(this.position);
         if (this.rotation.x != 0.0F || this.rotation.y != 0.0F || this.rotation.z != 0.0F) {
-            matrix4f.rotateZYX(this.rotation.x, this.rotation.y, this.rotation.z);
+            matrix4f.rotateZYX(this.rotation);
         }
 
         if (this.scale.x != 1.0F || this.scale.y != 1.0F || this.scale.z != 1.0F) {
-            matrix4f.scale(this.scale.x, this.scale.y, this.scale.z);
+            matrix4f.scale(this.scale.x);
         }
     }
 

@@ -101,7 +101,7 @@ public class GenericAnimationCache implements AnimationCache {
     }
 
     @Override
-    public Property getCacheProperty(@NotNull String pPath) {
+    public Property getProperty(@NotNull String pPath) {
         if (pPath.isBlank()) return null;
 
         String[] names = pPath.split("\\.");

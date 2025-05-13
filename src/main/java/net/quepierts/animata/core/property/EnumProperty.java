@@ -30,6 +30,10 @@ public class EnumProperty<T extends Enum<T>> extends AbstractProperty {
         return this.values[this.value];
     }
 
+    public void setEnumValue(T value) {
+        this.value = value.ordinal();
+    }
+
     @Override
     public void fetch(float[] pOut) {
         pOut [0] = this.value;

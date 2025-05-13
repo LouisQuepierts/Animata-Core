@@ -17,6 +17,7 @@ import net.quepierts.animata.core.animation.target.Animatable;
 import net.quepierts.animata.core.math.transform.Transform;
 import net.quepierts.animata.core.math.transform.Transformable;
 import net.quepierts.animata.core.path.PathResolvable;
+import net.quepierts.animata.core.property.Property;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -58,11 +59,6 @@ public class AnimataSkeleton
     }
 
     @Override
-    public @Nullable Animatable getParent() {
-        return null;
-    }
-
-    @Override
     public @Nullable PathResolvable getChild(String pChildName) {
         return null;
     }
@@ -79,6 +75,11 @@ public class AnimataSkeleton
     @Override
     public AnimationCache createAnimationCache() {
         return new AnimataSkeletonCache(this);
+    }
+
+    @Override
+    public @Nullable Property getProperty(@NotNull String pPath) {
+        return null;
     }
 
     public static class Builder {

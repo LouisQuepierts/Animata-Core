@@ -44,6 +44,11 @@ public class FloatTreeMap<T> implements IFloatTreeMap<T> {
     }
 
     @Override
+    public float getKey(int pIndex) {
+        return this.keyList.getFloat(pIndex);
+    }
+
+    @Override
     public T first() {
         return treeMap.isEmpty() ? null : treeMap.get(treeMap.firstFloatKey());
     }

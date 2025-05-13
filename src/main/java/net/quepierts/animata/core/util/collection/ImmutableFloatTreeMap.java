@@ -97,4 +97,9 @@ public class ImmutableFloatTreeMap<T> implements IFloatTreeMap<T> {
     public T get(int pIndex) {
         return this.values[pIndex];
     }
+
+    @Override
+    public float getKey(int pIndex) {
+        return this.keys[pIndex];
+    }
 }

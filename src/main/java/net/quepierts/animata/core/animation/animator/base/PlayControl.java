@@ -18,7 +18,7 @@ public interface PlayControl<TTarget, TAnimation> {
      * @param pAnimation the animation to play
      * @return the animation control block
      */
-    AnimationHandle<TTarget, TAnimation> play(@Nullable TTarget pKey, @NotNull TAnimation pAnimation);
+    AnimationHandle play(@Nullable TTarget pKey, @NotNull TAnimation pAnimation);
 
     /**
      * Stop animation

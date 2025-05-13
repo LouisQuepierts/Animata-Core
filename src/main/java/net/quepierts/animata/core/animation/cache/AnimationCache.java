@@ -1,10 +1,11 @@
 package net.quepierts.animata.core.animation.cache;
 
+import net.quepierts.animata.core.animation.target.BindableTarget;
 import net.quepierts.animata.core.property.NamespaceNode;
 import net.quepierts.animata.core.property.Property;
 import org.jetbrains.annotations.NotNull;
 
-public interface AnimationCache {
+public interface AnimationCache extends BindableTarget {
     String INPUT_NAMESPACE = "input";
     String RUNTIME = "runtime";
 
@@ -24,7 +25,7 @@ public interface AnimationCache {
 
     boolean isRegistryFrozen();
 
-    Property getCacheProperty(@NotNull String pPath);
+    Property getProperty(@NotNull String pPath);
 
     @NotNull NamespaceNode getTransientDomain(@NotNull String pName);
 
@@ -33,4 +34,9 @@ public interface AnimationCache {
     Property getTransientProperty(@NotNull String pDomain, @NotNull String pName);
 
     void dispose(String pRuntimeDomain);
+
+    @Override
+    default String getName() {
+        return "cache";
+    }
 }

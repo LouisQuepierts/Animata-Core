@@ -1,6 +1,6 @@
 package net.quepierts.animata.core.animation.animator.control;
 
-public interface AnimationHandle<K, T> {
+public interface AnimationHandle {
     float getProgress();
 
     void setProgress(float progress);

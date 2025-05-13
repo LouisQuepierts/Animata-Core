@@ -29,7 +29,7 @@ public abstract class AbstractExtensibleAnimator<TTarget, TAnimation>
 
     protected abstract boolean onProcess();
 
-    protected abstract AnimationControlBlock<TTarget, TAnimation> onPlay(
+    protected abstract AnimationControlBlock onPlay(
             @Nullable TTarget pKey,
             @NotNull TAnimation pAnimation
     );
@@ -44,7 +44,7 @@ public abstract class AbstractExtensibleAnimator<TTarget, TAnimation>
     @Override
     public void update() {
         float time = this.timeProvider.getCountedTime();
-        this.deltaTime = this.lastUpdatedTime - time;
+        this.deltaTime = time - this.lastUpdatedTime;
 
         this.dispatcher.onPreUpdate(time, this.deltaTime);
         if (!this.onUpdate()) {
@@ -75,7 +75,7 @@ public abstract class AbstractExtensibleAnimator<TTarget, TAnimation>
     }
 
     @Override
-    public AnimationHandle<TTarget, TAnimation> play(@Nullable TTarget pKey, @NotNull TAnimation pAnimation) {
+    public AnimationHandle play(@Nullable TTarget pKey, @NotNull TAnimation pAnimation) {
         this.dispatcher.onPlay(pKey, pAnimation);
         return this.onPlay(pKey, pAnimation);
     }

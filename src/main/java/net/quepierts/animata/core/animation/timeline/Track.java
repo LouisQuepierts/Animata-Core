@@ -13,7 +13,6 @@ public interface Track extends AnimationClip {
 
         int lower = this.getLowerIndex(time);
         int upper = this.getUpperIndex(time);
-
         VectorKeyFrame last = this.getLowerEntry(time);
         VectorKeyFrame next = this.getUpperEntry(time);
 

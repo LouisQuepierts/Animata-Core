@@ -90,8 +90,8 @@ public class AnimataSkeletonCache implements AnimationCache {
     }
 
     @Override
-    public Property getCacheProperty(@NotNull String pPath) {
-        return this.delegate.getCacheProperty(pPath);
+    public Property getProperty(@NotNull String pPath) {
+        return this.delegate.getProperty(pPath);
     }
 
     @Override
