@@ -1,12 +1,20 @@
 package net.quepierts.animata.core.data;
 
+import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import net.quepierts.animata.core.datafix.CodecHelper;
+import net.quepierts.animata.core.datafix.annotations.CodecSerializable;
 import org.jetbrains.annotations.NotNull;
 
 @Getter
-@Slf4j
+@CodecSerializable
 public final class Duration implements Comparable<Duration> {
+    public static final Codec<Duration> CODEC = Codec.FLOAT.xmap(
+            Duration::new,
+            Duration::getTick
+    );
+
     public static final Duration ZERO = new Duration(0);
 
     public static final char IDENTIFIER_HOUR = 'H';
@@ -27,7 +35,7 @@ public final class Duration implements Comparable<Duration> {
         try {
             value = Float.parseFloat(number);
         } catch (NumberFormatException e) {
-            log.warn("Illegal duration format: ");
+//            log.warn("Illegal duration format: ");
             return Duration.ZERO;
         }
 
