@@ -2,22 +2,22 @@ package net.quepierts.animata.core.animation.blend;
 
 import net.quepierts.animata.core.animation.AnimationClip;
 import net.quepierts.animata.core.animation.AnimationSequence;
-import net.quepierts.animata.core.animation.runtime.RequiredField;
+import net.quepierts.animata.core.animation.runtime.UniformDeclaration;
 import net.quepierts.animata.core.animation.runtime.RuntimeContext;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 
-public class BlendTreeAnimationSequence implements AnimationSequence {
+public class BlendTree1DAnimationSequence implements AnimationSequence {
     @Override
     public boolean isFinished(RuntimeContext pContext) {
         return false;
     }
 
     @Override
-    public void getRequiredFields(@NotNull Collection<RequiredField> pOut) {
-        pOut.add(new RequiredField("blend_tree", 3, new float[] {0, 0, 0}, RequiredField.Type.READWRITE));
+    public void getUniforms(@NotNull Collection<UniformDeclaration> pOut) {
+        pOut.add(new UniformDeclaration("blend_tree", 3, new float[] {0, 0, 0}, UniformDeclaration.Type.READWRITE));
     }
 
     @Override

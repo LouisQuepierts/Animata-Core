@@ -7,6 +7,6 @@ import java.util.Collection;
 /**
  * provider for required fields
  */
-public interface RequiredFieldProvider {
-    void getRequiredFields(@NotNull Collection<RequiredField> pOut);
+public interface UniformDeclarationProvider {
+    void getUniforms(@NotNull Collection<UniformDeclaration> pOut);
 }

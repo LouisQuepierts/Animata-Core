@@ -8,7 +8,7 @@ import net.quepierts.animata.core.data.DataType;
 import net.quepierts.animata.core.util.collection.ImmutableFloatTreeMap;
 
 @RequiredArgsConstructor
-public class BlendTreeClip implements AnimationClip {
+public class BlendTree1DClip implements AnimationClip {
     private final ImmutableFloatTreeMap<AnimationClip> clips;
 
     private final float[] buffer;

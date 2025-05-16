@@ -12,8 +12,8 @@ import net.quepierts.animata.core.animation.cache.AnimationCache;
 import net.quepierts.animata.core.animation.cache.ValueBuffer;
 import net.quepierts.animata.core.animation.runtime.CachedRuntimeContext;
 import net.quepierts.animata.core.animation.runtime.FieldCaptureContext;
-import net.quepierts.animata.core.animation.runtime.RequiredField;
-import net.quepierts.animata.core.animation.runtime.RequiredFieldProvider;
+import net.quepierts.animata.core.animation.runtime.UniformDeclaration;
+import net.quepierts.animata.core.animation.runtime.UniformDeclarationProvider;
 import net.quepierts.animata.core.property.Property;
 import net.quepierts.animata.core.property.VectorProperty;
 import org.jetbrains.annotations.NotNull;
@@ -162,13 +162,13 @@ public class CachedAnimationControlBlock
     }
 
     private void registerRequiredFields(
-            @NotNull RequiredFieldProvider pProvider,
+            @NotNull UniformDeclarationProvider pProvider,
             @NotNull CachedRuntimeContext.Builder pBuilder
     ) {
-        List<RequiredField> requiredFields = new ObjectArrayList<>();
-        pProvider.getRequiredFields(requiredFields);
+        List<UniformDeclaration> uniformDeclarations = new ObjectArrayList<>();
+        pProvider.getUniforms(uniformDeclarations);
 
-        for (RequiredField field : requiredFields) {
+        for (UniformDeclaration field : uniformDeclarations) {
             if (pBuilder.registered(field.name())) {
                 continue;
             }
@@ -179,7 +179,7 @@ public class CachedAnimationControlBlock
             }
 
             if (node == null || node.getDimension() < field.dimension()) {
-                if (field.type() == RequiredField.Type.READ) {
+                if (field.type() == UniformDeclaration.Type.READ) {
                     pBuilder.value(field.name(), field.defaultValue());
                 } else {
                     VectorProperty vectorProperty = new VectorProperty(field.name(), field.dimension());

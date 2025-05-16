@@ -9,7 +9,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 public class FieldCaptureContext
-        implements RuntimeContext, RequiredFieldProvider {
+        implements RuntimeContext, UniformDeclarationProvider {
     private final Map<String, CapturedField> captured = new Object2ObjectOpenHashMap<>();
     private final Predicate isRegistered;
 
@@ -53,7 +53,7 @@ public class FieldCaptureContext
     }
 
     @Override
-    public void getRequiredFields(@NotNull Collection<RequiredField> pOut) {
+    public void getUniforms(@NotNull Collection<UniformDeclaration> pOut) {
         this.captured.values()
                 .stream()
                 .map(CapturedField::toRequiredField)
@@ -73,17 +73,17 @@ public class FieldCaptureContext
         private boolean write;
         private boolean read;
 
-        public RequiredField toRequiredField() {
-            RequiredField.Type type = RequiredField.Type.READWRITE;
+        public UniformDeclaration toRequiredField() {
+            UniformDeclaration.Type type = UniformDeclaration.Type.READWRITE;
 
             // write and read must have one is true
             if (!this.write) {
-                type = RequiredField.Type.READ;
+                type = UniformDeclaration.Type.READ;
             } else if (!this.read) {
-                type = RequiredField.Type.WRITE;
+                type = UniformDeclaration.Type.WRITE;
             }
 
-            return new RequiredField(path, dimension, new float[dimension], type);
+            return new UniformDeclaration(path, dimension, new float[dimension], type);
         }
     }
 }

@@ -1,6 +1,6 @@
 package net.quepierts.animata.core.animation.runtime;
 
-public record RequiredField(
+public record UniformDeclaration(
         String name,
         int dimension,
         float[] defaultValue,
